@@ -1,39 +1,58 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 const usePasswordInput = () => {
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredPassword2, setEnteredPassword2] = useState("");
   const [isTouched, setIsTouched] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const passwordIsValid = enteredPassword.length >= 8;
-  const hasError = !passwordIsValid && isTouched;
+  const isPasswordValid =
+    enteredPassword.length >= 8 &&
+    /[A-Z]/.test(enteredPassword) &&
+    /[!@#$%^&*(),.?":{}|<>]/.test(enteredPassword);
+  const hasError = !isPasswordValid && isTouched;
+  const isValid = isPasswordValid && enteredPassword === enteredPassword2;
 
-  const passwordChangerHandler = (event) => {
+  useEffect(() => {
+    if (!isPasswordValid) {
+      setErrorMessage(
+        "Hasło musi mieć przynajmniej 8 znaków, 1 znak specjalny i jedną wielką literę."
+      );
+    } else {
+      setIsTouched(false);
+      setErrorMessage("");
+    }
+  }, [isPasswordValid, isTouched]);
+
+  const handlePasswordChange = (event) => {
     setEnteredPassword(event.target.value);
   };
 
-  const password2ChangerHandler = (event) => {
+  const handlePassword2Change = (event) => {
     setEnteredPassword2(event.target.value);
   };
 
-  const passwordBlurHandler = () => {
+  const handlePasswordBlur = () => {
     setIsTouched(true);
   };
 
-  const reset = () => {
+  const resetPasswordInput = () => {
+    setEnteredPassword("");
+    setEnteredPassword2("");
     setIsTouched(false);
   };
 
   return {
     password: enteredPassword,
     password2: enteredPassword2,
-    isValid: passwordIsValid,
+    isValid,
     hasError,
-    passwordChangerHandler,
-    password2ChangerHandler,
-    passwordBlurHandler,
+    errorMessage,
+    handlePasswordChange,
+    handlePassword2Change,
+    handlePasswordBlur,
+    resetPasswordInput,
+  };
+};
 
-  }
-    
-}
-
-export default usePasswordInput
+export default usePasswordInput;

@@ -16,6 +16,7 @@ const useInput = (minLength) => {
   };
 
   const reset = () => {
+    setEnteredValue("");
     setIsTouched(false);
   };
 

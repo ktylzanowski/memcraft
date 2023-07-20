@@ -4,8 +4,9 @@ import classes from "./AuthComponent.module.css";
 import AuthContext from "../../context/AuthContext";
 import usePasswordInput from "../../hooks/usePasswordInput";
 import useInput from "../../hooks/useInput";
+import useEmailInput from "../../hooks/useEmail";
 const Register = () => {
-  const { registerUser, error } = useContext(AuthContext);
+  const { registerUser, error, setError } = useContext(AuthContext);
 
   const {
     value: enteredLogin,
@@ -16,32 +17,46 @@ const Register = () => {
   } = useInput(2);
 
   const {
-    value: enteredEmail,
+    email: enteredEmail,
     isValid: emailIsValid,
     hasError: emailHasError,
-    valueChangerHandler: emailChangedHandler,
-    inputBlurHandler: emailBlurHandler,
-  } = useInput(2);
-  
+    errorMessage: emailErrorMessage,
+    handleEmailChange,
+    handleEmailBlur,
+    resetEmailInput,
+  } = useEmailInput();
+
   const {
     password: enteredPassword,
     password2: enteredPassword2,
     isValid: passwordIsValid,
     hasError: passwordHasError,
-    passwordChangerHandler: passwordChangedHandler,
-    password2ChangerHandler: password2ChangeHandler,
-    passwordBlurHandler,
+    errorMessage: passwordErrorMessage,
+    handlePasswordChange,
+    handlePassword2Change,
+    handlePasswordBlur,
+    resetPasswordInput,
   } = usePasswordInput();
-  
-  
-  const submitHandler = async (event) =>{
+
+  const submitHandler = async (event) => {
     event.preventDefault();
-    if ({passwordIsValid} && {loginIsValid} && {emailIsValid}){
-      await registerUser(enteredLogin, enteredEmail, enteredPassword, enteredPassword2)
-    }else{
-      console.log("error")
+    if (enteredPassword !== enteredPassword2) {
+      setError("Hasła nie są takie same!");
+      return;
     }
-  }
+    if ({ passwordIsValid } && { loginIsValid } && { emailIsValid }) {
+      await registerUser(
+        enteredLogin,
+        enteredEmail,
+        enteredPassword,
+        enteredPassword2
+      );
+      resetPasswordInput();
+      resetEmailInput();
+    } else {
+      setError("Coś poszło nie tak, przepraszamy!");
+    }
+  };
 
   return (
     <>
@@ -59,10 +74,10 @@ const Register = () => {
           placeholder="email"
           type="text"
           value={enteredEmail}
-          name='email'
+          name="Email"
           className={classes.input}
-          onChange={emailChangedHandler}
-          onBlur={emailBlurHandler}
+          onChange={handleEmailChange}
+          onBlur={handleEmailBlur}
         ></input>
         <input
           placeholder="Hasło"
@@ -70,8 +85,8 @@ const Register = () => {
           value={enteredPassword}
           name="password"
           className={classes.input}
-          onChange={passwordChangedHandler}
-          onBlur={passwordBlurHandler}
+          onChange={handlePasswordChange}
+          onBlur={handlePasswordBlur}
         ></input>
         <input
           placeholder="Powtórz Hasło"
@@ -79,15 +94,17 @@ const Register = () => {
           value={enteredPassword2}
           name="password2"
           className={classes.input}
-          onChange={password2ChangeHandler}
+          onChange={handlePassword2Change}
         ></input>
         <button type="submit" className={classes.button}>
           Zarejestruj
         </button>
         <BackButton />
-        {loginHasError && <p className={classes.errorMessage}>Login</p>}
-        {emailHasError && <p className={classes.errorMessage}>Email</p>}
-        {passwordHasError && <p className={classes.errorMessage}>Hasło</p>}
+        {loginHasError && <p className={classes.errorMessage}>Login musi mieć przynajmniej 2 znaki!</p>}
+        {emailHasError && <p className={classes.errorMessage}>{emailErrorMessage}</p>}
+        {passwordHasError && (
+          <p className={classes.errorMessage}>{passwordErrorMessage}</p>
+        )}
         {error && <p className={classes.errorMessage}>{error}</p>}
       </form>
     </>

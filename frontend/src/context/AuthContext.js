@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
       }),
     });
     if (response.ok) {
-      await loginUser(login, password);
+      loginUser(login, password);
     } else {
       setError("BAD")
     }
