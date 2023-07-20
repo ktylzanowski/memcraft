@@ -60,9 +60,9 @@ const Login = () => {
           Zaloguj
         </button>
         <BackButton onClick={setError} />
-        {loginHasError && <p>Login nie może być pusty</p>}
-        {PasswordHasError && <p>Hasło nie może być puste</p>}
-        {error && <p>{error}</p>}
+        {loginHasError && <p className={classes.errorMessage}>Login nie może być pusty</p>}
+        {PasswordHasError && <p className={classes.errorMessage}>Hasło nie może być puste</p>}
+        {error && <p className={classes.errorMessage}>{error}</p>}
       </form>
     </>
   );

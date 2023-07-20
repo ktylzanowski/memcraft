@@ -57,11 +57,10 @@ export const AuthProvider = ({ children }) => {
         password2: password2,
       }),
     });
-    const data = await response.json();
     if (response.ok) {
       await loginUser(login, password);
     } else {
-      console.log(data);
+      setError("BAD")
     }
   };
 

@@ -5,7 +5,7 @@ import AuthContext from "../../context/AuthContext";
 import usePasswordInput from "../../hooks/usePasswordInput";
 import useInput from "../../hooks/useInput";
 const Register = () => {
-  const { registerUser } = useContext(AuthContext);
+  const { registerUser, error } = useContext(AuthContext);
 
   const {
     value: enteredLogin,
@@ -85,10 +85,10 @@ const Register = () => {
           Zarejestruj
         </button>
         <BackButton />
-        
-        {loginHasError && <span>Login</span>}
-        {emailHasError && <span>Email</span>}
-        {passwordHasError && <span>Hasło</span>}
+        {loginHasError && <p className={classes.errorMessage}>Login</p>}
+        {emailHasError && <p className={classes.errorMessage}>Email</p>}
+        {passwordHasError && <p className={classes.errorMessage}>Hasło</p>}
+        {error && <p className={classes.errorMessage}>{error}</p>}
       </form>
     </>
   );
