@@ -44,23 +44,22 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const registerUser = async (e) => {
-    e.preventDefault();
+  const registerUser = async (login, email, password, password2) => {
     const response = await fetch("http://127.0.0.1:8000/api/register/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: e.target.login.value,
-        email: e.target.email.value,
-        password: e.target.password.value,
-        password2: e.target.password2.value,
+        username: login,
+        email: email,
+        password: password,
+        password2: password2,
       }),
     });
     const data = await response.json();
     if (response.ok) {
-      await loginUser(e.target.login.value, e.target.password.value);
+      await loginUser(login, password);
     } else {
       console.log(data);
     }

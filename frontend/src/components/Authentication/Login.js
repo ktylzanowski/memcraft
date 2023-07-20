@@ -20,16 +20,16 @@ const Login = () => {
     valueChangerHandler: PasswordChangedHandler,
     inputBlurHandler: PasswordBlurHandler,
   } = useInput(1);
+
+
+
   const { loginUser, error, setError } = useContext(AuthContext);
-
-
  
-
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     if ((loginIsValid, PasswordIsValid)) {
-      loginUser(enteredLogin, enteredPassword);
+      await loginUser(enteredLogin, enteredPassword);
     }else{
       setError("Nieprawidłowe dane logowania. Spróbuj ponownie!")
     }
