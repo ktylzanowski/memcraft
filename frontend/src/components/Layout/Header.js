@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import steveface from "../images/steveface.png";
+import steveface from "../../images/steveface.png";
 import classes from "./Header.module.css";
 import { useContext } from "react";
-import AuthContext from "../context/AuthContext";
-import ModalMessage from "../UI/ModalMessage";
+import AuthContext from "../../context/AuthContext";
+import ModalMessage from "../../UI/ModalMessage";
 
 const Header = () => {
   let { user, logoutUser, authMessage } = useContext(AuthContext);
@@ -29,21 +29,17 @@ const Header = () => {
                 <NavLink onClick={logoutUser}>Logout</NavLink>
               </li>
             )}
-            <li className={classes.accountLink}>
-              <NavLink
-                to="/authentication"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-              >
-                <div className={classes.account}>
-                  <img src={steveface} alt="icon" className={classes.icon} />
-                  {user ? <span>{user.username}</span> : <span>Konto</span>}
-                </div>
-              </NavLink>
-            </li>
           </ul>
         </nav>
+          <NavLink
+            to="/authentication"
+            className={classes.accountLink}
+          >
+            <div className={classes.account}>
+              <img src={steveface} alt="icon" className={classes.icon} />
+              {user ? <span>{user.username}</span> : <span>Konto</span>}
+            </div>
+          </NavLink>
       </header>
       {authMessage && <ModalMessage>{authMessage}</ModalMessage>}
     </>

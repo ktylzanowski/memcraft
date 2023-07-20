@@ -2,27 +2,24 @@
   padding-left: 1rem;
   padding-right: 1rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   font-family: "Impact", sans-serif;
   font-size: 24px;
 }
 
-.title {
-  flex: 1;
-}
-.title:hover{
-  color:#fab833;
+.title:hover {
+  color: #fab833;
 }
 
 .nav {
-  flex: auto;
+  margin-right: 9.5%;
 }
 
 .list {
   margin-left: 30px;
   display: flex;
   gap: 1rem;
-  align-items: center;
 }
 
 .list a {
@@ -43,13 +40,16 @@
 }
 
 .accountLink {
-  margin-left: auto;
+  text-decoration: none;
+  color: whitesmoke;
 }
+
 .icon {
   width: 30px;
   height: 30px;
-  transition: transform 0.3s; 
+  transition: transform 0.3s;
 }
+
 .icon:hover {
   transform: scale(1.2);
 }

@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import BackButton from "../UI/BackButton";
+import BackButton from "../../UI/BackButton";
 import classes from "./AuthComponent.module.css";
-import AuthContext from "../context/AuthContext";
+import AuthContext from "../../context/AuthContext";
 
 const Register = () => {
   const { registerUser } = useContext(AuthContext);

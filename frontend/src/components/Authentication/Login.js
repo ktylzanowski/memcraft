@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import AuthContext from "../context/AuthContext";
-import BackButton from "../UI/BackButton";
+import AuthContext from "../../context/AuthContext";
+import BackButton from "../../UI/BackButton";
 import classes from "./AuthComponent.module.css";
-import useInput from "../hooks/useInput";
+import useInput from "../../hooks/useInput";
 const Login = () => {
   const {
     value: enteredLogin,

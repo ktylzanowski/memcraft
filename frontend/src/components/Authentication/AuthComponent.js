@@ -1,9 +1,9 @@
 import classes from "./AuthComponent.module.css";
-import Modal from "../UI/Modal";
+import Modal from "../../UI/Modal";
 import Login from "./Login";
 import Register from "./Register";
 import { useContext, useState, useEffect } from "react";
-import AuthContext from "../context/AuthContext";
+import AuthContext from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 const AuthComponent = () => {
   const { setError } = useContext(AuthContext);
