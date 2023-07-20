@@ -3,6 +3,7 @@ import AuthContext from "../../context/AuthContext";
 import BackButton from "../../UI/BackButton";
 import classes from "./AuthComponent.module.css";
 import useInput from "../../hooks/useInput";
+
 const Login = () => {
   const {
     value: enteredLogin,
@@ -29,6 +30,8 @@ const Login = () => {
 
     if ((loginIsValid, PasswordIsValid)) {
       loginUser(enteredLogin, enteredPassword);
+    }else{
+      setError("Nieprawidłowe dane logowania. Spróbuj ponownie!")
     }
   };
 
@@ -59,7 +62,7 @@ const Login = () => {
         <BackButton onClick={setError} />
         {loginHasError && <p>Login nie może być pusty</p>}
         {PasswordHasError && <p>Hasło nie może być puste</p>}
-        {error && <span>{error}</span>}
+        {error && <p>{error}</p>}
       </form>
     </>
   );
