@@ -3,12 +3,12 @@ import { Form } from "react-router-dom";
 const AddMeme = () => {
   return (
     <>
-      <Form method="post">
+      <Form method="post" encType="multipart/form-data">
         <label>Mem</label>
         <input type="file" name="image" />
         <label>Tytuł</label>
         <input type="text" name="title" />
-        <button type="submit">Dodaj mema</button>
+        <Button>Dodaj mema</Button>
       </Form>
     </>
   );
