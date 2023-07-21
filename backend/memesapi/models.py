@@ -1,7 +1,7 @@
 from django.db import models
 
 def upload_path(instance, filename):
-    return '/'.join(['images', str(instance.title), filename])
+    return '/'.join(['images', filename])
 
 class Meme(models.Model):
     title = models.CharField(max_length=20, null=True)

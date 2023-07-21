@@ -9,6 +9,8 @@ class MemeSerializer(serializers.ModelSerializer):
         model = Meme
         fields = ['pk', 'title', 'meme_image']
 
+
+    
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):

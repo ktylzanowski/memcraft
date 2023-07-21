@@ -16,9 +16,15 @@ class MemeView(APIView):
         return Response(serializer.data)
     
     def post(self, request):
-        print(request.data)
-       
-        return Response("EE")
+        data = {'title': request.data['title'], 'meme_image': request.FILES['image']}
+        serializer = MemeSerializer(data = data)
+        response = {}
+        if serializer.is_valid():
+            meme = serializer.save()
+            response['response'] = "OK"
+        else: 
+            response['response'] = "BAD"
+        return Response(response)
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
