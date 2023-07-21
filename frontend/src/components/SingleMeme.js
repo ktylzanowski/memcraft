@@ -35,20 +35,20 @@ const SingleMeme = () => {
   return (
       <>
       {httpError ? (
-        <div>
+        <>
           <p>Wystąpił błąd: {httpError.message}</p>
           <Button onClick={handleReload}>
             Przeładuj stronę
           </Button>
-        </div>
+        </>
       ) : (
-        <div className={classes.layout}>
+        <>
           <img src={imageUrl} alt="Meme" className={classes.image} />
           <h1>{meme.title}</h1>
           <Button onClick={fetchMeme}>
             Losuj Mema
           </Button>
-        </div>
+        </>
       )}
       </>
   );

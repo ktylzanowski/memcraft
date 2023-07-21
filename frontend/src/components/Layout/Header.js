@@ -10,7 +10,9 @@ const Header = () => {
   return (
     <>
       <header className={classes.header}>
-        <h1 className={classes.title}>MEMCRAFT</h1>
+        <div className={classes.title}>
+        <h1>MEMCRAFT</h1>
+        </div>
         <nav className={classes.nav}>
           <ul className={classes.list}>
             <li>
@@ -31,6 +33,7 @@ const Header = () => {
             )}
           </ul>
         </nav>
+          <div>
           <NavLink
             to="/authentication"
             className={classes.accountLink}
@@ -40,6 +43,7 @@ const Header = () => {
               {user ? <span>{user.username}</span> : <span>Konto</span>}
             </div>
           </NavLink>
+          </div>
       </header>
       {authMessage && <ModalMessage>{authMessage}</ModalMessage>}
     </>
