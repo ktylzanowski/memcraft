@@ -6,15 +6,13 @@ import AuthContext from "../../context/AuthContext";
 import ModalMessage from "../../UI/ModalMessage";
 
 const Header = () => {
-  let { user, logoutUser, authMessage } = useContext(AuthContext);
+  const { user, logoutUser, authMessage } = useContext(AuthContext);
   return (
     <>
       <header className={classes.header}>
-        <div className={classes.title}>
-        <h1>MEMCRAFT</h1>
-        </div>
+        <h1 className={classes.title}>MEMCRAFT</h1>
         <nav className={classes.nav}>
-          <ul className={classes.list}>
+          <ul>
             <li>
               <NavLink
                 to="/"
@@ -49,7 +47,6 @@ const Header = () => {
           <div>
           <NavLink
             to="/authentication"
-            className={classes.accountLink}
           >
             <div className={classes.account}>
               <img src={steveface} alt="icon" className={classes.icon} />
