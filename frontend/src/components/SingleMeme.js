@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import classes from "./SingleMeme.module.css";
 import { useState } from "react";
+import Button from "../UI/Button";
 
 const SingleMeme = () => {
   const memeFromLoader = useLoaderData();
@@ -32,24 +33,24 @@ const SingleMeme = () => {
   };
 
   return (
-    <main className={classes.main}>
+      <>
       {httpError ? (
         <div>
           <p>Wystąpił błąd: {httpError.message}</p>
-          <button className={classes.button} onClick={handleReload}>
+          <Button onClick={handleReload}>
             Przeładuj stronę
-          </button>
+          </Button>
         </div>
       ) : (
         <div className={classes.layout}>
           <img src={imageUrl} alt="Meme" className={classes.image} />
           <h1>{meme.title}</h1>
-          <button className={classes.button} onClick={fetchMeme}>
+          <Button onClick={fetchMeme}>
             Losuj Mema
-          </button>
+          </Button>
         </div>
       )}
-    </main>
+      </>
   );
 };
 

@@ -1,29 +1,6 @@
-.main {
-  width: 100%;
-  text-align: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-image: url("../images/main.png");
-  background-size: cover; 
-}
 .image {
   width: 600px;
   max-width: 100%;
   height: auto;
   border: 10px solid #1E1E1E;
-}
-
-.button {
-  margin-top: 10px;
-  background-color: #fab833;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.button:hover {
-  background-color: #45a049;
 }
