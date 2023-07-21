@@ -6,8 +6,8 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializer import RegisterSerializer
 
-class MemeView(APIView):
 
+class MemeView(APIView):
     def get(self, request):
         meme_id = request.META.get('HTTP_MEME_ID')
         memes = Meme.objects.exclude(id=meme_id)
@@ -15,7 +15,13 @@ class MemeView(APIView):
         serializer = MemeSerializer(meme)
         return Response(serializer.data)
     
-
+    def post(self, request):
+        serializer = MemeSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Meme created successfully."})
+        else:
+            return Response(serializer.errors, status=400)
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
