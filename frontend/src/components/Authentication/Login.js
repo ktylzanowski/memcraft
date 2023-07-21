@@ -37,7 +37,7 @@ const Login = () => {
 
   return (
     <>
-      <form onSubmit={submitHandler}>
+      <form method="POST" onSubmit={submitHandler}>
         <input
           type="text"
           className={classes.input}

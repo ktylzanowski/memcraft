@@ -14,6 +14,7 @@ const Register = () => {
     hasError: loginHasError,
     valueChangerHandler: loginChangedHandler,
     inputBlurHandler: loginBlurHandler,
+    reset: resetLoginInput,
   } = useInput(2);
 
   const {
@@ -51,8 +52,9 @@ const Register = () => {
         enteredPassword,
         enteredPassword2
       );
-      resetPasswordInput();
+      resetLoginInput();
       resetEmailInput();
+      resetPasswordInput();
     } else {
       setError("Coś poszło nie tak, przepraszamy!");
     }
@@ -60,7 +62,7 @@ const Register = () => {
 
   return (
     <>
-      <form onSubmit={submitHandler}>
+      <form method="POST" onSubmit={submitHandler}>
         <input
           placeholder="Login"
           type="text"

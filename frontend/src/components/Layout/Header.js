@@ -27,6 +27,19 @@ const Header = () => {
               </NavLink>
             </li>
             {user && (
+               <li>
+               <NavLink
+                 to="/dodajmema"
+                 className={({ isActive }) =>
+                   isActive ? classes.active : undefined
+                 }
+                 end
+               >
+                 Dodaj Mema
+               </NavLink>
+             </li>
+            )}
+            {user && (
               <li>
                 <NavLink onClick={logoutUser}>Logout</NavLink>
               </li>

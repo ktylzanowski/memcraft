@@ -94,7 +94,6 @@ export const AuthProvider = ({ children }) => {
       if (authTokens) {
         logoutUser();
       }
-      console.clear();
     }
     if (loading) {
       setLoading(false);
