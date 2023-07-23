@@ -8,11 +8,12 @@ export default AddMemePage;
 
 export async function action({ request, params }) {
   const data = await request.formData();
-  const token = localStorage.getItem('accessToken');
+  const token = JSON.parse(localStorage.getItem('authTokens'));
+
   const respone = await fetch("http://127.0.0.1:8000/", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${token}`,
+      "Authorization": `Bearer `+ String(token.access),
     },
     body: data,
   });

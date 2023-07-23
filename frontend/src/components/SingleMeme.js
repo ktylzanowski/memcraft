@@ -8,14 +8,14 @@ const SingleMeme = () => {
   const [meme, setMeme] = useState(memeFromLoader);
   const [httpError, setHttpError] = useState(false);
   const imageUrl = `http://127.0.0.1:8000${meme.meme_image}`;
-
+  
   const fetchMeme = async () => {
     try {
       const response = await fetch("http://127.0.0.1:8000/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Meme-ID": meme.pk,
+          "Meme-ID": meme.id,
         },
       });
       if (!response.ok) {

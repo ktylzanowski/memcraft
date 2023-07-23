@@ -5,17 +5,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializer import RegisterSerializer
-from rest_framework.permissions import BasePermission
-
-class IsAuthenticatedOrReadonly(BasePermission):
-    def has_permission(self, request, view):
-        if request.method == 'GET':
-            return True
-        return request.user and request.user.is_authenticated
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
 
 class MemeView(APIView):
-
-    permission_classes = [IsAuthenticatedOrReadonly]
 
     def get(self, request):
         meme_id = request.META.get('HTTP_MEME_ID')
@@ -24,12 +17,10 @@ class MemeView(APIView):
         serializer = MemeSerializer(meme)
         return Response(serializer.data)
     
+    @permission_classes([IsAuthenticated])
     def post(self, request):
-        auth_header = request.headers.get('Authorization')
-        if auth_header and auth_header.startswith('Bearer '):
-            token = auth_header[len('Bearer '):]
-        
-        data = {'title': request.data['title'], 'meme_image': request.FILES['image'], 'author': token}
+        user = request.user
+        data = {'title': request.data['title'], 'meme_image': request.FILES['image'], 'author': user.pk}
         serializer = MemeSerializer(data = data)
         response = {}
         if serializer.is_valid():
@@ -38,7 +29,7 @@ class MemeView(APIView):
         else: 
             response['response'] = "BAD"
         return Response(response)
-
+        
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
