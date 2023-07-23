@@ -73,7 +73,7 @@ const Register = () => {
           onBlur={loginBlurHandler}
         ></input>
         <input
-          placeholder="email"
+          placeholder="Email"
           type="text"
           value={enteredEmail}
           name="Email"
