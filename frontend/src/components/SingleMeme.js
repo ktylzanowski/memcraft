@@ -2,7 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import classes from "./SingleMeme.module.css";
 import { useState } from "react";
 import Button from "../UI/Button";
-
+import {loader} from "../pages/DrawMeme"
 const SingleMeme = () => {
   const memeFromLoader = useLoaderData();
   const [meme, setMeme] = useState(memeFromLoader);
@@ -10,22 +10,10 @@ const SingleMeme = () => {
   const imageUrl = `http://127.0.0.1:8000${meme.meme_image}`;
   
   const fetchMeme = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:8000/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Meme-ID": meme.id,
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Coś poszło nie tak!");
-      }
+      localStorage.setItem('last_meme_id', meme.id)
+      const response = await loader()
       const data = await response.json();
       setMeme(data);
-    } catch (error) {
-      setHttpError(error);
-    }
   };
 
   const handleReload = () => {
