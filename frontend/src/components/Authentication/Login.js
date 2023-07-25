@@ -21,17 +21,17 @@ const Login = () => {
     inputBlurHandler: PasswordBlurHandler,
   } = useInput(1);
 
-
+  const isValid = loginIsValid && PasswordIsValid;
 
   const { loginUser, error, setError } = useContext(AuthContext);
- 
+
   const submitHandler = async (event) => {
     event.preventDefault();
 
-    if ((loginIsValid, PasswordIsValid)) {
+    if (isValid) {
       await loginUser(enteredLogin, enteredPassword);
-    }else{
-      setError("Nieprawidłowe dane logowania. Spróbuj ponownie!")
+    } else {
+      setError("Nieprawidłowe dane logowania. Spróbuj ponownie!");
     }
   };
 
@@ -60,8 +60,12 @@ const Login = () => {
           Zaloguj
         </button>
         <BackButton onClick={setError} />
-        {loginHasError && <p className={classes.errorMessage}>Login nie może być pusty</p>}
-        {PasswordHasError && <p className={classes.errorMessage}>Hasło nie może być puste</p>}
+        {loginHasError && (
+          <p className={classes.errorMessage}>Login nie może być pusty</p>
+        )}
+        {PasswordHasError && (
+          <p className={classes.errorMessage}>Hasło nie może być puste</p>
+        )}
         {error && <p className={classes.errorMessage}>{error}</p>}
       </form>
     </>

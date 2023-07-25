@@ -46,11 +46,11 @@ const Header = () => {
         </nav>
           <div>
           <NavLink
-            to="/authentication"
+           to={user ? '/konto' : '/authentication'}
           >
             <div className={classes.account}>
               <img src={steveface} alt="icon" className={classes.icon} />
-              {user ? <span>{user.username}</span> : <span>Konto</span>}
+              {user ? <span>{user.username}</span> : <span>Logowanie</span>}
             </div>
           </NavLink>
           </div>

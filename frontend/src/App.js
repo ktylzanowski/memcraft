@@ -6,6 +6,7 @@ import Authentication from "./pages/Authentication";
 import { AuthProvider } from "./context/AuthContext";
 import PriveRoute from "./utils/PriveRoute"
 import AddMemePage, {action as newMemeAction} from "./pages/AddMemePage";
+import Account from "./components/Account";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
           path: "dodajmema",
           element: <AddMemePage />,
           action: newMemeAction,
+        },
+        {
+          path: "konto",
+          element: <Account />,
         }
       ]
     }
