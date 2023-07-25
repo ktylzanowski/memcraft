@@ -23,7 +23,7 @@ export async function loader() {
   });
   if (!response.ok) {
     throw json(
-      { message: "Could not fetch events." },
+      { message: "Coś poszło nie tak! Przepraszamy!." },
       {
         status: 500,
       }
