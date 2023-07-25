@@ -1,12 +1,15 @@
 import SingleMeme from "../components/SingleMeme";
 import { json } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
 const DrawMeme = () => {
+  const memeFromLoader = useLoaderData();
+
   return (
     <>
       <Outlet />
-      <SingleMeme />
+      <SingleMeme initMeme={memeFromLoader} />
     </>
   );
 };
