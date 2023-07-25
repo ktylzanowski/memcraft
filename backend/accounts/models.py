@@ -54,7 +54,7 @@ class MyUser(AbstractBaseUser):
     building_number = models.CharField(max_length=10, null=True, blank=True)
     apartment_number = models.CharField(max_length=10, null=True, blank=True)
 
-    
+    icon = models.CharField(default='icons/creeperface.png', max_length=50)
 
     objects = MyUserManager()
 

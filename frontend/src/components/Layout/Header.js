@@ -7,6 +7,10 @@ import ModalMessage from "../../UI/ModalMessage";
 
 const Header = () => {
   const { user, logoutUser, authMessage } = useContext(AuthContext);
+  let imageUrl = ""
+  if (user){
+     imageUrl = `http://127.0.0.1:8000/media/${user.icon}`;
+  }
   return (
     <>
       <header className={classes.header}>
@@ -49,7 +53,7 @@ const Header = () => {
            to={user ? '/konto' : '/authentication'}
           >
             <div className={classes.account}>
-              <img src={steveface} alt="icon" className={classes.icon} />
+              <img src={user ? imageUrl : steveface} alt="icon" className={classes.icon} />
               {user ? <span>{user.username}</span> : <span>Logowanie</span>}
             </div>
           </NavLink>
