@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(false);
 
   const loginUser = async (login, password) => {
-    const response = await fetch("http://127.0.0.1:8000/api/token/", {
+    const response = await fetch("http://127.0.0.1:8000/accounts/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerUser = async (login, email, password, password2) => {
-    const response = await fetch("http://127.0.0.1:8000/api/register/", {
+    const response = await fetch("http://127.0.0.1:8000/accounts/register/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateToken = async () => {
-    const response = await fetch("http://127.0.0.1:8000/api/token/refresh/", {
+    const response = await fetch("http://127.0.0.1:8000/accounts/token/refresh/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

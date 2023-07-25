@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'memesapi',
+    'accounts',
 ]
 
 
@@ -153,3 +154,5 @@ CORS_ALLOW_HEADERS = [
     'authorization',
     'Meme-ID',
 ]
+
+AUTH_USER_MODEL = 'accounts.MyUser'

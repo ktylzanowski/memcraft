@@ -162,3 +162,4 @@ frontend/node_modules
 backend/memcraftvenv
 backend/media
 backend/memesapi/migrations
+backend/accounts/migrations

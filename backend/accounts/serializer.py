@@ -1,18 +1,8 @@
 from rest_framework import serializers
-from . models import *
-from django.contrib.auth.models import User
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import get_user_model
 
 MyUser = get_user_model()
-
-class MemeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Meme
-        fields = '__all__'
-
-
     
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
