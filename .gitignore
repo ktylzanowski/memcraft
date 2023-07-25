@@ -160,6 +160,6 @@ cython_debug/
 #.idea/
 frontend/node_modules
 backend/memcraftvenv
-backend/media
+backend/media/images
 backend/memesapi/migrations
 backend/accounts/migrations

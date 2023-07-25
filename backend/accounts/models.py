@@ -8,7 +8,10 @@ class MyUserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
 
         if not email:
-            raise ValueError('Users must have an email address')
+            raise ValueError('Użytkownik musi mieć email')
+        
+        if not username:
+            raise ValueError("Użytkownik musi mieć nickname")
 
         user = self.model(
             email=self.normalize_email(email),
@@ -32,7 +35,7 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
-    username = models.CharField(max_length=20, unique=True)
+    username = models.CharField(max_length=20, unique=True, verbose_name="nick name")
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
@@ -51,13 +54,15 @@ class MyUser(AbstractBaseUser):
     building_number = models.CharField(max_length=10, null=True, blank=True)
     apartment_number = models.CharField(max_length=10, null=True, blank=True)
 
+    
+
     objects = MyUserManager()
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
     def __str__(self):
-        return self.email
+        return self.username
 
     def has_perm(self, perm, obj=None):
         return True
