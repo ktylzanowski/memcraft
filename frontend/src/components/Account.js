@@ -26,11 +26,13 @@ const Account = () => {
         <div className={classes.main}>
           <div className={classes.iconContainer}>
             <img src={imageUrl} alt="icon" />
-            <button onClick={handlerIcons}>Pokaż ikony</button>
+            <span className={classes.title}>{user.username}</span>
+            <button onClick={handlerIcons}>Zmień ikonę</button>
             {showIcons && <p>icons</p>}
           </div>
           <div className={classes.changePassword}>
-            <Button>Zmień hasło</Button>
+            <button>Zmień Email</button>
+            <button>Zmień hasło</button>
           </div>
           <div className={classes.data}>
             <h4 className={classes.title}>Dane</h4>
