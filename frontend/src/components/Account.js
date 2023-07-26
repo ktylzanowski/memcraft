@@ -3,7 +3,7 @@ import Modal from "../UI/Modal";
 import classes from "./Account.module.css";
 import AuthContext from "../context/AuthContext";
 import Button from "../UI/Button";
-
+import BackButton from "../UI/BackButton"
 const Account = () => {
   const { user } = useContext(AuthContext);
   const [showIcons, setShowIcons] = useState(false);
@@ -31,7 +31,7 @@ const Account = () => {
             <Button>Zmień hasło</Button>
           </div>
           <div className={classes.data}>
-            <form>
+            <form className={classes.formRow}>
               <input type="text" placeholder="Imię" />
               <input type="text" placeholder="Nazwisko"/>
               <input type="text" placeholder="Telefon"/>
@@ -41,6 +41,7 @@ const Account = () => {
               <input type="text" placeholder="Numer budynku" />
               <input type="text" placeholder="Numer apartamenu" />
               <Button>Zatwierdź</Button>
+              <BackButton>Wróć</BackButton>
             </form>
           </div>
         </div>

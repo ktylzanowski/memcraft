@@ -49,10 +49,23 @@
 }
 
 .data {
+  flex: 1;
   width: 100%;
-  margin-top: 30px;
-  color: black;
-  clear: both;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 20px;
+  display: grid;
+}
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.formRow input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .iconContainer img {
