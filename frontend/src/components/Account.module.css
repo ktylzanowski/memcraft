@@ -1,20 +1,10 @@
 .account {
-  color: black;
   display: flex;
-  height: 100%;
-  font-size: 16px;
 }
 
 .nav {
   flex: 1;
-  height: 100%;
-  padding: 20px;
-}
-
-.nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  padding: 5px;
 }
 
 .nav ul li {
@@ -34,29 +24,24 @@
 }
 
 .main {
-  margin: 10px 0 0 0;
-  padding: 10px;
   flex: 4;
-  height: 100%;
-  color: black;
 }
+
 .iconContainer,
 .changePassword {
   width: calc(50% - 5px);
   float: left;
   display: flex;
-  margin-right: 5px;
-  color: black;
 }
 .iconContainer img {
-  width: 100px;
-  height: 100px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-button {
+.button {
   margin-left: 5px;
   margin-bottom: 10px;
   padding: 8px 12px;
@@ -74,16 +59,12 @@ button:hover {
 }
 
 .data {
-  flex: 1;
-  width: 100%;
   background-color: #e0e0e0;
-  border-radius: 5px;
-  margin-top: 10px;
   padding: 20px;
   display: grid;
 }
 .title{
-  color:black;
+  color:#333;
   margin-left: 5px;
 }
 .formRow {
@@ -95,9 +76,4 @@ button:hover {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-.iconContainer img {
-  width: 30px;
-  height: 30px;
 }
