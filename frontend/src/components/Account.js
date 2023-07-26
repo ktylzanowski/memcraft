@@ -19,6 +19,8 @@ const Account = () => {
           <ul>
             <li>Główne dane</li>
             <li>Moje memy</li>
+            <li>Newsletter</li>
+            <li>Historia zakupów</li>
           </ul>
         </div>
         <div className={classes.main}>
@@ -31,6 +33,7 @@ const Account = () => {
             <Button>Zmień hasło</Button>
           </div>
           <div className={classes.data}>
+            <h4 className={classes.title}>Dane</h4>
             <form className={classes.formRow}>
               <input type="text" placeholder="Imię" />
               <input type="text" placeholder="Nazwisko"/>
