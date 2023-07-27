@@ -1,13 +1,16 @@
+.custom-navbar {
+  background-color: #202020;
+}
+
 .account {
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 5px;
 }
 
 .icon {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

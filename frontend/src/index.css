@@ -25,3 +25,7 @@ li, ul, ol, a {
   list-style: none;
   text-decoration: none;
 }
+
+a.active {
+  font-weight: bold;
+}
