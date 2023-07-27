@@ -2,11 +2,20 @@
   display: flex;
 }
 
+.infoUser {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .nav {
   flex: 1;
   padding: 5px;
 }
 
+.title{
+  color: black;
+}
 .nav ul li {
   margin: 10px 10px 0 -30px;
   padding: 10px;
@@ -62,6 +71,7 @@
   background-color: #e0e0e0;
   padding: 20px;
   display: grid;
+  margin-top: 60px;
 }
 .title{
   color:#333;

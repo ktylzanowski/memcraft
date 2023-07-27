@@ -6,7 +6,7 @@ import Authentication from "./pages/Authentication";
 import { AuthProvider } from "./context/AuthContext";
 import PriveRoute from "./utils/PriveRoute"
 import AddMemePage, {action as newMemeAction} from "./pages/AddMemePage";
-import Account from "./components/Account";
+import AccountPage from "./pages/AccountPage";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         },
         {
           path: "konto",
-          element: <Account />,
+          element: <AccountPage />,
         }
       ]
     }
