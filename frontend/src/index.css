@@ -1,24 +1,22 @@
 * {
   box-sizing: border-box;
-  list-style: none;
-  text-decoration: none;
   margin: 0;
   padding: 0;
   color: whitesmoke;
 }
-* input{
-  color: black;
-}
-
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+body {
   line-height: 24px;
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
   background-color: #202020;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+li, ul, ol, a {
+  color: whitesmoke;
+  list-style: none;
+  text-decoration: none;
 }
