@@ -4,62 +4,67 @@ import classes from "./Header.module.css";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import ModalMessage from "../../UI/ModalMessage";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 const Header = () => {
   const { user, logoutUser, authMessage } = useContext(AuthContext);
-  let imageUrl = ""
-  if (user){
-     imageUrl = `http://127.0.0.1:8000/media/${user.icon}`;
+  let imageUrl = "";
+  if (user) {
+    imageUrl = `http://127.0.0.1:8000/media/${user.icon}`;
   }
+
   return (
     <>
-      <header className={classes.header}>
-        <h1 className={classes.title}>MEMCRAFT</h1>
-        <nav className={classes.nav}>
-          <ul>
-            <li>
+    <Navbar expand="lg" className="navbar-dark bg-dark">
+      <Container fluid>
+        <Navbar.Brand>MemCraft</Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <Nav
+            className="me-auto my-2 my-lg-0"
+            style={{ maxHeight: '100px' }}
+            navbarScroll
+          >
+            <Nav.Link>
               <NavLink
                 to="/"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-                end
               >
                 Losuj Mema
               </NavLink>
-            </li>
+            </Nav.Link>
             {user && (
-               <li>
-               <NavLink
-                 to="/dodajmema"
-                 className={({ isActive }) =>
-                   isActive ? classes.active : undefined
-                 }
-                 end
-               >
-                 Dodaj Mema
-               </NavLink>
-             </li>
+              <Nav.Link>
+                <NavLink
+                  to="/dodajmema"
+                >
+                  Dodaj Mema
+                </NavLink>
+              </Nav.Link>
             )}
-            {user && (
-              <li>
-                <NavLink onClick={logoutUser}>Logout</NavLink>
-              </li>
-            )}
-          </ul>
-        </nav>
-          <div>
+          </Nav>
+          <Nav.Link style={{ marginRight: '15px'}}>
+          {user && (
+              <NavLink onClick={logoutUser}>
+                Logout
+              </NavLink>
+          )}
+          </Nav.Link>
+          <Nav.Link>
           <NavLink
-           to={user ? '/konto' : '/authentication'}
+            to={user ? '/konto' : '/authentication'}
           >
             <div className={classes.account}>
               <img src={user ? imageUrl : steveface} alt="icon" className={classes.icon} />
               {user ? <span>{user.username}</span> : <span>Logowanie</span>}
             </div>
           </NavLink>
-          </div>
-      </header>
-      {authMessage && <ModalMessage>{authMessage}</ModalMessage>}
+          </Nav.Link>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+    {authMessage && <ModalMessage>{authMessage}</ModalMessage>}
     </>
   );
 };
