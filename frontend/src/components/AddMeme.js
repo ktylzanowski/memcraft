@@ -20,8 +20,8 @@ const AddMeme = () => {
         encType="multipart/form-data"
         className={classes.form}
       >
-        {!isImage && <label htmlFor="image">Mem</label>}
-        <img id="preview-image" src="" alt="Preview" className={classes.image}/>
+        {!isImage && <label htmlFor="preview-image">Mem</label>}
+        <img id="preview-image" name="preview-image" src="" alt="Dodany mem" className={classes.image}/>
         <input
           type="file"
           name="image"
@@ -32,7 +32,6 @@ const AddMeme = () => {
         <input type="text" name="title" id="title" />
         <Button>Dodaj mema</Button>
       </Form>
-      
     </>
   );
 };

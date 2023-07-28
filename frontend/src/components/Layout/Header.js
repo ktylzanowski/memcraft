@@ -19,7 +19,7 @@ const Header = () => {
     <>
       <Navbar expand="lg" className="navbar-dark custom-navbar">
         <Container fluid>
-          <Navbar.Brand>MemCraft</Navbar.Brand>
+          <Navbar.Brand>MEMCRAFT</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav

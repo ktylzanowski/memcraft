@@ -3,10 +3,12 @@ import { useState } from "react";
 import Button from "../UI/Button";
 import { loader } from "../pages/DrawMeme";
 
+/// dodać spin loader oraz zmienić fetchMeme
+
 const SingleMeme = (props) => {
   const [meme, setMeme] = useState(props.initMeme);
   const [error, setError] = useState(false)
-  const imageUrl = `http://127.0.0.1:8000${meme.meme_image}`;
+  const imageUrl = new URL(meme.meme_image, "http://127.0.0.1:8000").href;
 
   const fetchMeme = async () => {
     try {
