@@ -2,12 +2,11 @@ import classes from "./SingleMeme.module.css";
 import { useState } from "react";
 import Button from "../UI/Button";
 import { loader } from "../pages/DrawMeme";
-
-/// dodać spin loader oraz zmienić fetchMeme
-
-const SingleMeme = (props) => {
-  const [meme, setMeme] = useState(props.initMeme);
-  const [error, setError] = useState(false)
+import { useLoaderData } from "react-router";
+const SingleMeme = () => {
+  const memeFromLoader = useLoaderData();
+  const [meme, setMeme] = useState(memeFromLoader);
+  const [error, setError] = useState(false);
   const imageUrl = new URL(meme.meme_image, "http://127.0.0.1:8000").href;
 
   const fetchMeme = async () => {
@@ -23,14 +22,16 @@ const SingleMeme = (props) => {
 
   return (
     <>
-    {error ? <span>{error}</span> : (
-      <>
-        <img src={imageUrl} alt="Meme" className={classes.image} />
-        <h1>{meme.title}</h1>
-        <Button onClick={fetchMeme}>Losuj Mema</Button>
-      </>
-    )}
-  </>
+      {error ? (
+        <span>{error}</span>
+      ) : (
+        <>
+          <img src={imageUrl} alt="Meme" className={classes.image} />
+          <h1>{meme.title}</h1>
+          <Button onClick={fetchMeme}>Losuj Mema</Button>
+        </>
+      )}
+    </>
   );
 };
 
