@@ -37,3 +37,8 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+    
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MyUser
+        fields = ['pk', 'first_name', 'last_name', 'phone', 'city', 'zip_code', 'street', 'building_number', 'apartment_number']

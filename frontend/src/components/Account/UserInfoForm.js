@@ -1,13 +1,15 @@
 import classes from "./Account.module.css";
 import Button from "../../UI/Button";
 import BackButton from "../../UI/BackButton";
+import { Form } from "react-router-dom";
 
 const UserInfoForm = () => {
+
   return (
     <>
       <div className={classes.data}>
-        <h4 className={classes.title}>Dane</h4>
-        <form className={classes.formRow}>
+        <h4 className={classes.title}>Dane potrzebne do zakupów</h4>
+        <Form className={classes.formRow}>
           <input type="text" placeholder="Imię" />
           <input type="text" placeholder="Nazwisko" />
           <input type="text" placeholder="Telefon" />
@@ -18,7 +20,7 @@ const UserInfoForm = () => {
           <input type="text" placeholder="Numer apartamenu" />
           <Button>Zatwierdź</Button>
           <BackButton>Wróć</BackButton>
-        </form>
+        </Form>
       </div>
     </>
   );
