@@ -28,7 +28,7 @@ export async function loader() {
 export async function action({ request, params }) {
   const data = Object.fromEntries(await request.formData());
   const token = JSON.parse(localStorage.getItem("authTokens"));
-  const respone = await fetch("http://127.0.0.1:8000/accounts/info/", {
+  const response = await fetch("http://127.0.0.1:8000/accounts/info/", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export async function action({ request, params }) {
     },
     body: JSON.stringify(data),
   });
-  if (respone.ok) {
+  if (response.ok) {
     console.log("OK");
   } else {
     console.log("BAD");
