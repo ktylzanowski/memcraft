@@ -1,18 +1,23 @@
 import classes from "./Account.module.css";
-import { useState } from "react";
-const ChangeIcon = () => {
-  const [showIcons, setShowIcons] = useState(false);
-  const handlerIcons = () => {
-    setShowIcons(!showIcons);
-  };
-  return (
-    <>
-      <button onClick={handlerIcons} className={classes.button}>
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
+
+const popover = (
+  <Popover id="popover-basic">
+    <Popover.Header as="h3" style={{ color: "black" }}>Wybierz ikonę</Popover.Header>
+    <Popover.Body>
+      
+    </Popover.Body>
+  </Popover>
+);
+
+const ChangeIcon = () => (
+  <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+    <button className={classes.button}>
         Zmień ikonę
       </button>
-      {showIcons && <p className={classes.title}>icons</p>}
-    </>
-  );
-};
+  </OverlayTrigger>
+);
+
 
 export default ChangeIcon;

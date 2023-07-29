@@ -42,7 +42,7 @@ export async function action({ request, params }) {
     console.log("BAD");
   }
 
-  return redirect("/");
+  return redirect("/konto");
 }
 
 export default AccountPage;
