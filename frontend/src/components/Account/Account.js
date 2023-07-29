@@ -18,7 +18,7 @@ const Account = () => {
         <AccountNavbar />
         <div className={classes.main}>
           <div className={classes.iconContainer}>
-            <div className={classes.infoUser}> 
+            <div className={classes.infoUser}>
               <img src={imageUrl} alt="icon" />
               <span className={classes.title}>{user.username}</span>
             </div>

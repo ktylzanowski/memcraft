@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
@@ -12,13 +14,11 @@ class MyTokenObtainPairView(TokenObtainPairView):
 class RegisterView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
-        data = {}
         if serializer.is_valid():
             user = serializer.save()
-            data['response'] = "Poprawna Rejestracja"
+            return Response({'message': 'Registration successful.'}, status=status.HTTP_201_CREATED)
         else:
-            data = serializer.errors
-        return Response(data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class UserView(APIView):
     permission_classes = [IsAuthenticated]
@@ -27,14 +27,11 @@ class UserView(APIView):
         serializer = UserInfoSerializer(user)
         return Response(serializer.data)
     
-    def post(self, request):
+    def patch(self, request):
         user = request.user
-        request.data['pk'] = user.pk
-        serializer = UserInfoSerializer(data=request.data)
-        response = {}
+        serializer = UserInfoSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            response['response'] = 'OK'
+            return Response({'message': 'User information updated successfully.'}, status=status.HTTP_200_OK)
         else:
-            response['response'] = 'BAD'
-        return Response(response)
+            return Response({'error': 'Invalid data provided. Please check the input data and try again.'}, status=status.HTTP_400_BAD_REQUEST)
