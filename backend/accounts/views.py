@@ -29,6 +29,7 @@ class UserView(APIView):
     
     def patch(self, request):
         user = request.user
+        print(request.data)
         serializer = UserInfoSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()

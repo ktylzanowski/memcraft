@@ -52,7 +52,7 @@ function ChangeIcon() {
         "Content-Type": "application/json",
         Authorization: `Bearer ` + String(token.access),
       },
-      body: JSON.stringify(photoName),
+      body: JSON.stringify({'icon': photoName}),
     });
     if (response.ok) {
       console.log("OK");

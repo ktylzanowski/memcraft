@@ -41,4 +41,4 @@ class RegisterSerializer(serializers.ModelSerializer):
 class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser
-        fields = ['first_name', 'last_name', 'phone', 'city', 'zip_code', 'street', 'building_number', 'apartment_number']
+        fields = ['first_name', 'last_name', 'phone', 'city', 'zip_code', 'street', 'building_number', 'apartment_number', 'icon']
