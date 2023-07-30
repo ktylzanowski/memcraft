@@ -11,7 +11,7 @@ import ChangePassword from "./ChangePassword";
 const Account = () => {
   const { user } = useContext(AuthContext);
 
-  const imageUrl = `http://127.0.0.1:8000/media/${user.icon}`;
+  const imageUrl = `http://127.0.0.1:8000/media/icons/${user.icon}`;
   return (
     <Modal>
       <div className={classes.account}>

@@ -87,3 +87,13 @@
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
+.icon {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  object-fit: cover;
+ 
+  transition: transform 0.3s;
+  margin-left: 5px;
+}

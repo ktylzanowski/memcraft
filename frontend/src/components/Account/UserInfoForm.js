@@ -58,7 +58,7 @@ const UserInfoForm = () => {
             type="text"
             name="apartment_number"
             placeholder="Numer apartamenu"
-            defaultValue={data.aparment_number}
+            defaultValue={data.apartment_number}
           />
           <Button>Zatwierdź</Button>
           <BackButton>Wróć</BackButton>
