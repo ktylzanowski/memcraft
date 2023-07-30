@@ -8,9 +8,12 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { LinkContainer } from "react-router-bootstrap";
+
 const Header = () => {
   const { user, logoutUser, authMessage } = useContext(AuthContext);
+
   let imageUrl = "";
+  
   if (user) {
     imageUrl = `http://127.0.0.1:8000/media/${user.icon}`;
   }

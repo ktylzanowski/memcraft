@@ -57,7 +57,7 @@ class MyUser(AbstractBaseUser):
     icon = models.CharField(default='icons/creeperface.png', max_length=50)
 
     objects = MyUserManager()
-
+    
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
