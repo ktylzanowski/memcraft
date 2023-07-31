@@ -2,6 +2,7 @@ import Button from "../UI/Button";
 import { Form } from "react-router-dom";
 import classes from "./AddMeme.module.css";
 import { useState } from "react";
+import Image from "../UI/Image"
 
 const AddMeme = () => {
   const [isImage, setIsImage] = useState(false)
@@ -9,7 +10,7 @@ const AddMeme = () => {
     const imageFile = event.target.files[0];
     if (imageFile) {
       const imageUrl = URL.createObjectURL(imageFile);
-      document.getElementById("preview-image").src = imageUrl;
+      document.getElementById("image").src = imageUrl;
       setIsImage(true);
     }
   };
@@ -20,12 +21,11 @@ const AddMeme = () => {
         encType="multipart/form-data"
         className={classes.form}
       >
-        {!isImage && <label htmlFor="preview-image">Mem</label>}
-        <img id="preview-image" name="preview-image" src="" alt="Dodany mem" className={classes.image}/>
+        {!isImage && <label htmlFor="image">Dodaj mema</label>}
+        <Image imageUrl="" alt="Dodany mem" />
         <input
           type="file"
           name="image"
-          id="image"
           onChange={handleImageChange}
         />
         <label htmlFor="title">Tytuł</label>

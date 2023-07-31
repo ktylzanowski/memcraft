@@ -1,6 +1,6 @@
 import sadsteve from "../images/sadsteve.png";
 import Button from "../UI/Button";
-import classes from "./Error.module.css"
+import classes from "./Error.module.css";
 
 const ErrorPage = (props) => {
   const handleReload = () => {
