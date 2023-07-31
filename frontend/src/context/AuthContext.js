@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
   );
 
   const [loading, setLoading] = useState(true);
-  const [authMessage, setAuthMessage] = useState(false);
   const [error, setError] = useState(false);
 
   const loginUser = async (login, password) => {
@@ -34,11 +33,8 @@ export const AuthProvider = ({ children }) => {
       setAuthTokens(data);
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
+      localStorage.setItem("message", "Zalogowano");
       setError(false);
-      setAuthMessage("Zalogowano");
-      setTimeout(() => {
-        setAuthMessage(false);
-      }, 2000);
     } else {
       setError("Nieprawidłowe dane logowania. Spróbuj ponownie!");
     }
@@ -60,7 +56,7 @@ export const AuthProvider = ({ children }) => {
     if (response.ok) {
       loginUser(login, password);
     } else {
-      setError("BAD")
+      setError("BAD");
     }
   };
 
@@ -68,22 +64,21 @@ export const AuthProvider = ({ children }) => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
-    setAuthMessage("Wylogowano");
-    setTimeout(() => {
-      setAuthMessage(false);
-    }, 2000);
   };
 
   const updateToken = async () => {
-    const response = await fetch("http://127.0.0.1:8000/accounts/token/refresh/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        refresh: authTokens?.refresh,
-      }),
-    });
+    const response = await fetch(
+      "http://127.0.0.1:8000/accounts/token/refresh/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          refresh: authTokens?.refresh,
+        }),
+      }
+    );
     const data = await response.json();
 
     if (response.status === 200) {
@@ -102,7 +97,6 @@ export const AuthProvider = ({ children }) => {
 
   const contextData = {
     user,
-    authMessage,
     error,
     setError,
     loginUser,
