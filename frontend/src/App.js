@@ -1,12 +1,13 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import PriveRoute from "./utils/PriveRoute"
 import RootLayout from "./pages/Root";
 import DrawMeme, { loader as MemeLoader } from "./pages/DrawMeme";
 import Error from "./pages/Error";
 import Authentication from "./pages/Authentication";
-import { AuthProvider } from "./context/AuthContext";
-import PriveRoute from "./utils/PriveRoute"
 import AddMemePage, {action as newMemeAction} from "./pages/AddMemePage";
 import AccountPage, {loader as InfoLoader, action as ChangeUserInfo} from "./pages/AccountPage";
+
 const router = createBrowserRouter([
   {
     path: "/",

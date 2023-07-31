@@ -1,9 +1,11 @@
 import Account from "../components/Account/Account";
 import { json } from "react-router-dom";
 import { redirect } from "react-router-dom";
+
 const AccountPage = () => {
   return <Account />;
 };
+
 export async function loader() {
   const token = JSON.parse(localStorage.getItem("authTokens"));
   const response = await fetch("http://127.0.0.1:8000/accounts/info/", {
@@ -25,7 +27,7 @@ export async function loader() {
   }
 }
 
-export async function action({ request, params }) {
+export async function action({ request }) {
   const data = Object.fromEntries(await request.formData());
   const token = JSON.parse(localStorage.getItem("authTokens"));
   const response = await fetch("http://127.0.0.1:8000/accounts/info/", {

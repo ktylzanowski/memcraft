@@ -3,6 +3,7 @@ import AuthContext from "../../context/AuthContext";
 import BackButton from "../../UI/BackButton";
 import classes from "./AuthComponent.module.css";
 import useInput from "../../hooks/useInput";
+import LongButton from "../../UI/LongButton";
 
 const Login = () => {
   const {
@@ -56,10 +57,9 @@ const Login = () => {
           onChange={PasswordChangedHandler}
           onBlur={PasswordBlurHandler}
         />
-        <button type="submit" className={classes.button}>
-          Zaloguj
-        </button>
+        <LongButton>Zaloguj</LongButton>
         <BackButton onClick={setError} />
+        
         {loginHasError && (
           <p className={classes.errorMessage}>Login nie może być pusty</p>
         )}

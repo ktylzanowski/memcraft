@@ -6,7 +6,7 @@ const AddMemePage = () => {
 
 export default AddMemePage;
 
-export async function action({ request, params }) {
+export async function action({ request }) {
   const data = await request.formData();
   const token = JSON.parse(localStorage.getItem("authTokens"));
 

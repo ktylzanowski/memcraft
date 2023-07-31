@@ -31,18 +31,7 @@
   border-radius: 3px;
 }
 
-.button {
-  width: 100%;
-  padding: 10px;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
 
-.button[type="submit"] {
-  background-color: #4CAF50;
-}
 
 .errorMessage {
     display: block;

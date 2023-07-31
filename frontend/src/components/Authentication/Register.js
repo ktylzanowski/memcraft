@@ -5,6 +5,7 @@ import AuthContext from "../../context/AuthContext";
 import usePasswordInput from "../../hooks/usePasswordInput";
 import useInput from "../../hooks/useInput";
 import useEmailInput from "../../hooks/useEmail";
+import LongButton from "../../UI/LongButton";
 const Register = () => {
   const { registerUser, error, setError } = useContext(AuthContext);
 
@@ -98,9 +99,7 @@ const Register = () => {
           className={classes.input}
           onChange={handlePassword2Change}
         ></input>
-        <button type="submit" className={classes.button}>
-          Zarejestruj
-        </button>
+        <LongButton>Zarejestruj</LongButton>
         <BackButton />
         {loginHasError && <p className={classes.errorMessage}>Login musi mieć przynajmniej 2 znaki!</p>}
         {emailHasError && <p className={classes.errorMessage}>{emailErrorMessage}</p>}
