@@ -60,7 +60,7 @@ const UserInfoForm = () => {
             placeholder="Numer apartamenu"
             defaultValue={data.apartment_number}
           />
-          <Button>Zatwierdź</Button>
+          <Button value="userInfo">Zatwierdź</Button>
           <BackButton>Wróć</BackButton>
         </Form>
       </div>

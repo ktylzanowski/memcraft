@@ -19,7 +19,20 @@ class RegisterView(APIView):
             return Response({'message': 'Registration successful.'}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ChangePasswordView(APIView):
+    permission_classes = [IsAuthenticated]
     
+    def patch(self, request):
+        user = request.user
+        serializer = ChangePasswordSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Change password successful.'}, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            
 class UserView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
@@ -29,7 +42,6 @@ class UserView(APIView):
     
     def patch(self, request):
         user = request.user
-        print(request.data)
         serializer = UserInfoSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
