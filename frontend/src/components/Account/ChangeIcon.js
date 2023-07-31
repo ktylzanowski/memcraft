@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
 import classes from "./Account.module.css";
-
 function ChangeIcon() {
   const [show, setShow] = useState(false);
   const target = useRef(null);
@@ -63,9 +62,7 @@ function ChangeIcon() {
   };
   return (
     <>
-      <Button ref={target} onClick={() => setShow(!show)}>
-        Wybierz ikonę
-      </Button>
+     <button ref={target} onClick={() => setShow(!show)} className={classes.button}>Wybierz ikonę</button>
       <Overlay target={target.current} show={show} placement="bottom">
         {(props) => (
           <Tooltip id="overlay-example" {...props}>
