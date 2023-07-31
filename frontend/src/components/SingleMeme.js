@@ -2,17 +2,19 @@ import { useState } from "react";
 import Button from "../UI/Button";
 import { useLoaderData } from "react-router";
 import Image from "../UI/Image";
-
+import Error from "./Error";
 
 const SingleMeme = () => {
   const memeFromLoader = useLoaderData();
-  const last_meme = localStorage.getItem('last_meme');
-  const [meme, setMeme] = useState(last_meme ? JSON.parse(last_meme) : memeFromLoader);
+  const last_meme = localStorage.getItem("last_meme");
+  const [meme, setMeme] = useState(
+    last_meme ? JSON.parse(last_meme) : memeFromLoader
+  );
   const [error, setError] = useState(false);
   const imageUrl = new URL(meme.meme_image, "http://127.0.0.1:8000").href;
 
   const fetchMeme = async () => {
-    const meme_id = localStorage.getItem('last_meme_id');
+    const meme_id = localStorage.getItem("last_meme_id");
     try {
       const response = await fetch("http://127.0.0.1:8000/", {
         method: "GET",
@@ -22,12 +24,12 @@ const SingleMeme = () => {
         },
       });
 
-      if (!response.ok) {
-        setError("Coś poszło nie tak")
-      }
-      
       const data = await response.json();
-      localStorage.setItem('last_meme', JSON.stringify(data));
+
+      if (!response.ok) {
+        setError(data.error);
+      }
+      localStorage.setItem("last_meme", JSON.stringify(data));
       localStorage.setItem("last_meme_id", data.id);
       setMeme(data);
       setError(false);
@@ -39,7 +41,7 @@ const SingleMeme = () => {
   return (
     <>
       {error ? (
-        <span>{error}</span>
+        <Error message={error} />
       ) : (
         <>
           <Image imageUrl={imageUrl} alt="Meme" />

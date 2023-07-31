@@ -18,7 +18,7 @@ class MemeView(APIView):
             serializer = MemeSerializer(meme)
             return Response(serializer.data)
         else:
-            return Response({'message': 'No more memes available.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'message': 'Nie udało się złapać mema.'}, status=status.HTTP_404_NOT_FOUND)
         
     @permission_classes([IsAuthenticated])
     def post(self, request):

@@ -3,7 +3,7 @@ import { AuthProvider } from "./context/AuthContext";
 import PriveRoute from "./utils/PriveRoute"
 import RootLayout from "./pages/Root";
 import DrawMeme, { loader as MemeLoader } from "./pages/DrawMeme";
-import Error from "./pages/Error";
+import ErrorPage from "./pages/ErrorPage";
 import Authentication from "./pages/Authentication";
 import AddMemePage, {action as newMemeAction} from "./pages/AddMemePage";
 import AccountPage, {loader as InfoLoader, action as ChangeUserInfo} from "./pages/AccountPage";
@@ -12,7 +12,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
-    errorElement: <Error />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
