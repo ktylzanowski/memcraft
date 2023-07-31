@@ -16,7 +16,6 @@ const Header = () => {
   
   if (user) {
     imageUrl = `http://127.0.0.1:8000/media/icons/${user.icon}`;
-    console.log(user.icon)
   }
 
   return (

@@ -5,7 +5,6 @@ import AuthContext from "../../context/AuthContext";
 import UserInfoForm from "./UserInfoForm";
 import AccountNavbar from "./AccountNavbar";
 import ChangeIcon from "./ChangeIcon";
-import ChangeEmail from "./ChangeEmail";
 import ChangePassword from "./ChangePassword";
 
 const Account = () => {
@@ -25,7 +24,6 @@ const Account = () => {
             <ChangeIcon />
           </div>
           <div className={classes.changePassword}>
-            <ChangeEmail />
             <ChangePassword />
           </div>
           <UserInfoForm />

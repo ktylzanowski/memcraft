@@ -36,9 +36,13 @@
   flex: 4;
 }
 
-.iconContainer,
+.iconContainer{
+  width: calc(75% - 5px);
+  float: left;
+  display: flex;
+}
 .changePassword {
-  width: calc(50% - 5px);
+  width: calc(25% - 5px);
   float: left;
   display: flex;
 }

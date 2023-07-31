@@ -56,7 +56,6 @@ function ChangeIcon() {
     });
     if (response.ok) {
       console.log("OK");
-      
     } else {
       console.log("BAD");
     }
