@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LongButton from "../../UI/LongButton"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import classes from "./ChangePassword.module.css"
@@ -27,9 +28,7 @@ function ChangePassword() {
             </input>
             <input type='password' placeholder='Potwierdź nowe hasło' className={classes.input}>
             </input>
-            <button type='submit' className={classes.button}>
-              Zapisz
-            </button>
+            <LongButton>Zmień hasło</LongButton>
           </form>
         </Modal.Body>
         <Modal.Footer>
