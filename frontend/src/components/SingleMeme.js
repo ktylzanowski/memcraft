@@ -1,8 +1,10 @@
-import classes from "./SingleMeme.module.css";
 import { useState } from "react";
 import Button from "../UI/Button";
 import { loader } from "../pages/DrawMeme";
 import { useLoaderData } from "react-router";
+import Image from "../UI/Image";
+
+
 const SingleMeme = () => {
   const memeFromLoader = useLoaderData();
   const [meme, setMeme] = useState(memeFromLoader);
@@ -26,7 +28,7 @@ const SingleMeme = () => {
         <span>{error}</span>
       ) : (
         <>
-          <img src={imageUrl} alt="Meme" className={classes.image} />
+          <Image imageUrl={imageUrl} alt="Meme" />
           <h1>{meme.title}</h1>
           <Button onClick={fetchMeme}>Losuj Mema</Button>
         </>
