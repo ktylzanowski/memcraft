@@ -6,17 +6,19 @@ import { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 const AuthComponent = () => {
-  const { setError } = useContext(AuthContext);
+  const { authMessage, setAuthMessage, setError } = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
 
   const navigate = useNavigate();
-  const storedTokens = localStorage.getItem("authTokens");
 
   useEffect(() => {
-    if (storedTokens) {
-      navigate("/");
+    if (authMessage) {
+      const messageParam = encodeURIComponent(authMessage);
+      setAuthMessage(false)
+      navigate(`/?message=${messageParam}`);
     }
-  }, [storedTokens, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authMessage]);
 
   const handlerLogin = () => {
     setIsLogin(true);

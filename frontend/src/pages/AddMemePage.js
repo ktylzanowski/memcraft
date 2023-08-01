@@ -19,13 +19,11 @@ export async function action({ request }) {
       body: data,
     });
     if (response.ok) {
-      console.log("Meme created successfully.");
+      return redirect("/?message=Dodano mema");
     } else {
-      console.log("Unexpected response from server.");
+      return "Coś poszło nie tak!"
     }
   } catch (error) {
     console.error("Error creating meme:", error.message);
   }
-
-  return redirect("/");
 }

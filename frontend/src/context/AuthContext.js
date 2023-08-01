@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -13,7 +14,7 @@ export const AuthProvider = ({ children }) => {
       ? jwt_decode(localStorage.getItem("authTokens"))
       : null
   );
-
+  const [authMessage, setAuthMessage] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -33,8 +34,8 @@ export const AuthProvider = ({ children }) => {
       setAuthTokens(data);
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
-      localStorage.setItem("message", "Zalogowano");
       setError(false);
+      setAuthMessage("Zalogowano");
     } else {
       setError("Nieprawidłowe dane logowania. Spróbuj ponownie!");
     }
@@ -55,6 +56,7 @@ export const AuthProvider = ({ children }) => {
     });
     if (response.ok) {
       loginUser(login, password);
+      setAuthMessage("Zarejestrowano");
     } else {
       setError("BAD");
     }
@@ -64,6 +66,7 @@ export const AuthProvider = ({ children }) => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
+    setAuthMessage("Wylogowano");
   };
 
   const updateToken = async () => {
@@ -97,6 +100,8 @@ export const AuthProvider = ({ children }) => {
 
   const contextData = {
     user,
+    authMessage,
+    setAuthMessage,
     error,
     setError,
     loginUser,
