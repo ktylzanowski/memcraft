@@ -16,7 +16,7 @@ const SingleMeme = () => {
 
   const fetchMeme = async () => {
     const last_meme_id = localStorage.getItem("last_meme_id")
-    const send_meme_id = last_meme_id ? last_meme_id : 0;
+    const send_meme_id = last_meme_id ? last_meme_id : meme.id;
     try {
       const response = await fetch("http://127.0.0.1:8000/", {
         method: "GET",
