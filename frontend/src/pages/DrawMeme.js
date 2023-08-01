@@ -30,7 +30,6 @@ export async function loader() {
       }
     );
   } else {
-    localStorage.setItem('last_meme_id', 0)
     return response;
   }
 }

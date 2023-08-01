@@ -4,6 +4,7 @@ import { useLoaderData } from "react-router";
 import Image from "../UI/Image";
 import Error from "./Error";
 
+
 const SingleMeme = () => {
   const memeFromLoader = useLoaderData();
   const last_meme = localStorage.getItem("last_meme");
@@ -14,13 +15,14 @@ const SingleMeme = () => {
   const imageUrl = new URL(meme.meme_image, "http://127.0.0.1:8000").href;
 
   const fetchMeme = async () => {
-    const meme_id = localStorage.getItem("last_meme_id");
+    const last_meme_id = localStorage.getItem("last_meme_id")
+    const send_meme_id = last_meme_id ? last_meme_id : 0;
     try {
       const response = await fetch("http://127.0.0.1:8000/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Meme-ID": meme_id,
+          "Meme-ID": send_meme_id,
         },
       });
 
