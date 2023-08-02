@@ -41,6 +41,7 @@
 }
 
 .modalMessage {
+  z-index: 99;
   position: fixed;
   margin-top: 0.8%;
   transform: translateX(-50%);
