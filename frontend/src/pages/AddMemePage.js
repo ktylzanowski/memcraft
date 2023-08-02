@@ -1,5 +1,7 @@
 import AddMeme from "../components/AddMeme";
 import { redirect } from "react-router-dom";
+import { json } from "react-router-dom";
+
 const AddMemePage = () => {
   return <AddMeme />;
 };
@@ -18,12 +20,20 @@ export async function action({ request }) {
       },
       body: data,
     });
+
+    const responseData = await response.json();
+
     if (response.ok) {
-      return redirect("/?message=Dodano mema");
+      return redirect(`/?message=${responseData.message}`);
     } else {
-      return "Coś poszło nie tak!"
+      return responseData
     }
-  } catch (error) {
-    console.error("Error creating meme:", error.message);
+  } catch {
+    throw json(
+      { message: "Coś poszło nie tak! Przepraszamy!." },
+      {
+        status: 500,
+      }
+    );
   }
 }

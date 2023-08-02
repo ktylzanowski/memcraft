@@ -1,5 +1,5 @@
 import Button from "../UI/Button";
-import { Form } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 import classes from "./AddMeme.module.css";
 import { useState } from "react";
 import Image from "../UI/Image";
@@ -15,6 +15,8 @@ const AddMeme = () => {
     }
   };
 
+  const errors = useActionData();
+
   return (
     <>
       <Form
@@ -25,8 +27,10 @@ const AddMeme = () => {
         {!isImage && <label htmlFor="image">Dodaj mema</label>}
         <Image imageUrl="" alt="Dodany mem" />
         <input type="file" name="image" onChange={handleImageChange} />
+        {errors?.meme_image && <span>{errors.meme_image}</span>}
         <label htmlFor="title">Tytuł</label>
         <input type="text" name="title" id="title" />
+        {errors?.title && <span>{errors.title}</span>}
         <Button>Dodaj mema</Button>
       </Form>
     </>

@@ -27,6 +27,6 @@ class MemeView(APIView):
         serializer = MemeSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'message': 'Meme created successfully.'}, status=status.HTTP_201_CREATED)
+            return Response({'message': 'Mem dodany.'}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
