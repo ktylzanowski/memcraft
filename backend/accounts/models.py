@@ -1,15 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser
-)
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class MyUserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
-
         if not email:
-            raise ValueError('Użytkownik musi mieć email')
-        
+            raise ValueError("Użytkownik musi mieć email")
+
         if not username:
             raise ValueError("Użytkownik musi mieć nickname")
 
@@ -17,7 +14,7 @@ class MyUserManager(BaseUserManager):
             email=self.normalize_email(email),
             username=username,
         )
-        
+
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -37,7 +34,7 @@ class MyUserManager(BaseUserManager):
 class MyUser(AbstractBaseUser):
     username = models.CharField(max_length=20, unique=True, verbose_name="nick name")
     email = models.EmailField(
-        verbose_name='email address',
+        verbose_name="email address",
         max_length=255,
         unique=True,
     )
@@ -54,12 +51,12 @@ class MyUser(AbstractBaseUser):
     building_number = models.CharField(max_length=10, null=True, blank=True)
     apartment_number = models.CharField(max_length=10, null=True, blank=True)
 
-    icon = models.CharField(default='creeperface.png', max_length=50)
+    icon = models.CharField(default="creeperface.png", max_length=50)
 
     objects = MyUserManager()
-    
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["email"]
 
     def __str__(self):
         return self.username
