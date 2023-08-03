@@ -3,7 +3,7 @@ import Button from "../UI/Button";
 import { useLoaderData } from "react-router";
 import Image from "../UI/Image";
 import Error from "./Error";
-
+import Likes from "./Likes";
 
 const SingleMeme = () => {
   const memeFromLoader = useLoaderData();
@@ -18,7 +18,7 @@ const SingleMeme = () => {
 
   const fetchMeme = async () => {
     const last_meme_id = localStorage.getItem("last_meme_id")
-    const send_meme_id = last_meme_id ? last_meme_id : meme.pk;
+    const send_meme_id = last_meme_id ? last_meme_id : meme.id;
 
     try {
       const response = await fetch("http://127.0.0.1:8000/", {
@@ -34,8 +34,9 @@ const SingleMeme = () => {
       if (!response.ok) {
         setError(data.error);
       } else{
+        console.log(data)
         localStorage.setItem("last_meme", JSON.stringify(data));
-        localStorage.setItem("last_meme_id", data.pk);
+        localStorage.setItem("last_meme_id", data.id);
         setMeme(data);
         setError(false);
       }
@@ -53,6 +54,7 @@ const SingleMeme = () => {
         <>
           <Image imageUrl={imageUrl} alt="Meme" />
           <h1>{meme.title}</h1>
+          <Likes total_likes={meme.total_likes} id={meme.id} />
           <Button onClick={fetchMeme}>Losuj Mema</Button>
         </>
       )}

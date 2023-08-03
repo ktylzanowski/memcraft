@@ -4,9 +4,15 @@ from PIL import Image
 
 
 class MemeSerializer(serializers.ModelSerializer):
+
+    total_likes = serializers.SerializerMethodField()
+
     class Meta:
         model = Meme
-        fields = ["pk", "title", "meme_image", "author", "if_accepted"]
+        fields = '__all__'
+
+    def get_total_likes(self, obj):
+        return obj.total_likes()
 
     def validate_meme_image(self, value):
         try:

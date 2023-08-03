@@ -40,3 +40,15 @@ class MemeView(APIView):
             return Response({"message": "Mem dodany."}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LikesView(APIView):
+    @permission_classes([IsAuthenticated])
+    def post(self, request):
+        try:
+            mem = Meme.objects.get(pk=request.data['id'])
+            mem.likes.add(request.user)
+            total_likes = mem.total_likes()
+            return Response(total_likes)
+        except Meme.DoesNotExist:
+            return Response({'error': 'Zdjecie not found.'}, status=status.HTTP_404_NOT_FOUND)
