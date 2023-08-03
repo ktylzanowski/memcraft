@@ -32,10 +32,13 @@ class Meme(models.Model):
     if_accepted = models.BooleanField(null=False, blank=False, default=False)
 
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='meme_likes', blank=True)
+    dislikes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='meme_dislikes', blank=True)
 
     def total_likes(self):
         return self.likes.count()
 
+    def total_dislikes(self):
+        return self.dislikes.count()
 
     def __str__(self):
         return str(self.title) + str(self.pk)
