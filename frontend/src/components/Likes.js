@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Likes = (props) =>{
     const [totalLikes, setTotalLikes] = useState(props.total_likes)
+
+    useEffect(() => {
+      setTotalLikes(props.total_likes);
+    }, [props.total_likes]);
 
     const likeHandler = async () =>{
         const data = {
