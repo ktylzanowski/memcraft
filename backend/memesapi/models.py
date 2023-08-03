@@ -31,7 +31,7 @@ class Meme(models.Model):
 
     if_accepted = models.BooleanField(null=False, blank=False, default=False)
 
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='meme_likes')
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='meme_likes', blank=True)
 
     def total_likes(self):
         return self.likes.count()

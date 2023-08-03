@@ -5,7 +5,8 @@ const Likes = (props) =>{
 
     useEffect(() => {
       setTotalLikes(props.total_likes);
-    }, [props.total_likes]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.id]);
 
     const likeHandler = async () =>{
         const data = {
