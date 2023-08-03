@@ -6,6 +6,7 @@ from PIL import Image
 class MemeSerializer(serializers.ModelSerializer):
 
     total_likes = serializers.SerializerMethodField()
+    total_dislikes = serializers.SerializerMethodField()
 
     class Meta:
         model = Meme
@@ -13,6 +14,10 @@ class MemeSerializer(serializers.ModelSerializer):
 
     def get_total_likes(self, obj):
         return obj.total_likes()
+    
+    def get_total_dislikes(self, obj):
+        return obj.total_dislikes()
+
 
     def validate_meme_image(self, value):
         try:

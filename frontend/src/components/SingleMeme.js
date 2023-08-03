@@ -55,7 +55,7 @@ const SingleMeme = () => {
         <>
           <Image imageUrl={imageUrl} alt="Meme" />
           <h1>{meme.title}</h1>
-          <Likes total_likes={meme.total_likes} id={meme.id} />
+          <Likes total_likes={meme.total_likes} total_dislikes={meme.total_dislikes} id={meme.id} />
           <Button onClick={fetchMeme}>Losuj Mema</Button>
         </>
       )}

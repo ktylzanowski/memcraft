@@ -47,8 +47,18 @@ class LikesView(APIView):
     def post(self, request):
         try:
             mem = Meme.objects.get(pk=request.data['id'])
-            mem.likes.add(request.user)
+            if request.data['action'] == "like":
+                mem.likes.add(request.user)
+                mem.dislikes.remove(request.user)
+            elif request.data['action'] == "dislike":
+                mem.dislikes.add(request.user)
+                mem.likes.remove(request.user)
             total_likes = mem.total_likes()
-            return Response(total_likes)
+            total_dislikes = mem.total_dislikes()
+            response_data = {
+                'total_likes': total_likes,
+                'total_dislikes': total_dislikes
+            }
+            return Response(response_data)
         except Meme.DoesNotExist:
             return Response({'error': 'Zdjecie not found.'}, status=status.HTTP_404_NOT_FOUND)
