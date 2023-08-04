@@ -1,0 +1,9 @@
+.con{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.likes{
+    margin-right: 50px;
+}

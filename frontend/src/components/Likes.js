@@ -1,4 +1,8 @@
 import { useState, useEffect } from "react";
+import like from "../images/likes/like.png";
+import dislike from "../images/likes/dislike.png";
+import LikeIcon from "../UI/LikeIcon";
+import classes from "./Likes.module.css"
 
 const Likes = (props) => {
   const [totalLikes, setTotalLikes] = useState(props.total_likes);
@@ -31,18 +35,26 @@ const Likes = (props) => {
     if (!response.ok) {
       console.log("bad");
     } else {
-      setTotalLikes(resdata.total_likes)
-      setTotalDislikes(resdata.total_dislikes)
+      setTotalLikes(resdata.total_likes);
+      setTotalDislikes(resdata.total_dislikes);
     }
   };
 
   return (
-    <>
-      <button onClick={() => likeHandler("like")}>Dodaj like</button>
-      <span>{totalLikes}</span>
-      <button onClick={() => likeHandler("dislike")}>Dodaj dislike</button>
-      <span>{totalDislikes}</span>
-    </>
+    <div className={classes.con}>
+      <div className={classes.likes}>
+        <LikeIcon src={like} onClick={() => likeHandler("like")} alt="Like" />
+        <span>{totalLikes}</span>
+      </div>
+      <div>
+        <LikeIcon
+          src={dislike}
+          onClick={() => likeHandler("dislike")}
+          alt="Dislike"
+        />
+        <span>{totalDislikes}</span>
+      </div>
+    </div>
   );
 };
 
