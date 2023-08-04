@@ -2,15 +2,22 @@ import { useState, useEffect } from "react";
 import like from "../images/likes/like.png";
 import dislike from "../images/likes/dislike.png";
 import LikeIcon from "../UI/LikeIcon";
-import classes from "./Likes.module.css"
+import classes from "./Likes.module.css";
+import likeUse from "../images/likes/likeUse.png";
+import dislikeUse from "../images/likes/dislikeUse.png";
 
 const Likes = (props) => {
   const [totalLikes, setTotalLikes] = useState(props.total_likes);
   const [totalDislikes, setTotalDislikes] = useState(props.total_dislikes);
+  const [ifLike, setIfLike] = useState(props.ifLike);
+  const [ifDislike, setIfDislike] = useState(props.ifDislike);
 
   useEffect(() => {
     setTotalLikes(props.total_likes);
     setTotalDislikes(props.total_dislikes);
+    setIfLike(props.ifLike);
+    setIfDislike(props.ifDislike);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.id]);
 
@@ -37,18 +44,29 @@ const Likes = (props) => {
     } else {
       setTotalLikes(resdata.total_likes);
       setTotalDislikes(resdata.total_dislikes);
+      if (action === "like") {
+        setIfLike(true);
+        setIfDislike(false);
+      } else {
+        setIfLike(false);
+        setIfDislike(true);
+      }
     }
   };
 
   return (
     <div className={classes.con}>
       <div className={classes.likes}>
-        <LikeIcon src={like} onClick={() => likeHandler("like")} alt="Like" />
+        <LikeIcon
+          src={ifLike ? likeUse : like}
+          onClick={() => likeHandler("like")}
+          alt="Like"
+        />
         <span>{totalLikes}</span>
       </div>
       <div>
         <LikeIcon
-          src={dislike}
+          src={ifDislike ? dislikeUse : dislike}
           onClick={() => likeHandler("dislike")}
           alt="Dislike"
         />

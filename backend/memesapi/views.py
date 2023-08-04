@@ -18,7 +18,7 @@ class MemeView(APIView):
         meme = choice(memes)
 
         if meme:
-            serializer = MemeSerializer(meme)
+            serializer = MemeSerializer(meme, context={'user': request.user})
             return Response(serializer.data)
         else:
             return Response(

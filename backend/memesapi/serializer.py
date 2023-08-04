@@ -7,17 +7,29 @@ class MemeSerializer(serializers.ModelSerializer):
 
     total_likes = serializers.SerializerMethodField()
     total_dislikes = serializers.SerializerMethodField()
+    if_like = serializers.SerializerMethodField()
+    if_dislike = serializers.SerializerMethodField()
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
 
     class Meta:
         model = Meme
-        fields = '__all__'
+        fields = ['id', 'title', 'meme_image', 'author', 'total_likes', 'total_dislikes', 'if_like', 'if_dislike']
+        write_only = ['likes', 'dislikes']
 
     def get_total_likes(self, obj):
         return obj.total_likes()
     
     def get_total_dislikes(self, obj):
         return obj.total_dislikes()
-
+    
+    def get_if_like(self, obj):
+        return True if self.context['user'] in obj.likes.all() else False
+    
+    def get_if_dislike(self, obj):
+        return True if self.context['user'] in obj.dislikes.all() else False
 
     def validate_meme_image(self, value):
         try:

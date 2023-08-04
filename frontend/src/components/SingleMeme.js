@@ -21,14 +21,21 @@ const SingleMeme = () => {
   const fetchMeme = async () => {
     const last_meme_id = localStorage.getItem("last_meme_id");
     const send_meme_id = last_meme_id ? last_meme_id : meme.id;
+    const token = JSON.parse(localStorage.getItem("authTokens"));
+
+    const headers = {
+      "Content-Type": "application/json",
+      "Meme-ID": send_meme_id,
+    };
+
+    if (token && token.access) {
+      headers["Authorization"] = `Bearer ${token.access}`;
+    }
 
     try {
       const response = await fetch("http://127.0.0.1:8000/", {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Meme-ID": send_meme_id,
-        },
+        headers: headers,
       });
 
       const data = await response.json();
@@ -55,7 +62,13 @@ const SingleMeme = () => {
         <>
           <Image imageUrl={imageUrl} alt="Meme" />
           <h1>{meme.title}</h1>
-          <Likes total_likes={meme.total_likes} total_dislikes={meme.total_dislikes} id={meme.id} />
+          <Likes
+            total_likes={meme.total_likes}
+            total_dislikes={meme.total_dislikes}
+            id={meme.id}
+            ifLike={meme.if_like}
+            ifDislike={meme.if_dislike}
+          />
           <Button onClick={fetchMeme}>Losuj Mema</Button>
         </>
       )}
