@@ -12,6 +12,8 @@ const Likes = (props) => {
   const [ifLike, setIfLike] = useState(props.ifLike);
   const [ifDislike, setIfDislike] = useState(props.ifDislike);
 
+  const token = JSON.parse(localStorage.getItem("authTokens"));
+
   useEffect(() => {
     setTotalLikes(props.total_likes);
     setTotalDislikes(props.total_dislikes);
@@ -26,7 +28,6 @@ const Likes = (props) => {
       id: props.id,
       action: action,
     };
-    const token = JSON.parse(localStorage.getItem("authTokens"));
 
     const response = await fetch("http://127.0.0.1:8000/likes", {
       method: "POST",
@@ -59,7 +60,7 @@ const Likes = (props) => {
       <div className={classes.likes}>
         <LikeIcon
           src={ifLike ? likeUse : like}
-          onClick={() => likeHandler("like")}
+          onClick={token ? () => likeHandler("like") : () => {}}
           alt="Like"
         />
         <span>{totalLikes}</span>
@@ -67,7 +68,7 @@ const Likes = (props) => {
       <div>
         <LikeIcon
           src={ifDislike ? dislikeUse : dislike}
-          onClick={() => likeHandler("dislike")}
+          onClick={token ? () => likeHandler("dislike") : () => {}}
           alt="Dislike"
         />
         <span>{totalDislikes}</span>

@@ -28,7 +28,7 @@ const SingleMeme = () => {
       "Meme-ID": send_meme_id,
     };
 
-    if (token && token.access) {
+    if (token) {
       headers["Authorization"] = `Bearer ${token.access}`;
     }
 
