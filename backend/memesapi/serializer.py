@@ -47,6 +47,16 @@ class MemeSerializer(serializers.ModelSerializer):
         return value
     
 class CommentSerializer(serializers.ModelSerializer):
+    author_icon = serializers.SerializerMethodField()
+    author_username = serializers.SerializerMethodField()
+    
     class Meta:
         model = Comment
-        fields = "__all__"
+        fields = ['id', 'text', 'author_icon', 'author_username']
+        write_only = ['author']
+
+    def get_author_icon(self, obj):
+        return obj.author.icon
+    
+    def get_author_username(self, obj):
+        return obj.author.username
