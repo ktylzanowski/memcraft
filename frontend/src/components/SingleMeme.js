@@ -4,13 +4,18 @@ import { useLoaderData } from "react-router";
 import Image from "../UI/Image";
 import Error from "./Error";
 import Likes from "./Likes";
+import Comments from "./Comments";
 
 const SingleMeme = () => {
   const memeFromLoader = useLoaderData();
   const last_meme = localStorage.getItem("last_meme");
 
   const [meme, setMeme] = useState(
-    last_meme ? JSON.parse(last_meme) : memeFromLoader
+    last_meme ? JSON.parse(last_meme).meme : memeFromLoader.meme
+  );
+
+  const [MemeComments, SetMemeComments] = useState(
+    last_meme ? JSON.parse(last_meme).comments : memeFromLoader.comments
   );
 
   const [error, setError] = useState(
@@ -31,7 +36,6 @@ const SingleMeme = () => {
     if (token) {
       headers["Authorization"] = `Bearer ${token.access}`;
     }
-
     try {
       const response = await fetch("http://127.0.0.1:8000/", {
         method: "GET",
@@ -45,8 +49,9 @@ const SingleMeme = () => {
       } else {
         console.log(data);
         localStorage.setItem("last_meme", JSON.stringify(data));
-        localStorage.setItem("last_meme_id", data.id);
-        setMeme(data);
+        localStorage.setItem("last_meme_id", data.meme.id);
+        setMeme(data.meme);
+        SetMemeComments(data.comments);
         setError(false);
       }
     } catch (error) {
@@ -70,6 +75,7 @@ const SingleMeme = () => {
             ifDislike={meme.if_dislike}
           />
           <Button onClick={fetchMeme}>Losuj Mema</Button>
+          <Comments comments={MemeComments} />
         </>
       )}
     </>

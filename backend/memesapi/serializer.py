@@ -45,3 +45,8 @@ class MemeSerializer(serializers.ModelSerializer):
             )
 
         return value
+    
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = "__all__"

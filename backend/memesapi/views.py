@@ -16,10 +16,14 @@ class MemeView(APIView):
         else:
             memes = Meme.objects.all()
         meme = choice(memes)
-
         if meme:
             serializer = MemeSerializer(meme, context={'user': request.user})
-            return Response(serializer.data)
+            commnets = Comment.objects.filter(meme=meme)
+            serializer_comments = CommentSerializer(commnets, many=True)
+            return Response({
+            'meme': serializer.data,
+            'comments': serializer_comments.data,
+            })
         else:
             return Response(
                 {"message": "Nie udało się złapać mema."},

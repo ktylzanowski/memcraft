@@ -21,7 +21,7 @@ const Likes = (props) => {
     setIfDislike(props.ifDislike);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.id]);
+  }, [props.id, props.ifLike, props.ifDislike]);
 
   const likeHandler = async (action) => {
     const data = {
