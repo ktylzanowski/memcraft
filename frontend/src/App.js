@@ -7,7 +7,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Authentication from "./pages/Authentication";
 import AddMemePage, {action as newMemeAction} from "./pages/AddMemePage";
 import AccountPage, {loader as InfoLoader, action as ChangeUserInfo} from "./pages/AccountPage";
-
+import {action as newComment} from "./pages/DrawMeme"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,6 +18,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <DrawMeme />,
         loader: MemeLoader,
+        action: newComment,
         children: [
           {
             path: "authentication",

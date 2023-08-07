@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../UI/Button";
 import { useLoaderData } from "react-router";
+import { Form } from "react-router-dom";
 import Image from "../UI/Image";
 import Error from "./Error";
 import Likes from "./Likes";
@@ -76,6 +77,12 @@ const SingleMeme = () => {
           />
           <Button onClick={fetchMeme}>Losuj Mema</Button>
           <Comments comments={MemeComments} />
+          <Form method="post">
+            <input type="text" placeholder="Komentarz" name="comment" />
+            <button type="submit" name="intent" value={meme.id}>
+              Dodaj komentarz
+            </button>
+          </Form>
         </>
       )}
     </>

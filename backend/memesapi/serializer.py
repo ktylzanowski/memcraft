@@ -53,7 +53,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ['id', 'text', 'author_icon', 'author_username']
-        write_only = ['author']
+        write_only = ['author', 'meme']
 
     def get_author_icon(self, obj):
         return obj.author.icon

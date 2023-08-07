@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from rest_framework import status
+from django.shortcuts import get_object_or_404
 
 
 class MemeView(APIView):
@@ -47,22 +48,43 @@ class MemeView(APIView):
 
 
 class LikesView(APIView):
-    @permission_classes([IsAuthenticated])
+    permission_classes = [IsAuthenticated]
+
     def post(self, request):
         try:
-            mem = Meme.objects.get(pk=request.data['id'])
-            if request.data['action'] == "like":
-                mem.likes.add(request.user)
-                mem.dislikes.remove(request.user)
-            elif request.data['action'] == "dislike":
-                mem.dislikes.add(request.user)
-                mem.likes.remove(request.user)
-            total_likes = mem.total_likes()
-            total_dislikes = mem.total_dislikes()
+            meme_id = request.data.get('id')
+            meme = Meme.objects.get(pk=meme_id)
+            
+            action = request.data.get('action')
+            if action not in ['like', 'dislike']:
+                return Response({'error': 'Nieprawidłowa akcja.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            if action == "like":
+                meme.likes.set([request.user])
+                meme.dislikes.remove(request.user)
+            elif action == "dislike":
+                meme.dislikes.set([request.user])
+                meme.likes.remove(request.user)
+
+            total_likes = meme.total_likes()
+            total_dislikes = meme.total_dislikes()
             response_data = {
                 'total_likes': total_likes,
                 'total_dislikes': total_dislikes
             }
-            return Response(response_data)
+            return Response(response_data, status=status.HTTP_200_OK)
         except Meme.DoesNotExist:
-            return Response({'error': 'Zdjecie not found.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'Mem nie znaleziony.'}, status=status.HTTP_404_NOT_FOUND)
+        
+class CommentView(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        data = request.data
+        meme_id = data.get('meme_id')
+        meme = get_object_or_404(Meme, pk=meme_id)
+
+        serializer = CommentSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(author=request.user, meme=meme)
+
+        return Response({"message": "Comment added successfully"})
