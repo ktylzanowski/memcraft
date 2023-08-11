@@ -48,7 +48,6 @@ const SingleMeme = () => {
       if (!response.ok) {
         setError(data.error);
       } else {
-        console.log(data);
         localStorage.setItem("last_meme", JSON.stringify(data));
         localStorage.setItem("last_meme_id", data.meme.id);
         setMeme(data.meme);

@@ -29,7 +29,7 @@ const Likes = (props) => {
       action: action,
     };
 
-    const response = await fetch("http://127.0.0.1:8000/likes", {
+    const response = await fetch("http://127.0.0.1:8000/like/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

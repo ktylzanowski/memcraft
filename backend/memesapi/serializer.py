@@ -1,51 +1,36 @@
 from rest_framework import serializers
 from .models import *
-from PIL import Image
-
 
 class MemeSerializer(serializers.ModelSerializer):
 
-    total_likes = serializers.SerializerMethodField()
-    total_dislikes = serializers.SerializerMethodField()
-    if_like = serializers.SerializerMethodField()
-    if_dislike = serializers.SerializerMethodField()
-
-    def __init__(self, *args, user=None, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.user = user
+    if_like = serializers.SerializerMethodField(read_only=True)
+    if_dislike = serializers.SerializerMethodField(read_only=True)
+    total_likes = serializers.SerializerMethodField(read_only=True)
+    total_dislikes = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Meme
         fields = ['id', 'title', 'meme_image', 'author', 'total_likes', 'total_dislikes', 'if_like', 'if_dislike']
-        write_only = ['likes', 'dislikes']
-
-    def get_total_likes(self, obj):
-        return obj.total_likes()
+        extra_kwargs = {
+            'likes': {'write_only': True},
+            'dislikes': {'write_only': True},
+        }
     
-    def get_total_dislikes(self, obj):
-        return obj.total_dislikes()
-    
-    def get_if_like(self, obj):
-        return True if self.context['user'] in obj.likes.all() else False
-    
-    def get_if_dislike(self, obj):
-        return True if self.context['user'] in obj.dislikes.all() else False
+    def get_if_like(self, instance):
+        user = self.context['user']
+        return user in instance.likes.all()
 
-    def validate_meme_image(self, value):
-        try:
-            image = Image.open(value)
-            image.verify()
-        except Exception as e:
-            raise serializers.ValidationError("To nie jest obraz lub gif.")
+    def get_if_dislike(self, instance):
+        user = self.context['user']
+        return user in instance.dislikes.all()
 
-        allowed_extensions = [".jpg", ".jpeg", ".png", ".gif"]
-        if not value.name.lower().endswith(tuple(allowed_extensions)):
-            raise serializers.ValidationError(
-                "Dozwolone są tylko pliki w formacie JPG, JPEG, PNG lub GIF."
-            )
+    def get_total_likes(self, instance):
+        return instance.likes.count()
 
-        return value
-    
+    def get_total_dislikes(self, instance):
+        return instance.dislikes.count()
+
+
 class CommentSerializer(serializers.ModelSerializer):
     author_icon = serializers.SerializerMethodField()
     author_username = serializers.SerializerMethodField()

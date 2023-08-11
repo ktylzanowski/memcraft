@@ -4,21 +4,45 @@ from random import choice
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import permission_classes
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from rest_framework.decorators import action
+from rest_framework import permissions
+from rest_framework import viewsets
+from rest_framework.renderers import JSONRenderer
 
 
-class MemeView(APIView):
-    def get(self, request):
-        meme_id = request.META.get("HTTP_MEME_ID")
-        if meme_id:
-            memes = Meme.objects.exclude(id=meme_id)
+class MemeView(viewsets.ModelViewSet):
+    queryset = Meme.objects.all()
+    serializer_class = MemeSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['user'] = self.request.user
+        return context
+
+    def create(self, request):
+        user = request.user
+        data = {
+            "title": request.data.get("title"),
+            "meme_image": request.FILES.get("meme_image"),
+            "author": user.pk,
+        }
+        serializer = self.get_serializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Mem dodany."}, status=status.HTTP_201_CREATED)
         else:
-            memes = Meme.objects.all()
-        meme = choice(memes)
-        if meme:
-            serializer = MemeSerializer(meme, context={'user': request.user})
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, renderer_classes=[JSONRenderer])
+    def draw(self, request):
+        meme_id = request.META.get("HTTP_MEME_ID")
+        memes = self.queryset.exclude(id=meme_id) if meme_id else self.queryset
+        if memes.exists():
+            meme = choice(memes)
+            serializer = self.get_serializer(meme)
             commnets = Comment.objects.filter(meme=meme)
             serializer_comments = CommentSerializer(commnets, many=True)
             return Response({
@@ -31,26 +55,8 @@ class MemeView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
-    @permission_classes([IsAuthenticated])
-    def post(self, request):
-        user = request.user
-        data = {
-            "title": request.data.get("title"),
-            "meme_image": request.FILES.get("image"),
-            "author": user.pk,
-        }
-        serializer = MemeSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "Mem dodany."}, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class LikesView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
+    @action(detail=True, renderer_classes=[JSONRenderer])
+    def like(self, request):
         try:
             meme_id = request.data.get('id')
             meme = Meme.objects.get(pk=meme_id)
@@ -87,4 +93,4 @@ class CommentView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save(author=request.user, meme=meme)
 
-        return Response({"message": "Comment added successfully"})
+        return Response({"message": "Komentarz dodany"})
