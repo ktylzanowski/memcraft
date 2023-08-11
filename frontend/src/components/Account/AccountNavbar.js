@@ -7,7 +7,8 @@ const AccountNavbar = () => {
         <ul>
           <li>Główne dane</li>
           <li>Moje memy</li>
-          <li>Newsletter</li>
+          <li>Polubione i nie</li>
+          <li>Komentarze</li>
           <li>Historia zakupów</li>
         </ul>
       </div>

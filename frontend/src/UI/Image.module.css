@@ -1,7 +1,7 @@
 .image {
   width: 600px;
   max-width: 100%;
-  height: auto;
+  max-height: 600px;
   border: 10px solid #1e1e1e;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
