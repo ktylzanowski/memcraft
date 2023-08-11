@@ -1,4 +1,5 @@
 import classes from "./Comments.module.css";
+import { Form } from "react-router-dom";
 
 const Comments = (props) => {
   return (
@@ -21,6 +22,12 @@ const Comments = (props) => {
       ) : (
         <p>Brak komentarzy</p>
       )}
+      <Form method="post" className={classes.commentInput}>
+        <input type="text" placeholder="Komentarz" name="comment" className={classes.commentInput}/>
+        <button type="submit" name="intent" value={props.id} className={classes.commentInput}>
+          Dodaj komentarz
+        </button>
+      </Form>
     </div>
   );
 };

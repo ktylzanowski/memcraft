@@ -1,25 +1,24 @@
 .container {
-  color: white;
-  font-size: 24px;
   font-family: Arial, sans-serif;
-  text-align: center;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 20px auto 0; 
+  background-color: #333;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 .icon {
   width: 25px;
-  height: 25px;
   border-radius: 50%;
   object-fit: cover;
-  transition: transform 0.3s;
   margin-left: 5px;
 }
+
 
 .comment {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .user {
@@ -27,12 +26,41 @@
   flex-direction: column;
   align-items: flex-start;
   flex-shrink: 0;
-  flex-basis: 15%;
+  flex-basis: 10%;
 }
 
 .text {
   flex-grow: 1;
   display: flex;
   align-items: center;
-  flex-basis: 40%;
+}
+
+.commentInput {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.commentInput input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.commentInput button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.commentInput button:hover {
+  background-color: #0056b3;
 }
