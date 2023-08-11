@@ -88,9 +88,11 @@ class CommentView(APIView):
         data = request.data
         meme_id = data.get('meme_id')
         meme = get_object_or_404(Meme, pk=meme_id)
-
         serializer = CommentSerializer(data=data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(author=request.user, meme=meme)
-
-        return Response({"message": "Komentarz dodany"})
+        comment = serializer.save(author=request.user, meme=meme)
+        serialized_comment = CommentSerializer(comment)
+        return Response({
+            "message": "Komentarz dodany",
+            "comment": serialized_comment.data
+        })
