@@ -11,7 +11,6 @@ const Comments = (props) => {
   const [nextPage, setNextPage] = useState(null);
 
   useEffect(() => {
-    setComments([]);
     setCommentPage(1);
   }, [props.id]);
 

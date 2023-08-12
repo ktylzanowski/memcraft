@@ -67,3 +67,26 @@
 .commentInput button:hover {
   background-color: #0056b3;
 }
+
+.showMoreButton {
+  background-color: #3498db;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.showMoreButton:hover {
+  background-color: #2980b9;
+}
+
+.showMoreButton:focus {
+  outline: none;
+}
+
+.showMoreButton:active {
+  transform: scale(0.95);
+}
