@@ -6,7 +6,7 @@ from rest_framework import status, permissions, viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
 from rest_framework.renderers import JSONRenderer
-
+from .pagination import CommentPagination
 
 class MemeView(viewsets.ModelViewSet):
     queryset = Meme.objects.all()
@@ -76,6 +76,7 @@ class CommentView(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    pagination_class = CommentPagination
 
     def create(self, request):
         data = request.data
@@ -94,5 +95,9 @@ class CommentView(viewsets.ModelViewSet):
         meme_id = request.META.get("HTTP_MEME_ID")
         meme = get_object_or_404(Meme, pk=meme_id)
         comments = Comment.objects.filter(meme=meme)
-        serialized_comment = self.get_serializer(comments, many=True)
-        return Response(serialized_comment.data)
+
+        paginator = CommentPagination()
+        paginated_comments = paginator.paginate_queryset(comments, request)
+
+        serialized_comment = self.get_serializer(paginated_comments, many=True)
+        return paginator.get_paginated_response(serialized_comment.data)

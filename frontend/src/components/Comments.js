@@ -4,25 +4,49 @@ import { useState, useEffect } from "react";
 import { useActionData } from "react-router-dom";
 
 const Comments = (props) => {
-  const [comments, setComments] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [commentPage, setCommentPage] = useState(1);
   const dataFromAction = useActionData();
+  const [totalComments, setTotalComments] = useState(0);
+  const [nextPage, setNextPage] = useState(null);
+
+  useEffect(() => {
+    setComments([]);
+    setCommentPage(1);
+  }, [props.id]);
+
+  useEffect(() => {
+    if (dataFromAction) {
+      setComments([dataFromAction.comment, ...comments]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataFromAction]);
 
   useEffect(() => {
     const fetchData = async () => {
       const meme_id = localStorage.getItem("last_meme_id");
       try {
-        const response = await fetch("http://127.0.0.1:8000/comment/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Meme-ID": meme_id,
-          },
-        });
+        const response = await fetch(
+          `http://127.0.0.1:8000/comment/?page=${commentPage}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Meme-ID": meme_id,
+            },
+          }
+        );
 
         const responseData = await response.json();
 
         if (response.ok) {
-          setComments(responseData);
+          if (commentPage === 1) {
+            setComments(responseData.results);
+            setTotalComments(responseData.count);
+          } else {
+            setComments([...comments, ...responseData.results]);
+          }
+          setNextPage(responseData.next);
         } else {
           console.log("BAD");
         }
@@ -33,19 +57,18 @@ const Comments = (props) => {
 
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.id]);
+  }, [commentPage, props.id]);
 
-  useEffect(() => {
-    if (dataFromAction) {
-      setComments([dataFromAction.comment, ...comments]);
+  const handleShowMore = () => {
+    if (nextPage) {
+      setCommentPage(commentPage + 1);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataFromAction]);
+  };
 
   return (
     <div className={classes.container}>
       <h3>Komentarze:</h3>
-      {comments && comments.length > 0 ? (
+      {comments.length > 0 ? (
         comments.map((comment) => (
           <div key={comment.id} className={classes.comment}>
             <div className={classes.user}>
@@ -61,6 +84,11 @@ const Comments = (props) => {
         ))
       ) : (
         <p>Brak komentarzy</p>
+      )}
+      {totalComments > comments.length && (
+        <button onClick={handleShowMore} className={classes.showMoreButton}>
+          Pokaż więcej
+        </button>
       )}
       <Form method="post" className={classes.commentInput}>
         <input
