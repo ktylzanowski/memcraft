@@ -8,6 +8,7 @@ import Authentication from "./pages/Authentication";
 import AddMemePage, {action as newMemeAction} from "./pages/AddMemePage";
 import AccountPage, {loader as InfoLoader, action as ChangeUserInfo} from "./pages/AccountPage";
 import {action as newComment} from "./pages/DrawMeme"
+import BoardPage from "./pages/BoardPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
             element: <Authentication />,
           },
         ],
+      },
+      {
+        path: "tablica",
+        element: <BoardPage />,
       },
     {
       element: <PriveRoute />,
