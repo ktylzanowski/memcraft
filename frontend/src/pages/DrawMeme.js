@@ -60,7 +60,7 @@ export async function action({ request }) {
   const token = JSON.parse(localStorage.getItem("authTokens"));
   const sendData = { text: data.get("comment"), meme_id: parseInt(data.get("intent")) };
   try {
-    const response = await fetch("http://127.0.0.1:8000/addcomment", {
+    const response = await fetch("http://127.0.0.1:8000/comment/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

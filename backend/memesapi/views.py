@@ -1,14 +1,10 @@
-from .models import *
-from .serializer import *
+from .models import Meme, Comment
+from .serializer import MemeSerializer, CommentSerializer
 from random import choice
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import status
+from rest_framework import status, permissions, viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
-from rest_framework import permissions
-from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
 
 
@@ -43,11 +39,8 @@ class MemeView(viewsets.ModelViewSet):
         if memes.exists():
             meme = choice(memes)
             serializer = self.get_serializer(meme)
-            commnets = Comment.objects.filter(meme=meme)
-            serializer_comments = CommentSerializer(commnets, many=True)
             return Response({
             'meme': serializer.data,
-            'comments': serializer_comments.data,
             })
         else:
             return Response(
@@ -57,42 +50,49 @@ class MemeView(viewsets.ModelViewSet):
 
     @action(detail=True, renderer_classes=[JSONRenderer])
     def like(self, request):
-        try:
-            meme_id = request.data.get('id')
-            meme = Meme.objects.get(pk=meme_id)
-            
-            action = request.data.get('action')
-            if action not in ['like', 'dislike']:
-                return Response({'error': 'Nieprawidłowa akcja.'}, status=status.HTTP_400_BAD_REQUEST)
-
-            if action == "like":
-                meme.likes.set([request.user])
-                meme.dislikes.remove(request.user)
-            elif action == "dislike":
-                meme.dislikes.set([request.user])
-                meme.likes.remove(request.user)
-
-            total_likes = meme.total_likes()
-            total_dislikes = meme.total_dislikes()
-            response_data = {
-                'total_likes': total_likes,
-                'total_dislikes': total_dislikes
-            }
-            return Response(response_data, status=status.HTTP_200_OK)
-        except Meme.DoesNotExist:
-            return Response({'error': 'Mem nie znaleziony.'}, status=status.HTTP_404_NOT_FOUND)
+        meme_id = request.data.get('id')
+        meme = get_object_or_404(Meme, pk=meme_id)
         
-class CommentView(APIView):
-    permission_classes = [IsAuthenticated]
-    def post(self, request):
+        action = request.data.get('action')
+        if action not in ['like', 'dislike']:
+            return Response({'error': 'Nieprawidłowa akcja.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if action == "like":
+            meme.likes.set([request.user])
+            meme.dislikes.remove(request.user)
+        elif action == "dislike":
+            meme.dislikes.set([request.user])
+            meme.likes.remove(request.user)
+
+        total_likes = meme.total_likes()
+        total_dislikes = meme.total_dislikes()
+        response_data = {
+            'total_likes': total_likes,
+            'total_dislikes': total_dislikes
+        }
+        return Response(response_data, status=status.HTTP_200_OK)
+        
+class CommentView(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def create(self, request):
         data = request.data
         meme_id = data.get('meme_id')
         meme = get_object_or_404(Meme, pk=meme_id)
-        serializer = CommentSerializer(data=data)
+        serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         comment = serializer.save(author=request.user, meme=meme)
-        serialized_comment = CommentSerializer(comment)
+        serialized_comment = self.get_serializer(comment)
         return Response({
             "message": "Komentarz dodany",
             "comment": serialized_comment.data
         })
+    
+    def list(self, request):
+        meme_id = request.META.get("HTTP_MEME_ID")
+        meme = get_object_or_404(Meme, pk=meme_id)
+        comments = Comment.objects.filter(meme=meme)
+        serialized_comment = self.get_serializer(comments, many=True)
+        return Response(serialized_comment.data)

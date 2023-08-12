@@ -1,6 +1,5 @@
 from django.urls import path
-from . import views
-from .views import MemeView
+from .views import MemeView, CommentView
 
 meme_list = MemeView.as_view({
     'get': 'list',
@@ -20,11 +19,16 @@ meme_like = MemeView.as_view({
     'post': 'like',
 })
 
+comment_list = CommentView.as_view({
+    'get': 'list',
+    'post': 'create',
+})
+
 
 urlpatterns = [
     path("", meme_draw, name="Root"),
     path('memes/', meme_list, name="Meme_list"),
     path('meme/<int:pk>/', meme_detail, name="Meme_detail"),
     path("like/", meme_like, name="like"),
-    path('addcomment', views.CommentView.as_view(), name="AddComment"),
+    path('comment/', comment_list, name="Comment"),
 ]
