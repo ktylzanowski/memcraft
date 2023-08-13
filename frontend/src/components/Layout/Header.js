@@ -32,6 +32,9 @@ const Header = () => {
               <LinkContainer to="/">
                 <Nav.Link>Losuj Mema</Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/tablica">
+                <Nav.Link>Tablica</Nav.Link>
+              </LinkContainer>
               {user && (
                 <LinkContainer to="/dodajmema">
                   <Nav.Link>Dodaj mema</Nav.Link>
