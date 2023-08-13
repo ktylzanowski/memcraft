@@ -6,12 +6,22 @@ import Image from "../UI/Image";
 
 const AddMeme = () => {
   const [isImage, setIsImage] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+
   const handleImageChange = (event) => {
     const imageFile = event.target.files[0];
+
     if (imageFile) {
-      const imageUrl = URL.createObjectURL(imageFile);
-      document.getElementById("image").src = imageUrl;
-      setIsImage(true);
+      const imageType = imageFile.type;
+      const isImageType = imageType.startsWith("image/");
+
+      if (isImageType) {
+        const imageUrl = URL.createObjectURL(imageFile);
+        setImageUrl(imageUrl);
+        setIsImage(true);
+      } else {
+        alert("Wybrany plik nie jest akceptowalnym obrazem.");
+      }
     }
   };
 
@@ -25,7 +35,7 @@ const AddMeme = () => {
         className={classes.form}
       >
         {!isImage && <label htmlFor="meme_image">Dodaj mema</label>}
-        <Image imageUrl="" alt="Dodany mem" />
+        <Image imageUrl={imageUrl} alt="Dodany mem" />
         <input type="file" name="meme_image" onChange={handleImageChange} />
         {errors?.meme_image && <span>{errors.meme_image}</span>}
         <label htmlFor="title">Tytuł</label>

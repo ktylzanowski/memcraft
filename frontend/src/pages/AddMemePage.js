@@ -25,7 +25,7 @@ export async function action({ request }) {
     if (response.ok) {
       return redirect(`/?message=${responseData.message}`);
     } else {
-      return responseData
+      return responseData;
     }
   } catch {
     throw json(
