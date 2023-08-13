@@ -15,7 +15,7 @@ const Comments = (props) => {
   }, [props.id]);
 
   useEffect(() => {
-    if (dataFromAction) {
+    if (dataFromAction && dataFromAction.comment.meme_id === props.id) {
       setComments([dataFromAction.comment, ...comments]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -23,7 +23,6 @@ const Comments = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const meme_id = localStorage.getItem("last_meme_id");
       try {
         const response = await fetch(
           `http://127.0.0.1:8000/comment/?page=${commentPage}`,
@@ -31,7 +30,7 @@ const Comments = (props) => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              "Meme-ID": meme_id,
+              "Meme-ID": props.id,
             },
           }
         );

@@ -6,17 +6,19 @@ from rest_framework import status, permissions, viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
 from rest_framework.renderers import JSONRenderer
-from .pagination import CommentPagination
+from .pagination import CommentPagination, BoradPagination
 
 class MemeView(viewsets.ModelViewSet):
     queryset = Meme.objects.all()
     serializer_class = MemeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    pagination_class = BoradPagination
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
         context['user'] = self.request.user
         return context
+
 
     def create(self, request):
         user = request.user
