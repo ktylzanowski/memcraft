@@ -8,9 +8,19 @@ class MemeSerializer(serializers.ModelSerializer):
     total_likes = serializers.SerializerMethodField(read_only=True)
     total_dislikes = serializers.SerializerMethodField(read_only=True)
     author_name = serializers.SerializerMethodField(read_only=True)
+
+    title = serializers.CharField(
+        error_messages={
+            'null': "Tytuł nie może być pusty",
+            'blank': "Tytuł nie może być pusty",
+        }
+    )
+
     meme_image = serializers.ImageField(
         error_messages={
-            'invalid_image': "Wysłany plik nie jest prawidłowym obrazem. Proszę przesłać poprawny obraz."
+            'invalid_image': "Wysłany plik nie jest prawidłowym obrazem. Proszę przesłać poprawny obraz.",
+            'null': "Musisz przesłać jakieś zdjęcie",
+            'blank': "Musisz przesłać jakieś zdjęcie",
         }
     )
 
@@ -22,17 +32,6 @@ class MemeSerializer(serializers.ModelSerializer):
             'likes': {'write_only': True},
             'dislikes': {'write_only': True},
         }
-
-    def validate_title(self, value):
-        if not value:
-            raise serializers.ValidationError("Tytuł nie może być pusty")
-        return value
-    
-    def validate_meme_image(self, value):
-        if not value:
-            raise serializers.ValidationError("Trzeba przesłać zdjęcie")
-        return value
-    
     
     def get_author_name(self, instance):
         return instance.author.username
