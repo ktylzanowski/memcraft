@@ -7,15 +7,20 @@ class MemeSerializer(serializers.ModelSerializer):
     if_dislike = serializers.SerializerMethodField(read_only=True)
     total_likes = serializers.SerializerMethodField(read_only=True)
     total_dislikes = serializers.SerializerMethodField(read_only=True)
+    author_name = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Meme
-        fields = ['id', 'title', 'meme_image', 'author', 'total_likes', 'total_dislikes', 'if_like', 'if_dislike']
+        fields = ['id', 'title', 'meme_image', 'author', 'author_name', 'total_likes', 'total_dislikes', 'if_like', 'if_dislike']
+        read_only = ['author_name']
         extra_kwargs = {
             'likes': {'write_only': True},
             'dislikes': {'write_only': True},
         }
     
+    def get_author_name(self, instance):
+        return instance.author.username
+
     def get_if_like(self, instance):
         user = self.context['user']
         return user in instance.likes.all()

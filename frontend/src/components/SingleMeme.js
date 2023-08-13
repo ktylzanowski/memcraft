@@ -8,6 +8,7 @@ const SingleMeme = (props) => {
     <>
       <Image imageUrl={imageUrl} alt="Meme" />
       <h1>{meme.title}</h1>
+      <h4>{meme.author_name}</h4>
       <Likes
         total_likes={meme.total_likes}
         total_dislikes={meme.total_dislikes}
