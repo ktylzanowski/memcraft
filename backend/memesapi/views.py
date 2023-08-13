@@ -19,8 +19,6 @@ class MemeView(viewsets.ModelViewSet):
         context['user'] = self.request.user
         return context
 
-
-
     def create(self, request):
         user = request.user
         data = {

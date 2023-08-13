@@ -8,12 +8,11 @@ def upload_path(instance, filename):
 class Meme(models.Model):
     title = models.CharField(
         max_length=20,
-        null=False,
-        blank=False,
+        blank=True,
     )
     meme_image = models.ImageField(
-        null=False,
-        blank=False,
+        blank=True,
+        null=True,
         upload_to=upload_path,
     )
 

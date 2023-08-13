@@ -17,6 +17,17 @@ class MemeSerializer(serializers.ModelSerializer):
             'likes': {'write_only': True},
             'dislikes': {'write_only': True},
         }
+
+    def validate_title(self, value):
+        if not value:
+            raise serializers.ValidationError("Tytuł nie może być pusty")
+        return value
+    
+    def validate_meme_image(self, value):
+        if value is None:
+            raise serializers.ValidationError("Trzeba przesłać zdjęcie")
+        return value
+    
     
     def get_author_name(self, instance):
         return instance.author.username
