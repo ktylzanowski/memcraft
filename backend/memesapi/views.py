@@ -20,6 +20,7 @@ class MemeView(viewsets.ModelViewSet):
         return context
 
 
+
     def create(self, request):
         user = request.user
         data = {
@@ -60,10 +61,10 @@ class MemeView(viewsets.ModelViewSet):
             return Response({'error': 'Nieprawidłowa akcja.'}, status=status.HTTP_400_BAD_REQUEST)
 
         if action == "like":
-            meme.likes.set([request.user])
+            meme.likes.add(request.user) 
             meme.dislikes.remove(request.user)
         elif action == "dislike":
-            meme.dislikes.set([request.user])
+            meme.dislikes.add(request.user)
             meme.likes.remove(request.user)
 
         total_likes = meme.total_likes()
