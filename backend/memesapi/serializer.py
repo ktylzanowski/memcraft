@@ -8,6 +8,11 @@ class MemeSerializer(serializers.ModelSerializer):
     total_likes = serializers.SerializerMethodField(read_only=True)
     total_dislikes = serializers.SerializerMethodField(read_only=True)
     author_name = serializers.SerializerMethodField(read_only=True)
+    meme_image = serializers.ImageField(
+        error_messages={
+            'invalid_image': "Wysłany plik nie jest prawidłowym obrazem. Proszę przesłać poprawny obraz."
+        }
+    )
 
     class Meta:
         model = Meme
@@ -24,7 +29,7 @@ class MemeSerializer(serializers.ModelSerializer):
         return value
     
     def validate_meme_image(self, value):
-        if value is None:
+        if not value:
             raise serializers.ValidationError("Trzeba przesłać zdjęcie")
         return value
     
