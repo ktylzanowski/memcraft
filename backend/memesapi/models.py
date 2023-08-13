@@ -10,19 +10,11 @@ class Meme(models.Model):
         max_length=20,
         null=False,
         blank=False,
-        error_messages={
-            "null": 'Pole "tytuł" nie może być puste.',
-            "blank": 'Pole "tytuł" nie może być puste.',
-        },
     )
     meme_image = models.ImageField(
         null=False,
         blank=False,
         upload_to=upload_path,
-        error_messages={
-            "null": 'Pole "zdjęcie" nie może być puste.',
-            "blank": 'Pole "zdjęcie" nie może być puste.',
-        },
     )
 
     author = models.ForeignKey(
