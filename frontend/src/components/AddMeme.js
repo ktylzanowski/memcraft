@@ -1,8 +1,8 @@
 import Button from "../UI/Button";
-import { Form, useActionData } from "react-router-dom";
-import classes from "./AddMeme.module.css";
-import { useState } from "react";
 import Image from "../UI/Image";
+import classes from "./AddMeme.module.css";
+import { Form, useActionData } from "react-router-dom";
+import { useState } from "react";
 
 const AddMeme = () => {
   const [isImage, setIsImage] = useState(false);

@@ -29,7 +29,7 @@ export async function action({ request }) {
     }
   } catch {
     throw json(
-      { message: "Coś poszło nie tak! Przepraszamy!." },
+      { message: "Coś poszło nie tak z dodawaniem mema. Przepraszamy!" },
       {
         status: 500,
       }

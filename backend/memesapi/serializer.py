@@ -2,13 +2,6 @@ from rest_framework import serializers
 from .models import Meme, Comment
 
 class MemeSerializer(serializers.ModelSerializer):
-
-    if_like = serializers.SerializerMethodField(read_only=True)
-    if_dislike = serializers.SerializerMethodField(read_only=True)
-    total_likes = serializers.SerializerMethodField(read_only=True)
-    total_dislikes = serializers.SerializerMethodField(read_only=True)
-    author_name = serializers.SerializerMethodField(read_only=True)
-
     title = serializers.CharField(
         error_messages={
             'null': "Tytuł nie może być pusty",
@@ -32,6 +25,12 @@ class MemeSerializer(serializers.ModelSerializer):
             'likes': {'write_only': True},
             'dislikes': {'write_only': True},
         }
+
+    if_like = serializers.SerializerMethodField(read_only=True)
+    if_dislike = serializers.SerializerMethodField(read_only=True)
+    total_likes = serializers.SerializerMethodField(read_only=True)
+    total_dislikes = serializers.SerializerMethodField(read_only=True)
+    author_name = serializers.SerializerMethodField(read_only=True)
     
     def get_author_name(self, instance):
         return instance.author.username
