@@ -23,7 +23,7 @@ export async function action({ request }) {
     const responseData = await response.json();
 
     if (response.ok) {
-      return redirect(`/?message=${responseData.message}`);
+      return redirect(`/meme/${responseData.pk}`);
     } else {
       return responseData;
     }

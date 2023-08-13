@@ -18,7 +18,7 @@ class MemeView(viewsets.ModelViewSet):
         context = super().get_serializer_context()
         context['user'] = self.request.user
         return context
-
+    
     def create(self, request):
         user = request.user
         data = {
@@ -28,8 +28,8 @@ class MemeView(viewsets.ModelViewSet):
         }
         serializer = self.get_serializer(data=data)
         if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "Mem dodany."}, status=status.HTTP_201_CREATED)
+            meme = serializer.save()
+            return Response({"pk": meme.pk}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -89,7 +89,7 @@ class CommentView(viewsets.ModelViewSet):
         serialized_comment = self.get_serializer(comment)
         return Response({
             "message": "Komentarz dodany",
-            "comment": serialized_comment.data
+            "comment": serialized_comment.data,
         })
     
     def list(self, request):
