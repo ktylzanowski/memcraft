@@ -10,8 +10,43 @@ const Comments = (props) => {
   const [totalComments, setTotalComments] = useState(0);
   const [nextPage, setNextPage] = useState(null);
 
+  const fetchData = async (page) => {
+    try {
+
+      const response = await fetch(
+        `http://127.0.0.1:8000/comment/?page=${page}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Meme-ID": props.id,
+          },
+        }
+      );
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+        if (page === 1) {
+          setComments(responseData.results);
+          setTotalComments(responseData.count);
+        } else {
+          setComments([...comments, ...responseData.results]);
+        }
+        setNextPage(responseData.next);
+      } else {
+        console.log("BAD");
+      }
+    } catch {
+      console.log("BAD");
+    }
+  };
+
   useEffect(() => {
     setCommentPage(1);
+    setTotalComments(0)
+    fetchData(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.id]);
 
   useEffect(() => {
@@ -21,45 +56,10 @@ const Comments = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataFromAction]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `http://127.0.0.1:8000/comment/?page=${commentPage}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Meme-ID": props.id,
-            },
-          }
-        );
-
-        const responseData = await response.json();
-
-        if (response.ok) {
-          if (commentPage === 1) {
-            setComments(responseData.results);
-            setTotalComments(responseData.count);
-          } else {
-            setComments([...comments, ...responseData.results]);
-          }
-          setNextPage(responseData.next);
-        } else {
-          console.log("BAD");
-        }
-      } catch {
-        console.log("BAD");
-      }
-    };
-
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commentPage, props.id]);
-
   const handleShowMore = () => {
     if (nextPage) {
       setCommentPage(commentPage + 1);
+      fetchData(commentPage + 1)
     }
   };
 
