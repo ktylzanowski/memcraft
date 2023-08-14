@@ -53,6 +53,7 @@ const Comments = (props) => {
   useEffect(() => {
     if (dataFromAction && dataFromAction.comment.meme_id === props.id) {
       setComments([dataFromAction.comment, ...comments]);
+      setTotalComments(totalComments + 1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataFromAction]);
@@ -67,9 +68,7 @@ const Comments = (props) => {
   return (
     <div className={classes.container}>
       <h3>Komentarze:</h3>
-      {totalComments > 0 ? (
-        <p>Ilość komentarzy: {totalComments}</p>
-      ) : null}
+      {totalComments > 0 ? <p>Ilość komentarzy: {totalComments}</p> : null}
       {comments.length > 0 ? (
         comments.map((comment) => (
           <div key={comment.id} className={classes.comment}>
