@@ -9,10 +9,10 @@ const Comments = (props) => {
   const dataFromAction = useActionData();
   const [totalComments, setTotalComments] = useState(0);
   const [nextPage, setNextPage] = useState(null);
+  const [errors, setErrors] = useState(false);
 
   const fetchData = async (page) => {
     try {
-
       const response = await fetch(
         `http://127.0.0.1:8000/comment/?page=${page}`,
         {
@@ -28,6 +28,7 @@ const Comments = (props) => {
 
       if (response.ok) {
         if (page === 1) {
+          setErrors(false);
           setComments(responseData.results);
           setTotalComments(responseData.count);
         } else {
@@ -35,16 +36,16 @@ const Comments = (props) => {
         }
         setNextPage(responseData.next);
       } else {
-        console.log("BAD");
+        setErrors({ "404error": "Nie można pobrać komentarzy. Przepraszamy!" });
       }
     } catch {
-      console.log("BAD");
+      setErrors({ "404error": "Nie można pobrać komentarzy. Przepraszamy!" });
     }
   };
 
   useEffect(() => {
     setCommentPage(1);
-    setTotalComments(0)
+    setTotalComments(0);
     fetchData(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.id]);
@@ -59,13 +60,16 @@ const Comments = (props) => {
   const handleShowMore = () => {
     if (nextPage) {
       setCommentPage(commentPage + 1);
-      fetchData(commentPage + 1)
+      fetchData(commentPage + 1);
     }
   };
 
   return (
     <div className={classes.container}>
       <h3>Komentarze:</h3>
+      {totalComments > 0 ? (
+        <p>Ilość komentarzy: {totalComments}</p>
+      ) : null}
       {comments.length > 0 ? (
         comments.map((comment) => (
           <div key={comment.id} className={classes.comment}>
@@ -81,7 +85,7 @@ const Comments = (props) => {
           </div>
         ))
       ) : (
-        <p>Brak komentarzy</p>
+        <p>{errors ? errors["404error"] : "Brak komentarzy."}</p>
       )}
       {totalComments > comments.length && (
         <button onClick={handleShowMore} className={classes.showMoreButton}>
