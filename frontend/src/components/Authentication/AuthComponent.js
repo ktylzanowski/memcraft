@@ -7,14 +7,13 @@ import AuthContext from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const AuthComponent = () => {
-  const { action, setAction, setError } = useContext(AuthContext);
+  const { action, setError } = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (action) {
-      setAction(false)
       navigate("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

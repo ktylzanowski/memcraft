@@ -7,9 +7,10 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
 const RootLayout = () => {
-  const { authMessage, setAuthMessage } = useContext(AuthContext);
+  const { authMessage, setAction, setAuthMessage } = useContext(AuthContext);
 
   useEffect(() => {
+    setAction(false);
     const timer = setTimeout(() => {
       if (authMessage) {
         setAuthMessage(false);
