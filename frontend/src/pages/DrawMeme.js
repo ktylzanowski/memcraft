@@ -1,26 +1,12 @@
 import SingleMeme from "../components/SingleMeme";
 import { json } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
-import ModalMessage from "../UI/ModalMessage";
+import { useState } from "react";
 import { useLoaderData } from "react-router";
 import Button from "../UI/Button";
 import Comments from "../components/Comments";
 
 const DrawMeme = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  let urlMessage = searchParams.get("message");
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate({ search: "" });
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, [navigate, urlMessage]);
-
   const memeFromLoader = useLoaderData();
   const last_meme = localStorage.getItem("last_meme");
 
@@ -63,7 +49,6 @@ const DrawMeme = () => {
   return (
     <>
       <Outlet />
-      {urlMessage && <ModalMessage>{urlMessage}</ModalMessage>}
       <SingleMeme meme={meme} />
       <Button onClick={fetchMeme}>Losuj Mema</Button>
       <Comments id={meme.id} />

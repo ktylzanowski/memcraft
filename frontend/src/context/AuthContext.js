@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
       ? jwt_decode(localStorage.getItem("authTokens"))
       : null
   );
+  const [action, setAction] = useState(false)
   const [authMessage, setAuthMessage] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -36,6 +37,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("authTokens", JSON.stringify(data));
       setError(false);
       setAuthMessage("Zalogowano");
+      setAction(true)
     } else {
       setError("Nieprawidłowe dane logowania. Spróbuj ponownie!");
     }
@@ -55,8 +57,8 @@ export const AuthProvider = ({ children }) => {
       }),
     });
     if (response.ok) {
-      loginUser(login, password);
       setAuthMessage("Zarejestrowano");
+      setAction(true)
     } else {
       setError("BAD");
     }
@@ -67,6 +69,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("authTokens");
     setAuthMessage("Wylogowano");
+    setAction(true)
   };
 
   const updateToken = async () => {
@@ -102,6 +105,8 @@ export const AuthProvider = ({ children }) => {
     user,
     authMessage,
     setAuthMessage,
+    action,
+    setAction,
     error,
     setError,
     loginUser,

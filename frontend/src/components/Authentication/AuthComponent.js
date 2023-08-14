@@ -5,29 +5,29 @@ import Register from "./Register";
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+
 const AuthComponent = () => {
-  const { authMessage, setAuthMessage, setError } = useContext(AuthContext);
+  const { action, setAction, setError } = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authMessage) {
-      const messageParam = encodeURIComponent(authMessage);
-      setAuthMessage(false)
-      navigate(`/?message=${messageParam}`);
+    if (action) {
+      setAction(false)
+      navigate("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authMessage]);
+  }, [action]);
 
   const handlerLogin = () => {
-    setIsLogin(true);
     setError(false);
+    setIsLogin(true);
   };
 
   const handlerRegister = () => {
-    setIsLogin(false);
     setError(false);
+    setIsLogin(false);
   };
 
   return (
