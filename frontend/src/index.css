@@ -21,14 +21,18 @@ main {
   padding-top: 40px;
   padding-bottom: 40px;
   background-image: url("./images/main.png");
-  background-size: cover; 
+  background-size: contain;
+  background-repeat: repeat;
 }
 
 input {
   color: black;
 }
 
-li, ul, ol, a {
+li,
+ul,
+ol,
+a {
   color: whitesmoke;
   list-style: none;
   text-decoration: none;
