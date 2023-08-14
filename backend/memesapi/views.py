@@ -84,14 +84,16 @@ class CommentView(viewsets.ModelViewSet):
         meme_id = data.get('meme_id')
         meme = get_object_or_404(Meme, pk=meme_id)
         serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
-        comment = serializer.save(author=request.user, meme=meme)
-        serialized_comment = self.get_serializer(comment)
-        return Response({
-            "message": "Komentarz dodany",
-            "comment": serialized_comment.data,
-        })
-    
+        if serializer.is_valid():
+            comment = serializer.save(author=request.user, meme=meme)
+            serialized_comment = self.get_serializer(comment)
+            return Response({
+                "message": "Komentarz dodany",
+                "comment": serialized_comment.data,
+            })
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
     def list(self, request):
         meme_id = request.META.get("HTTP_MEME_ID")
         meme = get_object_or_404(Meme, pk=meme_id)

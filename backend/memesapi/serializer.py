@@ -54,6 +54,12 @@ class CommentSerializer(serializers.ModelSerializer):
     author_icon = serializers.SerializerMethodField()
     author_username = serializers.SerializerMethodField()
     meme_id = serializers.SerializerMethodField()
+    text = serializers.CharField(
+        error_messages={
+            'null': "Komentarz nie może być pusty",
+            'blank': "Komentarz nie może być pusty",
+        }
+    )
     
     class Meta:
         model = Comment

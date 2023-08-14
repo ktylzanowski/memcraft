@@ -90,3 +90,7 @@
 .showMoreButton:active {
   transform: scale(0.95);
 }
+
+.error{
+  color: black;
+}
