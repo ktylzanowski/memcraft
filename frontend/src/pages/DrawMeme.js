@@ -106,38 +106,4 @@ export async function loader() {
     );
   }
 }
-
-export async function action({ request }) {
-  const data = await request.formData();
-  const token = JSON.parse(localStorage.getItem("authTokens"));
-  const sendData = {
-    text: data.get("comment"),
-    meme_id: parseInt(data.get("intent")),
-  };
-  try {
-    const response = await fetch("http://127.0.0.1:8000/comment/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ` + String(token.access),
-      },
-      body: JSON.stringify(sendData),
-    });
-
-    const responseData = await response.json();
-
-    if (response.ok) {
-      return responseData;
-    } else {
-      console.log(responseData);
-    }
-  } catch {
-    throw json(
-      { message: "Coś poszło nie tak! Przepraszamy!." },
-      {
-        status: 500,
-      }
-    );
-  }
-}
 export default DrawMeme;

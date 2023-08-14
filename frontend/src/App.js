@@ -7,7 +7,6 @@ import ErrorPage from "./pages/ErrorPage";
 import Authentication from "./pages/Authentication";
 import AddMemePage, {action as newMemeAction} from "./pages/AddMemePage";
 import AccountPage, {loader as InfoLoader, action as ChangeUserInfo} from "./pages/AccountPage";
-import {action as newComment} from "./pages/DrawMeme"
 import BoardPage, {loader as BoardLoader} from "./pages/BoardPage";
 import DetailMemePage, {loader as DetailLoader} from "./pages/DetailMemePage";
 
@@ -21,7 +20,6 @@ const router = createBrowserRouter([
         path: "/",
         element: <DrawMeme />,
         loader: MemeLoader,
-        action: newComment,
         children: [
           {
             path: "authentication",
@@ -33,7 +31,6 @@ const router = createBrowserRouter([
         path: "tablica",
         element: <BoardPage />,
         loader: BoardLoader,
-        action: newComment,
       },
       {
         path: "meme/:id",

@@ -1,12 +1,10 @@
 import classes from "./Comments.module.css";
-import { Form } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useActionData } from "react-router-dom";
+import AddComment from "./AddComment";
 
 const Comments = (props) => {
   const [comments, setComments] = useState([]);
   const [commentPage, setCommentPage] = useState(1);
-  const dataFromAction = useActionData();
   const [totalComments, setTotalComments] = useState(0);
   const [nextPage, setNextPage] = useState(null);
   const [errors, setErrors] = useState(false);
@@ -50,19 +48,16 @@ const Comments = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.id]);
 
-  useEffect(() => {
-    if (dataFromAction && dataFromAction.comment.meme_id === props.id) {
-      setComments([dataFromAction.comment, ...comments]);
-      setTotalComments(totalComments + 1);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataFromAction]);
-
   const handleShowMore = () => {
     if (nextPage) {
       setCommentPage(commentPage + 1);
       fetchData(commentPage + 1);
     }
+  };
+
+  const addNewComment = (newComment) => {
+    setComments([newComment, ...comments]);
+    setTotalComments(totalComments+1)
   };
 
   return (
@@ -91,22 +86,7 @@ const Comments = (props) => {
           Pokaż więcej
         </button>
       )}
-      <Form method="post" className={classes.commentInput}>
-        <input
-          type="text"
-          placeholder="Komentarz"
-          name="comment"
-          className={classes.commentInput}
-        />
-        <button
-          type="submit"
-          name="intent"
-          value={props.id}
-          className={classes.commentInput}
-        >
-          Dodaj komentarz
-        </button>
-      </Form>
+      <AddComment id={props.id} addNewComment={addNewComment} />
     </div>
   );
 };
