@@ -42,5 +42,8 @@ class Comment(models.Model):
     text = models.CharField(max_length=100, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-pk']  
+
     def __str__(self):
         return str(self.meme.title) + str(self.pk)

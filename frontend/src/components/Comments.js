@@ -30,7 +30,15 @@ const Comments = (props) => {
           setComments(responseData.results);
           setTotalComments(responseData.count);
         } else {
-          setComments([...comments, ...responseData.results]);
+          setComments((prevComments) => {
+            const newComments = responseData.results.filter(
+              (newComment) =>
+                !prevComments.some(
+                  (existingComment) => existingComment.id === newComment.id
+                )
+            );
+            return [...prevComments, ...newComments];
+          });
         }
         setNextPage(responseData.next);
       } else {
@@ -57,7 +65,7 @@ const Comments = (props) => {
 
   const addNewComment = (newComment) => {
     setComments([newComment, ...comments]);
-    setTotalComments(totalComments+1)
+    setTotalComments(totalComments + 1);
   };
 
   return (

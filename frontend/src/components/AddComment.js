@@ -1,6 +1,7 @@
 import classes from "./Comments.module.css";
 import useInput from "../hooks/useInput";
 import { useEffect, useState } from "react";
+
 const AddComment = (props) => {
   const [error, setError] = useState(false);
   const token = JSON.parse(localStorage.getItem("authTokens"));
@@ -13,6 +14,7 @@ const AddComment = (props) => {
     value: enteredComment,
     isValid: commentIsValid,
     valueChangerHandler: commentChangedHandler,
+    reset: resetComment,
     inputBlurHandler: commentBlurHandler,
   } = useInput(1);
 
@@ -42,6 +44,7 @@ const AddComment = (props) => {
         if (response.ok) {
           setError(false);
           props.addNewComment(responseData.comment);
+          resetComment();
         } else {
           setError(responseData.text);
         }
@@ -58,7 +61,11 @@ const AddComment = (props) => {
       <form method="POST" className={classes.commentInput}>
         <input
           type="text"
-          placeholder={token ? "Komentarz" : "Musisz być zalogowany aby zostawić komentarz."}
+          placeholder={
+            token
+              ? "Komentarz"
+              : "Musisz być zalogowany aby zostawić komentarz."
+          }
           name="comment"
           className={classes.commentInput}
           value={enteredComment}
