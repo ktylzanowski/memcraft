@@ -4,26 +4,25 @@ import Footer from "../components/Layout/Footer";
 import ModalMessage from "../UI/ModalMessage";
 import { useEffect } from "react";
 import { useContext } from "react";
-import AuthContext from "../context/AuthContext";
+import MessageContext from "../context/MessageContext";
 
 const RootLayout = () => {
-  const { authMessage, setAction, setAuthMessage } = useContext(AuthContext);
+  const { message, setMessage } = useContext(MessageContext);
 
   useEffect(() => {
-    setAction(false);
     const timer = setTimeout(() => {
-      if (authMessage) {
-        setAuthMessage(false);
+      if (message) {
+        setMessage(false);
       }
     }, 5000);
 
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authMessage]);
+  }, [message]);
 
   return (
     <>
-      {authMessage && <ModalMessage>{authMessage}</ModalMessage>}
+      {message && <ModalMessage>{message}</ModalMessage>}
       <Header />
       <main>
         <Outlet />

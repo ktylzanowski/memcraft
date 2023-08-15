@@ -1,9 +1,12 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import jwt_decode from "jwt-decode";
+import MessageContext from "./MessageContext";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const { setMessage } = useContext(MessageContext);
+
   const [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem("authTokens")
       ? JSON.parse(localStorage.getItem("authTokens"))
@@ -15,7 +18,6 @@ export const AuthProvider = ({ children }) => {
       : null
   );
   const [action, setAction] = useState(false)
-  const [authMessage, setAuthMessage] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -36,7 +38,7 @@ export const AuthProvider = ({ children }) => {
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
       setError(false);
-      setAuthMessage("Zalogowano");
+      setMessage("Zalogowano")
       setAction(true)
     } else {
       setError("Nieprawidłowe dane logowania. Spróbuj ponownie!");
@@ -57,7 +59,7 @@ export const AuthProvider = ({ children }) => {
       }),
     });
     if (response.ok) {
-      setAuthMessage("Zarejestrowano");
+      setMessage("Zarejestrowano")
       setAction(true)
     } else {
       setError("BAD");
@@ -68,8 +70,7 @@ export const AuthProvider = ({ children }) => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
-    setAuthMessage("Wylogowano");
-    setAction(true)
+    setMessage("Wylogowano")
   };
 
   const updateToken = async () => {
@@ -103,8 +104,6 @@ export const AuthProvider = ({ children }) => {
 
   const contextData = {
     user,
-    authMessage,
-    setAuthMessage,
     action,
     setAction,
     error,
