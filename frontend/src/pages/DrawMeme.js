@@ -44,6 +44,10 @@ const DrawMeme = () => {
     } catch (error) {
       console.log("Bad");
     }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
