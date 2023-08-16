@@ -31,6 +31,9 @@ class Meme(models.Model):
 
     def total_dislikes(self):
         return self.dislikes.count()
+    
+    class Meta:
+        ordering = ['-pk']  
 
     def __str__(self):
         return str(self.title) + str(self.pk)
