@@ -28,6 +28,10 @@ const BoardPage = () => {
     } catch {
       console.log("BAD");
     }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
