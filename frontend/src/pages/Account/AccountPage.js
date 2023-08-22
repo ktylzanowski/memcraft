@@ -1,20 +1,8 @@
-import AccountNavbar from "../components/Account/AccountNavbar";
-import { Outlet, json } from "react-router-dom";
-import Modal from "../UI/Modal"
-import classes from "../components/Account/Account.module.css"
+import { json } from "react-router-dom";
+import AccountRoot from "../../components/Account/AccountRoot";
+
 const AccountPage = () => {
-  return (
-    <>
-      <Modal>
-      <div className={classes.account}>
-        <AccountNavbar />
-        <div className={classes.main}>
-          <Outlet />
-        </div>
-      </div>
-    </Modal>
-    </>
-  )
+  return <AccountRoot />
 };
 
 export async function loader() {
