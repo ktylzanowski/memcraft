@@ -14,6 +14,7 @@ import AccountPage, {
 } from "./pages/AccountPage";
 import BoardPage, { loader as BoardLoader } from "./pages/BoardPage";
 import DetailMemePage, { loader as DetailLoader } from "./pages/DetailMemePage";
+import UserInfoPage from "./pages/UserInfoPage";
 
 const router = createBrowserRouter([
   {
@@ -51,10 +52,15 @@ const router = createBrowserRouter([
             action: newMemeAction,
           },
           {
-            path: "konto",
             element: <AccountPage />,
-            loader: InfoLoader,
-            action: ChangeUserInfo,
+            children: [
+              {
+                path: "konto",
+                element: <UserInfoPage />,
+                loader: InfoLoader,
+                action: ChangeUserInfo,
+              }
+            ],
           },
         ],
       },
