@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerUser = async (login, email, password, password2) => {
-    const response = await fetch("http://127.0.0.1:8000/accounts/register/", {
+    const response = await fetch("http://127.0.0.1:8000/accounts/user/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

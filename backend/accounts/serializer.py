@@ -10,7 +10,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-
         token["username"] = user.username
         token["icon"] = user.icon
         return token
@@ -24,56 +23,44 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ["email", "username", "password", "password2"]
         extra_kwargs = {"password": {"write_only": True}}
 
-    def save(self):
-        user = MyUser(
-            email=self.validated_data["email"],
-            username=self.validated_data["username"],
-        )
-        password = self.validated_data["password"]
-        password2 = self.validated_data["password2"]
+    def validate_password2(self, value):
+        if self.initial_data.get('password') != value:
+            raise serializers.ValidationError("Hasła nie są takie same!")
+        return value
 
-        if password != password2:
-            raise serializers.ValidationError({"password": "Hasła nie są takie same."})
-        user.set_password(password)
+    def create(self, validated_data):
+        user = MyUser(
+            email=validated_data["email"],
+            username=validated_data["username"],
+        )
+        user.set_password(validated_data["password"])
         user.save()
         return user
 
 
 class ChangePasswordSerializer(serializers.ModelSerializer):
-    old_password = serializers.CharField(
-        style={"input_type": "password"},
-    )
-    new_password = serializers.CharField(
-        style={"input_type": "password"},
-    )
-    new_password2 = serializers.CharField(
-        style={"input_type": "password"},
-    )
+    old_password = serializers.CharField(style={"input_type": "password"})
+    new_password = serializers.CharField(style={"input_type": "password"})
+    new_password2 = serializers.CharField(style={"input_type": "password"})
 
     class Meta:
         model = MyUser
         fields = ["old_password", "new_password", "new_password2"]
 
-    def __init__(self, user, *args, **kwargs):
-        self.user = user
-        super().__init__(*args, **kwargs)
-
     def validate_old_password(self, value):
-        if not check_password(value, self.user.password):
-            raise serializers.ValidationError("Nieprawidłowe stare hasło.")
+        if not check_password(value, self.instance.password):
+            raise serializers.ValidationError("Złe hasło.")
         return value
 
     def validate(self, data):
         if data["new_password"] != data["new_password2"]:
-            raise serializers.ValidationError("Nowe hasła nie są identyczne.")
+            raise serializers.ValidationError("Hasła nie są takie same.")
         return data
 
-    def save(self, **kwargs):
-        new_password = self.validated_data["new_password"]
-        self.user.set_password(new_password)
-        self.user.save()
-        return self.user
-
+    def update(self, instance, validated_data):
+        instance.set_password(validated_data["new_password"])
+        instance.save()
+        return instance
 
 class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:

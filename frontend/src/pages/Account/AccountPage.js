@@ -7,7 +7,7 @@ const AccountPage = () => {
 
 export async function loader() {
   const token = JSON.parse(localStorage.getItem("authTokens"));
-  const response = await fetch("http://127.0.0.1:8000/accounts/info/", {
+  const response = await fetch("http://127.0.0.1:8000/accounts/user/", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export async function action({ request }) {
 
   if (intent === "userInfo") {
     try {
-      const response = await fetch("http://127.0.0.1:8000/accounts/info/", {
+      const response = await fetch("http://127.0.0.1:8000/accounts/userinfo/", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export async function action({ request }) {
       const response = await fetch(
         "http://127.0.0.1:8000/accounts/changepassword/",
         {
-          method: "PATCH",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ` + String(token.access),
@@ -77,6 +77,7 @@ export async function action({ request }) {
       if (response.ok) {
         return responseData;
       } else {
+        console.log(responseData)
         return responseData;
       }
     } catch {
