@@ -16,12 +16,18 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(style={"input_type": "password"}, write_only=True)
+    password2 = serializers.CharField(style={"input_type": "password"}, write_only=True, error_messages={
+            'blank': "Hasło nie może być puste",
+        })
 
     class Meta:
         model = MyUser
         fields = ["email", "username", "password", "password2"]
-        extra_kwargs = {"password": {"write_only": True}}
+        extra_kwargs = {
+            "email": {"error_messages": {'blank': "Email nie może być pusty", 'required': "To pole jest wymagane"}},
+            "username": {"error_messages": {'blank': "Nazwa użytkownika nie może być pusta", 'required': "To pole jest wymagane"}},
+            "password": {"write_only": True, "error_messages": {'required': "To pole jest wymagane"}}
+        }
 
     def validate_password2(self, value):
         if self.initial_data.get('password') != value:

@@ -40,6 +40,12 @@
   }
 }
 
+.scrollableContent {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .modalMessage {
   z-index: 99;
   position: fixed;

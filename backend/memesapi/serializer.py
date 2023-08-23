@@ -2,21 +2,6 @@ from rest_framework import serializers
 from .models import Meme, Comment
 
 class MemeSerializer(serializers.ModelSerializer):
-    title = serializers.CharField(
-        error_messages={
-            'null': "Tytuł nie może być pusty",
-            'blank': "Tytuł nie może być pusty",
-        }
-    )
-
-    meme_image = serializers.ImageField(
-        error_messages={
-            'invalid_image': "Wysłany plik nie jest prawidłowym obrazem. Proszę przesłać poprawny obraz.",
-            'null': "Musisz przesłać jakieś zdjęcie",
-            'blank': "Musisz przesłać jakieś zdjęcie",
-        }
-    )
-
     class Meta:
         model = Meme
         fields = ['id', 'title', 'meme_image', 'author', 'author_name', 'total_likes', 'total_dislikes', 'if_like', 'if_dislike']
@@ -24,6 +9,10 @@ class MemeSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'likes': {'write_only': True},
             'dislikes': {'write_only': True},
+            "title": {"error_messages": {'null': "Tytuł nie może być pusty", 'blank': "Tytuł nie może być pusty"}},
+            "meme_image": {"error_messages": {'invalid_image': "Wysłany plik nie jest prawidłowym obrazem. Proszę przesłać poprawny obraz.", 
+                                              'null': "Musisz przesłać jakieś zdjęcie",
+                                              'blank': "Musisz przesłać jakieś zdjęcie",}},
         }
 
     if_like = serializers.SerializerMethodField(read_only=True)
@@ -54,17 +43,15 @@ class CommentSerializer(serializers.ModelSerializer):
     author_icon = serializers.SerializerMethodField()
     author_username = serializers.SerializerMethodField()
     meme_id = serializers.SerializerMethodField()
-    text = serializers.CharField(
-        error_messages={
-            'null': "Komentarz nie może być pusty",
-            'blank': "Komentarz nie może być pusty",
-        }
-    )
+
     
     class Meta:
         model = Comment
         fields = ['id', 'text', 'author_icon', 'author_username', 'meme_id']
         write_only = ['author', 'meme']
+        extra_kwargs ={
+            "text": {"error_messages": {'null': "Komentarz nie może być pusty", 'blank': "Komentarz nie może być pusty"}},
+        }
 
     def get_meme_id(self, obj):
         return obj.meme.id

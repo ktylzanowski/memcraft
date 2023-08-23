@@ -6,6 +6,7 @@ import usePasswordInput from "../../hooks/usePasswordInput";
 import useInput from "../../hooks/useInput";
 import useEmailInput from "../../hooks/useEmail";
 import LongButton from "../../UI/LongButton";
+
 const Register = () => {
   const { registerUser, error, setError } = useContext(AuthContext);
 
@@ -40,13 +41,15 @@ const Register = () => {
     resetPasswordInput,
   } = usePasswordInput();
 
+  const isValid = loginIsValid && passwordIsValid && emailIsValid;
+
   const submitHandler = async (event) => {
     event.preventDefault();
     if (enteredPassword !== enteredPassword2) {
-      setError("Hasła nie są takie same!");
+      setError({ error: "Hasła nie są takie same!" });
       return;
     }
-    if ({ passwordIsValid } && { loginIsValid } && { emailIsValid }) {
+    if (isValid) {
       await registerUser(
         enteredLogin,
         enteredEmail,
@@ -57,7 +60,7 @@ const Register = () => {
       resetEmailInput();
       resetPasswordInput();
     } else {
-      setError("Coś poszło nie tak, przepraszamy!");
+      setError({error: "Nieprawidłowe dane rejestracji. Spróbuj ponownie!"});
     }
   };
 
@@ -73,6 +76,14 @@ const Register = () => {
           onChange={loginChangedHandler}
           onBlur={loginBlurHandler}
         ></input>
+        {loginHasError && (
+          <p className={classes.errorMessage}>
+            Login musi mieć przynajmniej 2 znaki!
+          </p>
+        )}
+        {error?.username && !loginHasError && (
+          <p className={classes.errorMessage}>{error.username}</p>
+        )}
         <input
           placeholder="Email"
           type="text"
@@ -82,6 +93,12 @@ const Register = () => {
           onChange={handleEmailChange}
           onBlur={handleEmailBlur}
         ></input>
+        {emailHasError && (
+          <p className={classes.errorMessage}>{emailErrorMessage}</p>
+        )}
+        {error?.email && !emailErrorMessage && (
+          <p className={classes.errorMessage}>{error.email}</p>
+        )}
         <input
           placeholder="Hasło"
           type="password"
@@ -91,6 +108,9 @@ const Register = () => {
           onChange={handlePasswordChange}
           onBlur={handlePasswordBlur}
         ></input>
+        {error?.password && (
+          <p className={classes.errorMessage}>{error.password}</p>
+        )}
         <input
           placeholder="Powtórz Hasło"
           type="password"
@@ -99,14 +119,15 @@ const Register = () => {
           className={classes.input}
           onChange={handlePassword2Change}
         ></input>
-        <LongButton>Zarejestruj</LongButton>
-        <BackButton />
-        {loginHasError && <p className={classes.errorMessage}>Login musi mieć przynajmniej 2 znaki!</p>}
-        {emailHasError && <p className={classes.errorMessage}>{emailErrorMessage}</p>}
         {passwordHasError && (
           <p className={classes.errorMessage}>{passwordErrorMessage}</p>
         )}
-        {error && <p className={classes.errorMessage}>{error}</p>}
+        {error?.password2 && !passwordHasError && (
+          <p className={classes.errorMessage}>{error.password2}</p>
+        )}
+        {error?.error && <p className={classes.errorMessage}>{error.error}</p>}
+        <LongButton>Zarejestruj</LongButton>
+        <BackButton />
       </form>
     </>
   );

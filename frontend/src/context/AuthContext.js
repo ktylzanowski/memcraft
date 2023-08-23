@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
       setMessage("Zalogowano")
       setAction(true)
     } else {
-      setError("Nieprawidłowe dane logowania. Spróbuj ponownie!");
+      setError({login: "Nieprawidłowe dane logowania. Spróbuj ponownie!"});
     }
   };
 
@@ -58,11 +58,14 @@ export const AuthProvider = ({ children }) => {
         password2: password2,
       }),
     });
+
+    const responseData = await response.json()
+
     if (response.ok) {
       setMessage("Zarejestrowano")
       setAction(true)
     } else {
-      setError("BAD");
+      setError(responseData)
     }
   };
 

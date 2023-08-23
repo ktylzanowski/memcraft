@@ -16,13 +16,13 @@ const Login = () => {
 
   const {
     value: enteredPassword,
-    isValid: PasswordIsValid,
-    hasError: PasswordHasError,
-    valueChangerHandler: PasswordChangedHandler,
-    inputBlurHandler: PasswordBlurHandler,
+    isValid: passwordIsValid,
+    hasError: passwordHasError,
+    valueChangerHandler: passwordChangedHandler,
+    inputBlurHandler: passwordBlurHandler,
   } = useInput(1);
 
-  const isValid = loginIsValid && PasswordIsValid;
+  const isValid = loginIsValid && passwordIsValid;
 
   const { loginUser, error, setError } = useContext(AuthContext);
 
@@ -32,7 +32,7 @@ const Login = () => {
     if (isValid) {
       await loginUser(enteredLogin, enteredPassword);
     } else {
-      setError("Nieprawidłowe dane logowania. Spróbuj ponownie!");
+      setError({login: "Nieprawidłowe dane logowania. Spróbuj ponownie!"});
     }
   };
 
@@ -48,25 +48,24 @@ const Login = () => {
           onChange={loginChangedHandler}
           onBlur={loginBlurHandler}
         />
+        {loginHasError && (
+          <p className={classes.errorMessage}>Login nie może być pusty</p>
+        )}
         <input
           type="password"
           className={classes.input}
           placeholder="Hasło"
           name="password"
           value={enteredPassword}
-          onChange={PasswordChangedHandler}
-          onBlur={PasswordBlurHandler}
+          onChange={passwordChangedHandler}
+          onBlur={passwordBlurHandler}
         />
-        <LongButton>Zaloguj</LongButton>
-        <BackButton onClick={setError} />
-        
-        {loginHasError && (
-          <p className={classes.errorMessage}>Login nie może być pusty</p>
-        )}
-        {PasswordHasError && (
+        {passwordHasError && (
           <p className={classes.errorMessage}>Hasło nie może być puste</p>
         )}
-        {error && <p className={classes.errorMessage}>{error}</p>}
+        <LongButton>Zaloguj</LongButton>
+        <BackButton onClick={setError} />
+        {error?.login && <p className={classes.errorMessage}>{error.login}</p>}
       </form>
     </>
   );
