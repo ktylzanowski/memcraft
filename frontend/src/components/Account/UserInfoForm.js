@@ -1,4 +1,4 @@
-import classes from "./Account.module.css";
+import classes from "./UserInfoForm.module.css";
 import Button from "../../UI/Button";
 import BackButton from "../../UI/BackButton";
 import { Form } from "react-router-dom";

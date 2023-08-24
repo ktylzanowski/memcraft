@@ -1,0 +1,33 @@
+.data {
+    background-color: #e0e0e0;
+    padding: 20px;
+    display: grid;
+    margin-top: 60px;
+  }
+
+.title{
+    color: black;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+
+  .formRow input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+
+@media (max-width: 600px) {
+    .formRow {
+      grid-template-columns: 1fr;
+    }
+    .data {
+        margin-top: 20px;
+      } 
+  }

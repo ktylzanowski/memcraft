@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
-import classes from "./Account.module.css";
+import classes from "./ChangeIcon.module.css";
 
 function ChangeIcon() {
   const [show, setShow] = useState(false);

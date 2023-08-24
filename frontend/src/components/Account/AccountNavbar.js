@@ -1,4 +1,4 @@
-import classes from "./Account.module.css"
+import classes from "./AccountNavbar.module.css"
 
 const AccountNavbar = () => {
   return (

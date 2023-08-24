@@ -1,7 +1,7 @@
 import ChangeIcon from "./ChangeIcon";
 import ChangePassword from "./ChangePassword";
 import AuthContext from "../../context/AuthContext";
-import classes from "./Account.module.css";
+import classes from "./AccountHeader.module.css";
 import { useContext } from "react";
 
 const AccountHeader = () => {
@@ -13,7 +13,7 @@ const AccountHeader = () => {
       <div className={classes.iconContainer}>
         <div className={classes.infoUser}>
           <img src={imageUrl} alt="icon" />
-          <span className={classes.title}>{user.username}</span>
+          <span className={classes.username}>{user.username}</span>
         </div>
         <ChangeIcon />
       </div>

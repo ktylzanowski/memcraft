@@ -1,0 +1,15 @@
+.account {
+  display: flex;
+}
+.main {
+  flex: 4;
+}
+
+@media (max-width: 600px) {
+  .account {
+    flex-direction: column;
+  }
+  .main {
+    flex: auto;
+  }
+}

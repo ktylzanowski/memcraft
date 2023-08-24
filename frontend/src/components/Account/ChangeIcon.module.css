@@ -17,10 +17,11 @@
     background-color: #0056b3;
   }
 
-  .input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid black;
-    border-radius: 3px;
+  .icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.3s;
+    margin-left: 5px;
   }

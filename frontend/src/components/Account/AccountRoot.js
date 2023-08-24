@@ -1,7 +1,7 @@
 import AccountNavbar from "./AccountNavbar"
 import { Outlet} from "react-router-dom";
 import Modal from "../../UI/Modal";
-import classes from  "./Account.module.css"
+import classes from  "./AccountRoot.module.css"
 
 const AccountRoot = () =>{
     return (
