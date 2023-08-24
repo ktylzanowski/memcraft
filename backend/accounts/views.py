@@ -54,6 +54,6 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = ChangePasswordSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message": "Zmieniono hasło."}, status=status.HTTP_200_OK)
+            return Response({"messagePassword": "Zmieniono hasło."}, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

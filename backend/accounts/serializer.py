@@ -45,9 +45,9 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class ChangePasswordSerializer(serializers.ModelSerializer):
-    old_password = serializers.CharField(style={"input_type": "password"})
-    new_password = serializers.CharField(style={"input_type": "password"})
-    new_password2 = serializers.CharField(style={"input_type": "password"})
+    old_password = serializers.CharField(style={"input_type": "password"}, error_messages= {'blank': "To pole jest wymagane"})
+    new_password = serializers.CharField(style={"input_type": "password"}, error_messages= {'blank': "To pole jest wymagane"})
+    new_password2 = serializers.CharField(style={"input_type": "password"}, error_messages= {'blank': "To pole jest wymagane"})
 
     class Meta:
         model = MyUser
