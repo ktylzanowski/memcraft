@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import classes from './Modal.module.css';
+import { useNavigate} from 'react-router-dom';
 
 const Backdrop = (props) => {
   return <div className={classes.backdrop} onClick={props.onClick} />;
@@ -19,15 +20,13 @@ const ModalOverlay = (props) => {
 const portalElement = document.getElementById('overlays');
 
 const Modal = (props) => {
-  const [modalIsOpen, setModalIsOpen] = useState(true);
 
+  const navigate = useNavigate();
+ 
   const closeModalHandler = () => {
-    setModalIsOpen(false);
+    navigate(-1)
   };
 
-  if (!modalIsOpen) {
-    return null;
-  }
 
   return (
     <React.Fragment>

@@ -7,8 +7,8 @@ const UserMemes = () => {
   return (
     <div className={classes.UserMemes}>
       {data.map((meme) => (
-        <Link to={`/meme/${meme.id}`} >
-          <div className={classes.memeContainer} key={meme.id}>
+        <Link to={`/meme/${meme.id}`} key={meme.id} >
+          <div className={classes.memeContainer}>
             <img src={meme.meme_image} alt={meme.title} />
             <div className={classes.memeInfo}>
               <h2>{meme.title}</h2>

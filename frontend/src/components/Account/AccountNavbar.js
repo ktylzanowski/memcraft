@@ -6,10 +6,10 @@ const AccountNavbar = () => {
     <>
       <div className={classes.nav}>
         <ul>
-          <NavLink to="/konto">
+          <NavLink to="/konto" replace={true} >
             <li>Główne dane</li>
           </NavLink>
-          <NavLink to="/konto/mojememy">
+          <NavLink to="/konto/mojememy" replace={true}>
             <li>Moje memy</li>
           </NavLink>
           <NavLink to="/konto/likes">
