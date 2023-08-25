@@ -6,7 +6,7 @@ import { useLoaderData } from "react-router-dom";
 
 const UserInfoForm = () => {
   const data = useLoaderData();
-
+  
   return (
     <>
       <div className={classes.data}>

@@ -4,7 +4,7 @@ from .models import Meme, Comment
 class MemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Meme
-        fields = ['id', 'title', 'meme_image', 'author', 'author_name', 'total_likes', 'total_dislikes', 'if_like', 'if_dislike']
+        fields = ['id', 'title', 'meme_image', 'author', 'author_name', 'total_likes', 'total_dislikes', 'if_like', 'if_dislike', 'total_comments']
         read_only = ['author_name']
         extra_kwargs = {
             'likes': {'write_only': True},
@@ -20,6 +20,7 @@ class MemeSerializer(serializers.ModelSerializer):
     total_likes = serializers.SerializerMethodField(read_only=True)
     total_dislikes = serializers.SerializerMethodField(read_only=True)
     author_name = serializers.SerializerMethodField(read_only=True)
+    total_comments = serializers.SerializerMethodField(read_only=True)
     
     def get_author_name(self, instance):
         return instance.author.username
@@ -38,6 +39,8 @@ class MemeSerializer(serializers.ModelSerializer):
     def get_total_dislikes(self, instance):
         return instance.dislikes.count()
 
+    def get_total_comments(self, instance):
+        return len(Comment.objects.filter(meme=instance))
 
 class CommentSerializer(serializers.ModelSerializer):
     author_icon = serializers.SerializerMethodField()
