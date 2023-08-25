@@ -52,3 +52,21 @@
 .memeContainer p.comments {
     color: purple;
 }
+
+
+@media (max-width: 768px) {
+    .memeContainer {
+      flex-direction: column;
+    }
+  
+    .memeContainer img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  
+    .memeContainer h2 {
+      font-size: 1.3rem;
+    }
+  }
