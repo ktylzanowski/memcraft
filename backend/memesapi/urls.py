@@ -12,6 +12,10 @@ meme_detail = MemeView.as_view({
     'delete': 'destroy',
 })
 
+user_meme_list = MemeView.as_view({
+    'get': 'user_memes',
+})
+
 meme_draw = MemeView.as_view({
     'get': 'draw',
 })
@@ -29,6 +33,7 @@ urlpatterns = [
     path("", meme_draw, name="Root"),
     path('memes/', meme_list, name="Meme_list"),
     path('meme/<int:pk>/', meme_detail, name="Meme_detail"),
+    path('memes/usermemes/', user_meme_list, name="User_meme_list"),
     path("like/", meme_like, name="like"),
     path('comment/', comment_list, name="Comment"),
 ]

@@ -11,11 +11,11 @@ import AddMemePage, { action as newMemeAction } from "./pages/AddMemePage";
 import AccountPage from "./pages/Account/AccountPage";
 import BoardPage, { loader as BoardLoader } from "./pages/BoardPage";
 import DetailMemePage, { loader as DetailLoader } from "./pages/DetailMemePage";
-import UserInfoPage,{
+import UserInfoPage, {
   loader as UserInfoLoader,
   action as UserInfoAction,
 } from "./pages/Account/UserInfoPage";
-import MyMemesPage from "./pages/Account/MyMemesPage";
+import MyMemesPage, {loader as UserMemesLoader} from "./pages/Account/MyMemesPage";
 
 const router = createBrowserRouter([
   {
@@ -64,8 +64,9 @@ const router = createBrowserRouter([
               },
               {
                 path: "mojememy",
-                element: <MyMemesPage/ >
-              }
+                element: <MyMemesPage />,
+                loader: UserMemesLoader,
+              },
             ],
           },
         ],

@@ -32,6 +32,13 @@ class MemeView(viewsets.ModelViewSet):
             return Response({"pk": meme.pk}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    @action(detail=False, renderer_classes=[JSONRenderer])
+    def user_memes(self, request):
+        user = request.user
+        user_memes = self.queryset.filter(author=user)
+        serializer = self.get_serializer(user_memes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=True, renderer_classes=[JSONRenderer])
     def draw(self, request):
