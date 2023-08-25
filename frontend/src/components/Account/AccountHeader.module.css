@@ -1,48 +1,48 @@
 .infoUser {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
-.username{
-    color:#333;
-  }
+.username {
+  color: #333;
+}
 
-.iconContainer{
-    width: calc(50% - 5px);
-    float: left;
-    display: flex;
-  }
+.iconContainer {
+  width: calc(50% - 5px);
+  float: left;
+  display: flex;
+}
 
 .changePassword {
-    width: calc(50% - 5px);
-    float: left;
-    display: flex;
-  }
+  width: calc(50% - 5px);
+  float: left;
+  display: flex;
+}
 
 .iconContainer img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 600px) {
+  .infoUser {
+    text-align: center;
+    align-items: center;
   }
 
-@media (max-width: 600px) {  
-    .infoUser {
-      text-align: center;
-      align-items: center;
-    }
-
-    .iconContainer {
-      flex-direction: column;
-      align-items: flex-start;
-      align-items: center;
-      width: 100%;
-    }
-  
-    .changePassword {
-      width: 100%;
-      margin-top: 10px;
-    }
+  .iconContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    align-items: center;
+    width: 100%;
   }
+
+  .changePassword {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

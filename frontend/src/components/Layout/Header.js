@@ -12,7 +12,7 @@ const Header = () => {
   const { user, logoutUser } = useContext(AuthContext);
 
   let imageUrl = "";
-  
+
   if (user) {
     imageUrl = `http://127.0.0.1:8000/media/icons/${user.icon}`;
   }
