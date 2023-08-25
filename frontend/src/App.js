@@ -15,6 +15,7 @@ import UserInfoPage,{
   loader as UserInfoLoader,
   action as UserInfoAction,
 } from "./pages/Account/UserInfoPage";
+import MyMemesPage from "./pages/Account/MyMemesPage";
 
 const router = createBrowserRouter([
   {
@@ -53,13 +54,18 @@ const router = createBrowserRouter([
           },
           {
             element: <AccountPage />,
+            path: "konto",
             children: [
               {
-                path: "konto",
+                index: true,
                 element: <UserInfoPage />,
                 loader: UserInfoLoader,
                 action: UserInfoAction,
               },
+              {
+                path: "mojememy",
+                element: <MyMemesPage/ >
+              }
             ],
           },
         ],
