@@ -6,21 +6,21 @@ const AccountNavbar = () => {
     <>
       <div className={classes.nav}>
         <ul>
-          <li>
-            <NavLink to="/konto">Główne dane</NavLink>
-          </li>
-          <li>
-            <NavLink to="/konto/mojememy">Moje memy</NavLink>
-          </li>
-          <li>
-            <NavLink to="/konto/likes">Polubione i nie</NavLink>
-          </li>
-          <li>
-            <NavLink to="konto/komentarze">Komentarze</NavLink>
-          </li>
-          <li>
-            <NavLink to="/konto/historia">Historia Zakupów</NavLink>
-          </li>
+          <NavLink to="/konto">
+            <li>Główne dane</li>
+          </NavLink>
+          <NavLink to="/konto/mojememy">
+            <li>Moje memy</li>
+          </NavLink>
+          <NavLink to="/konto/likes">
+            <li>Polubione i nie</li>
+          </NavLink>
+          <NavLink to="konto/komentarze">
+            <li>Komentarze</li>
+          </NavLink>
+          <NavLink to="/konto/historia">
+            <li>Historia Zakupów</li>
+          </NavLink>
         </ul>
       </div>
     </>
