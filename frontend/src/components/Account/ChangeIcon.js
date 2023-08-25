@@ -1,11 +1,12 @@
-import { useState, useRef } from "react";
-import Overlay from "react-bootstrap/Overlay";
-import Tooltip from "react-bootstrap/Tooltip";
+import { useState } from "react";
 import classes from "./ChangeIcon.module.css";
+import Modal from "react-bootstrap/Modal";
 
 function ChangeIcon() {
   const [show, setShow] = useState(false);
-  const target = useRef(null);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const photos = [
     {
       id: 1,
@@ -43,41 +44,46 @@ function ChangeIcon() {
       name: "cowface.png",
     },
   ];
+
   const handlePhotoClick = async (photoName) => {
     const token = JSON.parse(localStorage.getItem("authTokens"));
-    const response = await fetch("http://127.0.0.1:8000/accounts/info/", {
+    const response = await fetch("http://127.0.0.1:8000/accounts/userinfo/", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ` + String(token.access),
       },
-      body: JSON.stringify({'icon': photoName}),
+      body: JSON.stringify({ icon: photoName }),
     });
     if (response.ok) {
       console.log("OK");
     } else {
       console.log("BAD");
     }
-  
   };
   return (
     <>
-     <button ref={target} onClick={() => setShow(!show)} className={classes.button}>Wybierz ikonę</button>
-      <Overlay target={target.current} show={show} placement="bottom">
-        {(props) => (
-          <Tooltip id="overlay-example" {...props}>
-            {photos.map((photo) => (
-              <img
-                key={photo.id}
-                src={photo.url}
-                alt={`Zdjęcie ${photo.id}`}
-                className={classes.icon}
-                onClick={() => handlePhotoClick(photo.name)}
-              />
-            ))}
-          </Tooltip>
-        )}
-      </Overlay>
+
+      <button onClick={handleShow} className={classes.button}>
+        Zmień Ikonę
+      </button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title style={{ color: "black" }}>Zmień ikonę</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {photos.map((photo) => (
+            <img
+              key={photo.id}
+              src={photo.url}
+              alt={`Zdjęcie ${photo.id}`}
+              className={classes.icon}
+              onClick={() => handlePhotoClick(photo.name)}
+            />
+          ))}
+        </Modal.Body>
+      </Modal>
     </>
   );
 }
