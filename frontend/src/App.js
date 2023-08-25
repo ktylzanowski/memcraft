@@ -8,13 +8,13 @@ import DrawMeme, { loader as MemeLoader } from "./pages/DrawMeme";
 import ErrorPage from "./pages/ErrorPage";
 import Authentication from "./pages/Authentication";
 import AddMemePage, { action as newMemeAction } from "./pages/AddMemePage";
-import AccountPage, {
-  loader as InfoLoader,
-  action as ChangeUserInfo,
-} from "./pages/Account/AccountPage";
+import AccountPage from "./pages/Account/AccountPage";
 import BoardPage, { loader as BoardLoader } from "./pages/BoardPage";
 import DetailMemePage, { loader as DetailLoader } from "./pages/DetailMemePage";
-import UserInfoPage from "./pages/Account/UserInfoPage";
+import UserInfoPage,{
+  loader as UserInfoLoader,
+  action as UserInfoAction,
+} from "./pages/Account/UserInfoPage";
 
 const router = createBrowserRouter([
   {
@@ -57,8 +57,8 @@ const router = createBrowserRouter([
               {
                 path: "konto",
                 element: <UserInfoPage />,
-                loader: InfoLoader,
-                action: ChangeUserInfo,
+                loader: UserInfoLoader,
+                action: UserInfoAction,
               },
             ],
           },
