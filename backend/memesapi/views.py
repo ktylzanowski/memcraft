@@ -33,6 +33,11 @@ class MemeView(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+    def destroy(self, request, pk=None):
+        instance = self.get_object()
+        instance.delete()
+        return Response({"message": "Mem usunięty"}, status=status.HTTP_204_NO_CONTENT)
+
     @action(detail=False, renderer_classes=[JSONRenderer])
     def user_memes(self, request):
         user = request.user

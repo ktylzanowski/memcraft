@@ -4,10 +4,27 @@ import classes from "./UserMemes.module.css";
 const UserMemes = () => {
   const data = useLoaderData();
 
+  const deleteFetch = async (props) => {
+    const token = JSON.parse(localStorage.getItem("authTokens"));
+    const response = await fetch(`http://127.0.0.1:8000/meme/${props}/`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + String(token.access),
+      },
+    });
+    if (response.ok) {
+      console.log("OK")
+      console.log(response);
+    } else {
+      console.log(response);
+    }
+  };
+
   return (
     <div className={classes.UserMemes}>
       {data.map((meme) => (
-        <Link to={`/meme/${meme.id}`} key={meme.id} >
+        <Link to={`/meme/${meme.id}`} key={meme.id}>
           <div className={classes.memeContainer}>
             <img src={meme.meme_image} alt={meme.title} />
             <div className={classes.memeInfo}>
@@ -21,6 +38,16 @@ const UserMemes = () => {
               <p className={`${classes.comments} ${classes.memeDetail}`}>
                 Ilość komentarzy: {meme.total_comments}
               </p>
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  if (window.confirm("Czy na pewno chcesz usunąć tego mema?")) {
+                    deleteFetch(meme.id);
+                  }
+                }}
+              >
+                Usuń mema
+              </button>
             </div>
           </div>
         </Link>
