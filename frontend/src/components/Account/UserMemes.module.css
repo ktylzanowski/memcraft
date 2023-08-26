@@ -26,6 +26,15 @@
   font-size: 1.5rem;
 }
 
+.memeContainer:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+}
+
+.memeContainer:hover img {
+  opacity: 0.8;
+}
+
 .memeContainer p {
   margin: 5px 0;
 }
@@ -59,11 +68,36 @@
   }
 }
 
-.memeContainer:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s ease-in-out;
+.NoMemes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 36px;
+  color: gray;
 }
 
-.memeContainer:hover img {
-  opacity: 0.8;
+.deleteButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.deleteButton:hover {
+  background-color: #d32f2f;
+}
+
+.message {
+  font-weight: bold;
+  color: black;
+  text-align: center;
 }
