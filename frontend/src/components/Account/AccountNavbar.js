@@ -12,8 +12,11 @@ const AccountNavbar = () => {
           <NavLink to="/konto/mojememy" replace={true}>
             <li>Moje memy</li>
           </NavLink>
-          <NavLink to="/konto/likes">
-            <li>Polubione i nie</li>
+          <NavLink to="/konto/polajkowane">
+            <li>Polubione</li>
+          </NavLink>
+          <NavLink to="/konto/dislikes">
+            <li>Niepolubione</li>
           </NavLink>
           <NavLink to="konto/komentarze">
             <li>Komentarze</li>

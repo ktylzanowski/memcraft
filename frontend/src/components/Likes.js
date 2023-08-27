@@ -63,7 +63,7 @@ const Likes = (props) => {
           onClick={token ? () => likeHandler("like") : () => {}}
           alt="Like"
         />
-        <span>{totalLikes}</span>
+        <span style={{color: "green"}}>{totalLikes}</span>
       </div>
       <div>
         <LikeIcon
@@ -71,7 +71,7 @@ const Likes = (props) => {
           onClick={token ? () => likeHandler("dislike") : () => {}}
           alt="Dislike"
         />
-        <span>{totalDislikes}</span>
+        <span style={{color: "red"}}>{totalDislikes}</span>
       </div>
     </div>
   );

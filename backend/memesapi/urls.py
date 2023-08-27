@@ -19,6 +19,12 @@ user_meme_list = MemeView.as_view({
 meme_draw = MemeView.as_view({
     'get': 'draw',
 })
+meme_user_likes = MemeView.as_view({
+    'get': 'user_likes_memes'
+})
+meme_user_dislikes = MemeView.as_view({
+    'get': 'user_dislikes_memes'
+})
 meme_like = MemeView.as_view({
     'post': 'like',
 })
@@ -34,6 +40,8 @@ urlpatterns = [
     path('memes/', meme_list, name="Meme_list"),
     path('meme/<int:pk>/', meme_detail, name="Meme_detail"),
     path('memes/usermemes/', user_meme_list, name="User_meme_list"),
+    path('memes/user/likes/', meme_user_likes, name="Meme_user_likes"),
+    path('memes/user/dislikes/', meme_user_dislikes, name="Meme_user_dislikes"),
     path("like/", meme_like, name="like"),
     path('comment/', comment_list, name="Comment"),
 ]

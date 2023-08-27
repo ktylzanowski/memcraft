@@ -44,6 +44,20 @@ class MemeView(viewsets.ModelViewSet):
         user_memes = self.queryset.filter(author=user)
         serializer = self.get_serializer(user_memes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=False, renderer_classes=[JSONRenderer])
+    def user_likes_memes(self, request):
+        user = request.user
+        liked_memes = user.meme_likes.all()
+        serializer = self.get_serializer(liked_memes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=False, renderer_classes=[JSONRenderer])
+    def user_dislikes_memes(self, request):
+        user = request.user
+        disliked_memes = user.meme_dislikes.all()
+        serializer = self.get_serializer(disliked_memes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=True, renderer_classes=[JSONRenderer])
     def draw(self, request):

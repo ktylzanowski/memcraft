@@ -1,13 +1,17 @@
 import { json } from "react-router-dom";
-import UserMemes from "../../components/Account/UserMemes";
+import MemesUserLikes from "../../components/Account/MemesUserLikes";
 
-const MyMemesPage = () => {
-  return <UserMemes />;
+const MemeUserLikesPage = () => {
+  return (
+    <>
+      <MemesUserLikes />
+    </>
+  );
 };
 
 export async function loader() {
   const token = JSON.parse(localStorage.getItem("authTokens"));
-  const response = await fetch("http://127.0.0.1:8000/memes/usermemes/", {
+  const response = await fetch("http://127.0.0.1:8000/memes/user/likes/", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -26,4 +30,4 @@ export async function loader() {
   }
 }
 
-export default MyMemesPage;
+export default MemeUserLikesPage;
