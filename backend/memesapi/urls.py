@@ -33,6 +33,10 @@ comment_list = CommentView.as_view({
     'get': 'list',
     'post': 'create',
 })
+comment_detail = CommentView.as_view({
+    'get': 'retrieve',
+    'delete': 'destroy',
+})
 user_comments = CommentView.as_view({
     'get': 'user_comments',
 })
@@ -47,5 +51,6 @@ urlpatterns = [
     path('memes/user/dislikes/', meme_user_dislikes, name="Meme_user_dislikes"),
     path("like/", meme_like, name="like"),
     path('comment/', comment_list, name="Comment"),
+    path('comment/<int:pk>/', comment_detail, name="Comment_detail"),
     path('comment/user/', user_comments, name="User_comments")
 ]

@@ -1,5 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import classes from "./UserMemes.module.css";
+import CommentDelete from "../CommentDelete";
 
 const UserComments = () => {
   const data = useLoaderData();
@@ -16,6 +17,7 @@ const UserComments = () => {
               <h2>Tytuł: {comment.meme_data.title}</h2>
               <h2>{comment.text}</h2>
             </div>
+            <CommentDelete id={comment.id} />
           </div>
         ))
       ) : (
