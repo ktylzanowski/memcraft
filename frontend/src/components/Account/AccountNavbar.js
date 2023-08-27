@@ -21,9 +21,6 @@ const AccountNavbar = () => {
           <NavLink to="/konto/komentarze">
             <li>Komentarze</li>
           </NavLink>
-          <NavLink to="/konto/historia">
-            <li>Historia Zakupów</li>
-          </NavLink>
         </ul>
       </div>
     </>

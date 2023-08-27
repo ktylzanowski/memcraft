@@ -4,7 +4,7 @@ import classes from "./UserMemes.module.css";
 const UserComments = () => {
   const data = useLoaderData();
   return (
-    <>
+    <> 
       {data.length > 0 ? (
         data.map((comment) => (
           <div className={classes.memeContainer} key={comment.id}>
