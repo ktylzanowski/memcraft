@@ -75,6 +75,8 @@
   height: 200px;
   font-size: 36px;
   color: gray;
+  line-height: 1.5;
+  text-align: center;
 }
 
 .deleteButton {
