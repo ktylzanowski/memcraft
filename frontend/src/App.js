@@ -18,6 +18,7 @@ import UserInfoPage, {
 import MyMemesPage, {loader as UserMemesLoader} from "./pages/Account/MyMemesPage";
 import MemeUserLikesPage, {loader as MemesUserLikesLoader} from "./pages/Account/MemesUserLikesPage";
 import MemesUserDislikesPage, {loader as MemesUserDislikesLoader} from "./pages/Account/MemesUserDislikesPage";
+import UserCommentsPage, {loader as UserCommentsLoader} from "./pages/Account/UserCommentsPage";
 
 
 const router = createBrowserRouter([
@@ -79,6 +80,11 @@ const router = createBrowserRouter([
                 path: "zdislikowane",
                 element: <MemesUserDislikesPage />,
                 loader: MemesUserDislikesLoader,
+              },
+              {
+                path: "komentarze",
+                element: <UserCommentsPage />,
+                loader: UserCommentsLoader,
               }
             ],
           },

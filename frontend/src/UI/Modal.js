@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import classes from './Modal.module.css';
-import { useNavigate} from 'react-router-dom';
 
 const Backdrop = (props) => {
   return <div className={classes.backdrop} onClick={props.onClick} />;
@@ -17,25 +17,19 @@ const ModalOverlay = (props) => {
   );
 };
 
-const portalElement = document.getElementById('overlays');
-
 const Modal = (props) => {
-
   const navigate = useNavigate();
- 
+
   const closeModalHandler = () => {
-    navigate(-1)
+    navigate(-1);
   };
 
-
-  return (
+  return ReactDOM.createPortal(
     <React.Fragment>
-      {ReactDOM.createPortal(<Backdrop onClick={closeModalHandler} />, portalElement)}
-      {ReactDOM.createPortal(
-        <ModalOverlay>{props.children}</ModalOverlay>,
-        portalElement
-      )}
-    </React.Fragment>
+      <Backdrop onClick={closeModalHandler} />
+      <ModalOverlay>{props.children}</ModalOverlay>
+    </React.Fragment>,
+    document.getElementById('overlays')
   );
 };
 

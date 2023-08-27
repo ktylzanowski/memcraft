@@ -46,11 +46,11 @@ class CommentSerializer(serializers.ModelSerializer):
     author_icon = serializers.SerializerMethodField()
     author_username = serializers.SerializerMethodField()
     meme_id = serializers.SerializerMethodField()
-
+    meme_data = serializers.SerializerMethodField()
     
     class Meta:
         model = Comment
-        fields = ['id', 'text', 'author_icon', 'author_username', 'meme_id']
+        fields = ['id', 'text', 'author_icon', 'author_username', 'meme_id', 'meme_data']
         write_only = ['author', 'meme']
         extra_kwargs ={
             "text": {"error_messages": {'null': "Komentarz nie może być pusty", 'blank': "Komentarz nie może być pusty"}},
@@ -64,3 +64,9 @@ class CommentSerializer(serializers.ModelSerializer):
     
     def get_author_username(self, obj):
         return obj.author.username
+    
+    def get_meme_data(self, obj):
+        if self.context.get('include_meme_data', False):
+            user = self.context.get('user')
+            return MemeSerializer(obj.meme, context={"user": user}).data
+        return None

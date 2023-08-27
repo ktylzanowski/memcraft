@@ -130,3 +130,10 @@ class CommentView(viewsets.ModelViewSet):
 
         serialized_comment = self.get_serializer(paginated_comments, many=True)
         return paginator.get_paginated_response(serialized_comment.data)
+    
+    @action(detail=True, renderer_classes=[JSONRenderer])
+    def user_comments(self, request):
+        user = request.user
+        comments_meme = Comment.objects.filter(author=user)
+        serialized_comments = self.get_serializer(comments_meme, context={"include_meme_data": True, "user": request.user}, many=True)
+        return Response(serialized_comments.data, status=status.HTTP_200_OK)
