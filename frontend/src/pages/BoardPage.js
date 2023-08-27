@@ -51,12 +51,17 @@ const BoardPage = () => {
 export default BoardPage;
 
 export async function loader() {
+  const token = JSON.parse(localStorage.getItem("authTokens"));
+  const headers = {
+    "Content-Type": "application/json",
+  };
+  if (token) {
+    headers["Authorization"] = `Bearer ${token.access}`;
+  }
   try {
     const response = await fetch("http://127.0.0.1:8000/memes/", {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: headers,
     });
 
     if (response.ok) {

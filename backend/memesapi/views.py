@@ -33,6 +33,7 @@ class MemeView(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
     @action(detail=False, renderer_classes=[JSONRenderer])
     def user_memes(self, request):
         user = request.user
