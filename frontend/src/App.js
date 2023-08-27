@@ -17,6 +17,8 @@ import UserInfoPage, {
 } from "./pages/Account/UserInfoPage";
 import MyMemesPage, {loader as UserMemesLoader} from "./pages/Account/MyMemesPage";
 import MemeUserLikesPage, {loader as MemesUserLikesLoader} from "./pages/Account/MemesUserLikesPage";
+import MemesUserDislikesPage, {loader as MemesUserDislikesLoader} from "./pages/Account/MemesUserDislikesPage";
+
 
 const router = createBrowserRouter([
   {
@@ -72,6 +74,11 @@ const router = createBrowserRouter([
                 path: "polajkowane",
                 element: <MemeUserLikesPage />,
                 loader: MemesUserLikesLoader,
+              },
+              {
+                path: "zdislikowane",
+                element: <MemesUserDislikesPage />,
+                loader: MemesUserDislikesLoader,
               }
             ],
           },

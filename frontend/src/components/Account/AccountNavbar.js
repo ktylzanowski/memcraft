@@ -15,7 +15,7 @@ const AccountNavbar = () => {
           <NavLink to="/konto/polajkowane">
             <li>Polubione</li>
           </NavLink>
-          <NavLink to="/konto/dislikes">
+          <NavLink to="/konto/zdislikowane">
             <li>Niepolubione</li>
           </NavLink>
           <NavLink to="konto/komentarze">
