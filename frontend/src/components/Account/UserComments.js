@@ -1,13 +1,17 @@
 import { useLoaderData } from "react-router-dom";
 import classes from "./UserMemes.module.css";
-import CommentDelete from "../CommentDelete";
+import useDeleteComment from "../../hooks/useDeleteComment";
+import DeleteButton from "../../UI/DeleteButton";
 
 const UserComments = () => {
   const data = useLoaderData();
+  
+  const { comments, message, deleteCommentFetch } = useDeleteComment(data);
   return (
-    <> 
-      {data.length > 0 ? (
-        data.map((comment) => (
+    <>
+    {message && <p className={classes.message }>{message}</p>}
+      {comments.length > 0 ? (
+        comments.map((comment) => (
           <div className={classes.memeContainer} key={comment.id}>
             <img
               src={`http://127.0.0.1:8000/${comment.meme_data.meme_image}`}
@@ -16,8 +20,8 @@ const UserComments = () => {
             <div className={classes.memeInfo}>
               <h2>Tytuł: {comment.meme_data.title}</h2>
               <h2>{comment.text}</h2>
+              <DeleteButton onClick={() => deleteCommentFetch(comment.id)} />
             </div>
-            <CommentDelete id={comment.id} />
           </div>
         ))
       ) : (
