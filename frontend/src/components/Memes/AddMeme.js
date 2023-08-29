@@ -1,5 +1,5 @@
-import Button from "../UI/Button";
-import Image from "../UI/Image";
+import Button from "../../UI/Button";
+import Image from "../../UI/Image";
 import classes from "./AddMeme.module.css";
 import { Form, useActionData } from "react-router-dom";
 import { useState } from "react";

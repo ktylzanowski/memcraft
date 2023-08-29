@@ -1,7 +1,7 @@
 import { json } from "react-router-dom";
 import { useLoaderData } from "react-router";
-import Board from "../components/Board";
-import BoardPagination from "../components/BoardPagination";
+import Board from "../components/Memes/Board";
+import BoardPagination from "../components/Memes/BoardPagination";
 import { useState } from "react";
 
 const BoardPage = () => {

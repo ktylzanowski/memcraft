@@ -1,10 +1,10 @@
-import SingleMeme from "../components/SingleMeme";
+import SingleMeme from "../components/Memes/SingleMeme";
 import { json } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import { useLoaderData } from "react-router";
 import Button from "../UI/Button";
-import Comments from "../components/Comments";
+import Comments from "../components/Comments/Comments";
 
 const DrawMeme = () => {
   const memeFromLoader = useLoaderData();

@@ -1,4 +1,4 @@
-import Image from "../UI/Image";
+import Image from "../../UI/Image";
 import Likes from "./Likes";
 
 const SingleMeme = (props) => {

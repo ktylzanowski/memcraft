@@ -1,7 +1,7 @@
 import { json } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
-import SingleMeme from "../components/SingleMeme";
-import Comments from "../components/Comments";
+import SingleMeme from "../components/Memes/SingleMeme";
+import Comments from "../components/Comments/Comments";
 
 const DetailMemePage = () => {
   const data = useLoaderData();

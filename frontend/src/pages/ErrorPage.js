@@ -1,7 +1,7 @@
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import { useRouteError } from "react-router-dom";
-import Error from "../components/Error"
+import Error from "../components/Layout/Error"
 
 const ErrorPage = () => {
   const error = useRouteError();

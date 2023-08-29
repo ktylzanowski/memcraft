@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import classes from "./UserMemes.module.css";
-import Likes from "../Likes";
+import Likes from "../Memes/Likes";
 
 const MemesUserLikes = () => {
   const data = useLoaderData();

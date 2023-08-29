@@ -1,5 +1,5 @@
 import classes from "./Comments.module.css";
-import useInput from "../hooks/useInput";
+import useInput from "../../hooks/useInput";
 
 const AddComment = (props) => {
   const token = JSON.parse(localStorage.getItem("authTokens"));

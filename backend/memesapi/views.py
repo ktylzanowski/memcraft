@@ -9,7 +9,7 @@ from rest_framework.renderers import JSONRenderer
 from .pagination import CommentPagination, BoradPagination
 
 class MemeView(viewsets.ModelViewSet):
-    queryset = Meme.objects.filter(if_accepted=True)
+    queryset = Meme.objects.filter()
     serializer_class = MemeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = BoradPagination

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import like from "../images/likes/like.png";
-import dislike from "../images/likes/dislike.png";
-import LikeIcon from "../UI/LikeIcon";
+import like from "../../images/likes/like.png";
+import dislike from "../../images/likes/dislike.png";
+import LikeIcon from "../../UI/LikeIcon";
 import classes from "./Likes.module.css";
-import likeUse from "../images/likes/likeUse.png";
-import dislikeUse from "../images/likes/dislikeUse.png";
+import likeUse from "../../images/likes/likeUse.png";
+import dislikeUse from "../../images/likes/dislikeUse.png";
 
 const Likes = (props) => {
   const [totalLikes, setTotalLikes] = useState(props.total_likes);

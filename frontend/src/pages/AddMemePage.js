@@ -1,4 +1,4 @@
-import AddMeme from "../components/AddMeme";
+import AddMeme from "../components/Memes/AddMeme";
 import { redirect } from "react-router-dom";
 import { json } from "react-router-dom";
 

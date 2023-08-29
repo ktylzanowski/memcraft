@@ -1,6 +1,6 @@
 import classes from "./Comments.module.css";
 import AddComment from "./AddComment";
-import useComments from "../hooks/useComments";
+import useComments from "../../hooks/useComments";
 const Comments = (props) => {
   const { comments, errors, totalComments, addNewComment, handleShowMore } = useComments([], props);
   return (

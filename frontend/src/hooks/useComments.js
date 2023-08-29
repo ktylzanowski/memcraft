@@ -27,7 +27,6 @@ const useComments = (initialData, props) => {
       if (response.ok) {
         if (page === 1) {
           setErrors(false);
-          console.log(responseData.results)
           setComments(responseData.results);
           setTotalComments(responseData.count);
         } else {

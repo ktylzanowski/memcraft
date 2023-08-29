@@ -1,5 +1,5 @@
 import SingleMeme from "./SingleMeme";
-import Comments from "./Comments";
+import Comments from "../Comments/Comments";
 
 const Board = (props) => {
   return (
