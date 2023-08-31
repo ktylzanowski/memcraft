@@ -107,6 +107,11 @@ const useComments = (initialData, props) => {
     );
     if (response.ok) {
       setMessage("Usunięto komentarz!");
+      setTotalComments(totalComments-1)
+      if(initialData.length ===0){
+        fetchData(commentPage)
+      }
+      
       setComments((prevComments) =>
         prevComments.filter((comment) => comment.id !== commentId)
       );

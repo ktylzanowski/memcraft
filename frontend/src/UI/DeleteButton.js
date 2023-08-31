@@ -7,12 +7,12 @@ const DeleteButton = (props) => {
         className={classes.deleteButton}
         onClick={(e) => {
           e.preventDefault();
-          if (window.confirm("Czy na pewno chcesz usunąć ten komentarza?")) {
+          if (window.confirm("Czy na pewno chcesz usunąć?")) {
             props.onClick();
           }
         }}
       >
-        Usuń mema!
+        Usuń!
       </button>
       ;
     </>

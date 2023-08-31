@@ -1,8 +1,18 @@
 import classes from "./Comments.module.css";
 import AddComment from "./AddComment";
 import useComments from "../../hooks/useComments";
+import CloseButton from "react-bootstrap/CloseButton";
 const Comments = (props) => {
-  const { comments, errors, totalComments, addNewComment, handleShowMore } = useComments([], props);
+  const {
+    comments,
+    errors,
+    totalComments,
+    addNewComment,
+    deleteComment,
+    handleShowMore,
+  } = useComments([], props);
+  const token = JSON.parse(localStorage.getItem("authTokens"));
+  
   return (
     <div className={classes.container}>
       <h3>Komentarze:</h3>
@@ -19,6 +29,18 @@ const Comments = (props) => {
               {comment.author_username}
             </div>
             <div className={classes.text}>{comment.text}</div>
+            {token && comments.author_username === token.username ? (
+              <CloseButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (window.confirm("Czy na pewno chcesz usunąć?")) {
+                    deleteComment(comment.id);
+                  }
+                }}
+              />
+            ) : (
+              ""
+            )}
           </div>
         ))
       ) : (
