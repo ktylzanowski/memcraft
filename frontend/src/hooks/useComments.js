@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useComments = (initialData, props) => {
+const useComments = (initialData, props, isFetch = true) => {
   const [comments, setComments] = useState(initialData);
   const [message, setMessage] = useState(false);
   const [totalComments, setTotalComments] = useState(0);
@@ -131,7 +131,7 @@ const useComments = (initialData, props) => {
     setErrors(false);
     setCommentPage(1);
     setTotalComments(0);
-    if (initialData.length === 0) {
+    if (isFetch) {
       fetchData(1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

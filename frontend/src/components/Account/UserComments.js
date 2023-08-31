@@ -6,7 +6,7 @@ import useComments from "../../hooks/useComments";
 const UserComments = (props) => {
   const data = useLoaderData();
 
-  const { comments, message, errors, deleteComment } = useComments(data, props);
+  const { comments, message, errors, deleteComment } = useComments(data, props, false);
 
   return (
     <>
