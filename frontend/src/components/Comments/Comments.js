@@ -2,6 +2,8 @@ import classes from "./Comments.module.css";
 import AddComment from "./AddComment";
 import useComments from "../../hooks/useComments";
 import CloseButton from "react-bootstrap/CloseButton";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
 const Comments = (props) => {
   const {
     comments,
@@ -11,8 +13,7 @@ const Comments = (props) => {
     deleteComment,
     handleShowMore,
   } = useComments([], props);
-  const token = JSON.parse(localStorage.getItem("authTokens"));
-  
+  const {user} = useContext(AuthContext)
   return (
     <div className={classes.container}>
       <h3>Komentarze:</h3>
@@ -29,7 +30,9 @@ const Comments = (props) => {
               {comment.author_username}
             </div>
             <div className={classes.text}>{comment.text}</div>
-            {token && comments.author_username === token.username ? (
+            {errors.error && <p>{errors.error}</p>}
+            
+            {user && comments.author_username === user.username ? (
               <CloseButton
                 onClick={(e) => {
                   e.preventDefault();

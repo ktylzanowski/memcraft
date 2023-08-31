@@ -116,7 +116,7 @@ const useComments = (initialData, props) => {
         prevComments.filter((comment) => comment.id !== commentId)
       );
     } else {
-      setErrors("Wystąpił jakiś błąd!");
+      setErrors({"error": "Nie masz uprawnień do usunięcia tego komentarza."});
     }
   };
 

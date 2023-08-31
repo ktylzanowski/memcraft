@@ -32,6 +32,14 @@ class MemeView(viewsets.ModelViewSet):
             return Response({"pk": meme.pk}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    def destroy(self, request, pk=None):
+        meme = get_object_or_404(Meme, pk=pk)
+        if meme.author == request.user:
+            meme.delete()
+            return Response({"message": "Mem został usunięty."}, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({"error": "Nie masz uprawnień do usunięcia tego mema."}, status=status.HTTP_403_FORBIDDEN)
 
 
     @action(detail=False, renderer_classes=[JSONRenderer])
@@ -115,6 +123,14 @@ class CommentView(viewsets.ModelViewSet):
             })
         else:
             return Response({"addCommentErrors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        
+    def destroy(self, request, pk=None):
+        comment = get_object_or_404(Comment, pk=pk)
+        if comment.author == request.user:
+            comment.delete()
+            return Response({"message": "Komentarz został usunięty."}, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({"error": "Nie masz uprawnień do usunięcia tego komentarza."}, status=status.HTTP_403_FORBIDDEN)
         
     def list(self, request):
         meme_id = request.META.get("HTTP_MEME_ID")
