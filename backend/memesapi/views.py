@@ -114,7 +114,7 @@ class CommentView(viewsets.ModelViewSet):
                 "comment": serialized_comment.data,
             })
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"addCommentErrors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         
     def list(self, request):
         meme_id = request.META.get("HTTP_MEME_ID")

@@ -27,7 +27,7 @@ const AddComment = (props) => {
           onBlur={commentBlurHandler}
           disabled={!token}
         />
-        {props.errors && <p className={classes.error}>{props.errors}</p>}
+        {props.errors.text && <p className={classes.error}>{props.errors.text}</p>}
         <button
           type="submit"
           onClick={(event) => props.addNewComment(event, enteredComment)}

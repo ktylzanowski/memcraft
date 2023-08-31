@@ -56,6 +56,11 @@ const useComments = (initialData, props) => {
       return;
     }
 
+    if (enteredComment === "") {
+      setErrors({ text: "Komentarz nie może być pusty" });
+      return;
+    }
+
     const url = "http://127.0.0.1:8000/comment/";
 
     const headers = {
@@ -82,7 +87,7 @@ const useComments = (initialData, props) => {
         setComments((prevComments) => [responseData.comment, ...prevComments]);
         setTotalComments(totalComments + 1);
       } else {
-        setErrors(responseData.text);
+        setErrors(responseData.addCommentErrors);
       }
     } catch {
       setErrors("Coś poszło nie tak. Przepraszamy!");
@@ -106,7 +111,7 @@ const useComments = (initialData, props) => {
         prevComments.filter((comment) => comment.id !== commentId)
       );
     } else {
-      setMessage("Wystąpił jakiś błąd!");
+      setErrors("Wystąpił jakiś błąd!");
     }
   };
 

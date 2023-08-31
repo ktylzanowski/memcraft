@@ -6,11 +6,12 @@ import useComments from "../../hooks/useComments";
 const UserComments = (props) => {
   const data = useLoaderData();
 
-  const {comments, message, deleteComment} = useComments(data, props)
-  
+  const { comments, message, errors, deleteComment } = useComments(data, props);
+
   return (
     <>
-    {message && <p className={classes.message }>{message}</p>}
+      {message && <p className={classes.message}>{message}</p>}
+      {errors && <p className={classes.message}>{errors}</p>}
       {comments.length > 0 ? (
         comments.map((comment) => (
           <div className={classes.memeContainer} key={comment.id}>
