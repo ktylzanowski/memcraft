@@ -32,7 +32,7 @@ const Comments = (props) => {
             <div className={classes.text}>{comment.text}</div>
             {errors.error && <p>{errors.error}</p>}
             
-            {user && comments.author_username === user.username ? (
+            {user && comment.author_username === user.username ? (
               <CloseButton
                 onClick={(e) => {
                   e.preventDefault();
