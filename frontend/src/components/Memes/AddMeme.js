@@ -36,7 +36,7 @@ const AddMeme = () => {
       >
         {!isImage && <label htmlFor="meme_image">Dodaj mema</label>}
         <Image imageUrl={imageUrl} alt="Dodany mem" />
-        <input type="file" name="meme_image" onChange={handleImageChange} />
+        <input type="file" name="meme_image" id="meme_image" onChange={handleImageChange} />
         {errors?.meme_image && <span>{errors.meme_image}</span>}
         <label htmlFor="title">Tytuł</label>
         <input type="text" name="title" id="title" />
