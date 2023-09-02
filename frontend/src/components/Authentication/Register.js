@@ -75,6 +75,7 @@ const Register = () => {
           className={classes.input}
           onChange={loginChangedHandler}
           onBlur={loginBlurHandler}
+          autoComplete="username"
         ></input>
         {loginHasError && (
           <p className={classes.errorMessage}>
@@ -92,6 +93,7 @@ const Register = () => {
           className={classes.input}
           onChange={handleEmailChange}
           onBlur={handleEmailBlur}
+          autoComplete="email"
         ></input>
         {emailHasError && (
           <p className={classes.errorMessage}>{emailErrorMessage}</p>
@@ -107,6 +109,7 @@ const Register = () => {
           className={classes.input}
           onChange={handlePasswordChange}
           onBlur={handlePasswordBlur}
+          autoComplete="new-password"
         ></input>
         {error?.password && (
           <p className={classes.errorMessage}>{error.password}</p>
@@ -118,6 +121,7 @@ const Register = () => {
           name="password2"
           className={classes.input}
           onChange={handlePassword2Change}
+          autoComplete="new-password"
         ></input>
         {passwordHasError && (
           <p className={classes.errorMessage}>{passwordErrorMessage}</p>

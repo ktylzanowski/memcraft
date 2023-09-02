@@ -6,7 +6,7 @@ import { useLoaderData } from "react-router-dom";
 
 const UserInfoForm = () => {
   const data = useLoaderData();
-  
+
   return (
     <>
       <div className={classes.data}>
@@ -17,48 +17,42 @@ const UserInfoForm = () => {
             name="first_name"
             placeholder="Imię"
             defaultValue={data.first_name}
+            autoComplete="given-name"
           />
           <input
             type="text"
             name="last_name"
             placeholder="Nazwisko"
             defaultValue={data.last_name}
+            autoComplete="family-name"
           />
           <input
             type="text"
             name="phone"
             placeholder="Telefon"
             defaultValue={data.phone}
+            autoComplete="tel"
           />
           <input
             type="text"
             name="city"
             placeholder="Miasto"
             defaultValue={data.city}
+            autoComplete="address-level1"
           />
           <input
             type="text"
             name="zip_code"
             placeholder="Kod pocztowy"
             defaultValue={data.zip_code}
+            autoComplete="postal-code"
           />
           <input
             type="text"
             name="street"
             placeholder="Ulica"
             defaultValue={data.street}
-          />
-          <input
-            type="text"
-            name="building_number"
-            placeholder="Numer budynku"
-            defaultValue={data.building_number}
-          />
-          <input
-            type="text"
-            name="apartment_number"
-            placeholder="Numer apartamenu"
-            defaultValue={data.apartment_number}
+            autoComplete="street-address"
           />
           <Button value="userInfo">Zatwierdź</Button>
           <BackButton>Wróć</BackButton>

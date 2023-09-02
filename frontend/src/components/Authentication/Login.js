@@ -47,6 +47,7 @@ const Login = () => {
           value={enteredLogin}
           onChange={loginChangedHandler}
           onBlur={loginBlurHandler}
+          autoComplete="username"
         />
         {loginHasError && (
           <p className={classes.errorMessage}>Login nie może być pusty</p>
@@ -59,6 +60,7 @@ const Login = () => {
           value={enteredPassword}
           onChange={passwordChangedHandler}
           onBlur={passwordBlurHandler}
+          autoComplete="current-password"
         />
         {passwordHasError && (
           <p className={classes.errorMessage}>Hasło nie może być puste</p>
