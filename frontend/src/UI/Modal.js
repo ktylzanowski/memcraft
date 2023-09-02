@@ -1,10 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { useNavigate } from 'react-router-dom';
-import classes from './Modal.module.css';
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import classes from "./Modal.module.css";
 
-const Backdrop = (props) => {
-  return <div className={classes.backdrop} onClick={props.onClick} />;
+const Backdrop = () => {
+  const [page, setPage] = useState(0);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const closeModalHandler = () => {
+    navigate(page);
+  };
+
+  useEffect(() => {
+    setPage(page - 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
+  return <div className={classes.backdrop} onClick={closeModalHandler} />;
 };
 
 const ModalOverlay = (props) => {
@@ -18,18 +31,12 @@ const ModalOverlay = (props) => {
 };
 
 const Modal = (props) => {
-  const navigate = useNavigate();
-
-  const closeModalHandler = () => {
-    navigate(-1);
-  };
-
   return ReactDOM.createPortal(
     <React.Fragment>
-      <Backdrop onClick={closeModalHandler} />
+      <Backdrop />
       <ModalOverlay>{props.children}</ModalOverlay>
     </React.Fragment>,
-    document.getElementById('overlays')
+    document.getElementById("overlays")
   );
 };
 
