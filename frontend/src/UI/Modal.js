@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import classes from "./Modal.module.css";
 
 const Backdrop = () => {
   const [page, setPage] = useState(0);
-  const location = useLocation();
   const navigate = useNavigate();
-
   const closeModalHandler = () => {
     navigate(page);
   };
@@ -15,7 +13,7 @@ const Backdrop = () => {
   useEffect(() => {
     setPage(page - 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
+  }, [window.history.length]);
 
   return <div className={classes.backdrop} onClick={closeModalHandler} />;
 };
