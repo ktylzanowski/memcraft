@@ -1,4 +1,5 @@
 import steveface from "../../images/steveface.png";
+import notifcation from "../../images/notification.png"
 import classes from "./Header.module.css";
 import "./Header.module.css";
 import { useContext } from "react";
@@ -42,9 +43,14 @@ const Header = () => {
               )}
             </Nav>
             {user && (
-              <Nav.Link onClick={logoutUser} style={{ marginRight: "15px" }}>
-                Wyloguj
-              </Nav.Link>
+              <>
+                <Nav.Link>
+                  <img src={notifcation} className={classes.icon} style={{ marginRight: "15px" }}/>
+                </Nav.Link>
+                <Nav.Link onClick={logoutUser} style={{ marginRight: "15px" }}>
+                  Wyloguj
+                </Nav.Link>
+              </>
             )}
 
             <LinkContainer to={user ? "/konto" : "/authentication"}>
