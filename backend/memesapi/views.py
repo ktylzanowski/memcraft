@@ -1,4 +1,4 @@
-from .models import Meme, Comment
+from .models import Meme, Comment, Notification
 from .serializer import MemeSerializer, CommentSerializer
 from random import choice
 from rest_framework.response import Response
@@ -91,6 +91,7 @@ class MemeView(viewsets.ModelViewSet):
         if action == "like":
             meme.likes.add(request.user) 
             meme.dislikes.remove(request.user)
+            Notification.create_like_notification(meme)
         elif action == "dislike":
             meme.dislikes.add(request.user)
             meme.likes.remove(request.user)

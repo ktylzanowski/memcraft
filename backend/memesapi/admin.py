@@ -3,3 +3,4 @@ from .models import *
 
 admin.site.register(Meme)
 admin.site.register(Comment)
+admin.site.register(Notification)
