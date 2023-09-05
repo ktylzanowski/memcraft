@@ -1,5 +1,5 @@
 from .models import Meme, Comment, Notification
-from .serializer import MemeSerializer, CommentSerializer
+from .serializer import MemeSerializer, CommentSerializer, NotifcationSerializer
 from random import choice
 from rest_framework.response import Response
 from rest_framework import status, permissions, viewsets
@@ -150,3 +150,16 @@ class CommentView(viewsets.ModelViewSet):
         comments_meme = Comment.objects.filter(author=user)
         serialized_comments = self.get_serializer(comments_meme, context={"include_meme_data": True, "user": request.user}, many=True)
         return Response(serialized_comments.data, status=status.HTTP_200_OK)
+    
+class NotificationView(viewsets.ModelViewSet):
+    queryset = Notification.objects.all()
+    serializer_class = NotifcationSerializer
+    permissions_classes = [permissions.IsAuthenticated]
+
+    def list(self, request):
+        user = request.user
+        if not user:
+            return Response({"error": "Musisz być zalogowany!"},  status=status.HTTP_400_BAD_REQUEST)
+        notifcations = Notification.objects.filter(user=user)
+        serialized_notifcations = self.get_serializer(notifcations, many=True)
+        return Response(serialized_notifcations.data, status=status.HTTP_200_OK)

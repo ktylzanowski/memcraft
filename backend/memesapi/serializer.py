@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Meme, Comment
+from .models import Meme, Comment, Notification
 
 class MemeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -70,3 +70,9 @@ class CommentSerializer(serializers.ModelSerializer):
             user = self.context.get('user')
             return MemeSerializer(obj.meme, context={"user": user}).data
         return None
+    
+class NotifcationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Notification
+        fields = "__all__"
