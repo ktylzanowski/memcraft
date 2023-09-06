@@ -1,10 +1,11 @@
-import { json } from "react-router-dom";
+import { json, useLoaderData } from "react-router-dom";
 import MemesUserLikes from "../../components/Account/MemesUserLikes";
 
 const MemeUserLikesPage = () => {
+  const data = useLoaderData();
   return (
     <>
-      <MemesUserLikes />
+      <MemesUserLikes data={data}/>
     </>
   );
 };

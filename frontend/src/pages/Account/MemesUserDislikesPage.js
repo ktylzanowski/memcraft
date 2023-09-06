@@ -1,9 +1,11 @@
-import { json } from "react-router-dom";
-import MemesUserDislikes from "../../components/Account/MemesUserDislikes";
+import { json, useLoaderData } from "react-router-dom";
+import MemesUserlikes from "../../components/Account/MemesUserLikes";
+
 const MemesUserDislikesPage = () => {
+  const data = useLoaderData();
   return (
     <>
-      <MemesUserDislikes />
+      <MemesUserlikes data={data} />
     </>
   );
 };
