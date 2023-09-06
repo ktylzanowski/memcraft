@@ -60,7 +60,7 @@ const Likes = (props) => {
       <div className={classes.likes}>
         <LikeIcon
           src={ifLike ? likeUse : like}
-          onClick={token ? () => likeHandler("like") : () => {}}
+          onClick={token && !ifLike ? () => likeHandler("like") : () => {}}
           alt="Like"
         />
         <span style={{color: "green"}}>{totalLikes}</span>
@@ -68,7 +68,7 @@ const Likes = (props) => {
       <div>
         <LikeIcon
           src={ifDislike ? dislikeUse : dislike}
-          onClick={token ? () => likeHandler("dislike") : () => {}}
+          onClick={token && !ifDislike ? () => likeHandler("dislike") : () => {}}
           alt="Dislike"
         />
         <span style={{color: "red"}}>{totalDislikes}</span>
