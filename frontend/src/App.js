@@ -15,7 +15,7 @@ import UserInfoPage, {
   loader as UserInfoLoader,
   action as UserInfoAction,
 } from "./pages/Account/UserInfoPage";
-import MyMemesPage, {loader as UserMemesLoader} from "./pages/Account/MyMemesPage";
+import UserMemesPage, {loader as UserMemesLoader} from "./pages/Account/UserMemesPage";
 import MemeUserLikesPage, {loader as MemesUserLikesLoader} from "./pages/Account/MemesUserLikesPage";
 import MemesUserDislikesPage, {loader as MemesUserDislikesLoader} from "./pages/Account/MemesUserDislikesPage";
 import UserCommentsPage, {loader as UserCommentsLoader} from "./pages/Account/UserCommentsPage";
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "mojememy",
-                element: <MyMemesPage />,
+                element: <UserMemesPage />,
                 loader: UserMemesLoader,
               },
               {

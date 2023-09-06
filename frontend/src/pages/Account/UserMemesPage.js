@@ -1,7 +1,7 @@
 import { json } from "react-router-dom";
 import UserMemes from "../../components/Account/UserMemes";
 
-const MyMemesPage = () => {
+const UserMemesPage = () => {
   return <UserMemes />;
 };
 
@@ -26,4 +26,4 @@ export async function loader() {
   }
 }
 
-export default MyMemesPage;
+export default UserMemesPage;
