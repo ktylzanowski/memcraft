@@ -29,10 +29,6 @@
 }
 
 @media (max-width: 600px) {
-  .infoUser {
-    text-align: center;
-    align-items: center;
-  }
 
   .iconContainer {
     flex-direction: column;
