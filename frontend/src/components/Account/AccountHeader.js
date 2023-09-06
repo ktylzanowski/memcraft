@@ -12,7 +12,10 @@ const AccountHeader = () => {
     <>
       <div className={classes.iconContainer}>
         <div className={classes.infoUser}>
-          <img src={imageUrl} alt="icon" />
+          <a href="https://www.youtube.com/watch?v=B6ufVLfBKuU" target="_blank" rel="noreferrer">
+            <img src={imageUrl} alt="icon" />
+          </a>
+
           <span className={classes.username}>{user.username}</span>
         </div>
         <ChangeIcon />
