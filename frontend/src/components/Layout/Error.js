@@ -1,12 +1,8 @@
-import sadsteve from "../../images/sadsteve.png"
+import sadsteve from "../../images/sadsteve.png";
 import Button from "../../UI/Button";
 import classes from "./Error.module.css";
 
 const ErrorPage = (props) => {
-  const handleReload = () => {
-    window.location.reload();
-  };
-
   return (
     <>
       <img src={sadsteve} alt="Error" />
@@ -15,7 +11,13 @@ const ErrorPage = (props) => {
         Spróbuj przejść do innej podstrony za pomocą nawigacji na górze albo
         odśwież stronę przyciskiem na dole!
       </p>
-      <Button onClick={handleReload}>Odśwież</Button>
+      <Button
+        onClick={() => {
+          window.location.reload();
+        }}
+      >
+        Odśwież
+      </Button>
     </>
   );
 };

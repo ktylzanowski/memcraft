@@ -1,9 +1,9 @@
-import steveface from "../../images/steveface.png";
-import notifcation from "../../images/notification.png"
-import classes from "./Header.module.css";
-import "./Header.module.css";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
+
+import steveface from "../../images/steveface.png";
+import notifcation from "../../images/notification.png";
+import classes from "./Header.module.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -12,17 +12,22 @@ import { LinkContainer } from "react-router-bootstrap";
 const Header = () => {
   const { user, logoutUser } = useContext(AuthContext);
 
-  let imageUrl = "";
-
-  if (user) {
-    imageUrl = `http://127.0.0.1:8000/media/icons/${user.icon}`;
-  }
+  const imageUrl = user
+    ? `http://127.0.0.1:8000/media/icons/${user.icon}`
+    : steveface;
 
   return (
     <>
-      <Navbar expand="lg" className="navbar-dark custom-navbar">
+      <Navbar expand="lg" className="navbar-dark custom-navbar" sticky="top">
         <Container fluid>
-          <Navbar.Brand>MEMCRAFT</Navbar.Brand>
+          <Navbar.Brand
+            className={classes.title}
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            MEMCRAFT
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -45,9 +50,14 @@ const Header = () => {
             {user && (
               <>
                 <Nav.Link>
-                  <img src={notifcation} className={classes.icon} style={{ marginRight: "15px" }}/>
+                  <img
+                    src={notifcation}
+                    className={classes.icon}
+                    style={{ marginRight: "15px" }}
+                    alt="Powiadomienia"
+                  />
                 </Nav.Link>
-                <Nav.Link onClick={logoutUser} style={{ marginRight: "15px" }}>
+                <Nav.Link onClick={logoutUser} className={classes.logout}>
                   Wyloguj
                 </Nav.Link>
               </>
@@ -56,11 +66,7 @@ const Header = () => {
             <LinkContainer to={user ? "/konto" : "/authentication"}>
               <Nav.Link>
                 <div className={classes.account}>
-                  <img
-                    src={user ? imageUrl : steveface}
-                    alt="icon"
-                    className={classes.icon}
-                  />
+                  <img src={imageUrl} alt="icon" className={classes.icon} />
                   {user ? <span>{user.username}</span> : <span>Logowanie</span>}
                 </div>
               </Nav.Link>
