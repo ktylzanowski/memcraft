@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const useNotification = () => {
   const token = JSON.parse(localStorage.getItem("authTokens"));
-  const [notifications, setNotifications] = useState(false);
+  const [notifications, setNotifications] = useState([]);
 
   const fetchNotifications = async () => {
     const response = await fetch("http://127.0.0.1:8000/notification/", {

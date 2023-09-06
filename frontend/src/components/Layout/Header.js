@@ -2,18 +2,16 @@ import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 
 import steveface from "../../images/steveface.png";
-import notifcation from "../../images/notification.png";
-import notificationActive from "../../images/notificationActive.png"
+import Notifications from "./Notifications";
 import classes from "./Header.module.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { LinkContainer } from "react-router-bootstrap";
-import useNotification from "../../hooks/useNotifications";
 
 const Header = () => {
   const { user, logoutUser } = useContext(AuthContext);
-  const { notifications } = useNotification();
+
   const imageUrl = user
     ? `http://127.0.0.1:8000/media/icons/${user.icon}`
     : steveface;
@@ -52,12 +50,7 @@ const Header = () => {
             {user && (
               <>
                 <Nav.Link>
-                  <img
-                    src={notifications ? notificationActive : notifcation }
-                    className={classes.icon}
-                    style={{ marginRight: "15px" }}
-                    alt="Powiadomienia"
-                  />
+                  <Notifications />
                 </Nav.Link>
                 <Nav.Link onClick={logoutUser} className={classes.logout}>
                   Wyloguj
