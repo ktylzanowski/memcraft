@@ -95,6 +95,7 @@ class MemeView(viewsets.ModelViewSet):
         elif action == "dislike":
             meme.dislikes.add(request.user)
             meme.likes.remove(request.user)
+            Notification.create_dislike_notification(meme)
 
         total_likes = meme.total_likes()
         total_dislikes = meme.total_dislikes()
@@ -118,6 +119,7 @@ class CommentView(viewsets.ModelViewSet):
         if serializer.is_valid():
             comment = serializer.save(author=request.user, meme=meme)
             serialized_comment = self.get_serializer(comment)
+            Notification.create_comment_notification(meme)
             return Response({
                 "message": "Komentarz dodany",
                 "comment": serialized_comment.data,

@@ -74,6 +74,17 @@ class Notification(models.Model):
         notification.save()
 
     @classmethod
+    def create_dislike_notification(cls, meme):
+        total_dislikes = meme.total_dislikes()
+        notification, created = cls.objects.get_or_create(
+            meme=meme,
+            user=meme.author,
+            notification_type='dislike',
+        )
+        notification.content = f"{total_dislikes} osób niepolubiło twój mem \"{meme.title}\"."
+        notification.save()
+
+    @classmethod
     def create_comment_notification(cls, meme):
         total_comments = meme.total_comments()
         notification, created = cls.objects.get_or_create(
