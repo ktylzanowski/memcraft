@@ -70,7 +70,7 @@ class Notification(models.Model):
             user=meme.author,
             notification_type='like',
         )
-        notification.content = f"{total_likes} osób polubiło twój mem \"{meme.title}\"."
+        notification.content = f"{total_likes} osób polubiło twój mem {meme.title}."
         notification.save()
 
     @classmethod
@@ -81,7 +81,7 @@ class Notification(models.Model):
             user=meme.author,
             notification_type='dislike',
         )
-        notification.content = f"{total_dislikes} osób niepolubiło twój mem \"{meme.title}\"."
+        notification.content = f"{total_dislikes} osób niepolubiło twój mem {meme.title}."
         notification.save()
 
     @classmethod

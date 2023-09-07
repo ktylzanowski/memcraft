@@ -2,15 +2,15 @@ import Modal from "react-bootstrap/Modal";
 import notifcationDeactive from "../../images/notificationDeactivate.png";
 import notificationActive from "../../images/notificationActive.png";
 import { useEffect, useState } from "react";
-import classes from "./Header.module.css";
+import classes from "./Notifications.module.css";
 import useNotification from "../../hooks/useNotifications";
+import { Link } from "react-router-dom";
 
 const Notifications = () => {
   const { notifications, markupNotifications, isRead } = useNotification();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
 
   useEffect(() => {
     if (show === true) {
@@ -34,9 +34,11 @@ const Notifications = () => {
         <Modal.Body>
           {notifications.length > 0 ? (
             notifications.map((notification) => (
-              <p key={notification.id} style={{ color: "black" }}>
-                {notification.content}
-              </p>
+              <Link to={`/meme/${notification.meme}`} key={notification.id} onClick={handleClose}>
+                <p style={{ color: "black" }}>
+                  {notification.content}
+                </p>
+              </Link>
             ))
           ) : (
             <p style={{ color: "black" }}>Brak powiadomień</p>
