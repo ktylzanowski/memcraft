@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <>
-      <Navbar expand="lg" className="navbar-dark custom-navbar" sticky="top">
+      <Navbar expand="lg" className="navbar-dark custom-navbar sticky-top">
         <Container fluid>
           <Navbar.Brand
             className={classes.title}
