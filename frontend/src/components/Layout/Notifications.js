@@ -35,7 +35,7 @@ const Notifications = () => {
           {notifications.length > 0 ? (
             notifications.map((notification) => (
               <Link to={`/meme/${notification.meme}`} key={notification.id} onClick={handleClose}>
-                <p style={{ color: "black" }}>
+                <p className={classes.text} >
                   {notification.content}
                 </p>
               </Link>

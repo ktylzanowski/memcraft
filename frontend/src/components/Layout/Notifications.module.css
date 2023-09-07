@@ -11,4 +11,12 @@
     transform: scale(1.2);
   }
   
-  
+  .text{
+    color: black;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  .text:hover{
+    transform: scale(1.2);
+    cursor: pointer;
+  }
