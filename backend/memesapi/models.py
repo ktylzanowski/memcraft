@@ -20,7 +20,7 @@ class Meme(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=False, blank=False, on_delete=models.CASCADE
     )
-
+    created_at = models.DateTimeField(auto_now_add=True)
     if_accepted = models.BooleanField(null=False, blank=False, default=False)
 
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='meme_likes', blank=True)
