@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const useNotification = () => {
   const token = JSON.parse(localStorage.getItem("authTokens"));
   const [notifications, setNotifications] = useState([]);
+  const isRead = notifications.some((notification) => !notification.is_read);
 
   const fetchNotifications = async () => {
     const response = await fetch("http://127.0.0.1:8000/notification/", {
@@ -21,6 +22,25 @@ const useNotification = () => {
     }
   };
 
+  const markupNotifications = async () => {
+    const response = await fetch("http://127.0.0.1:8000/notification/read/", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ` + String(token.access),
+      },
+    });
+
+    if (response.ok) {
+      const updatedNotifications = notifications.map(notification => ({
+        ...notification,
+        is_read: true,
+      }));
+      setNotifications(updatedNotifications);
+    } else {
+      console.log("BAD");
+    }
+  };
+
   useEffect(() => {
     const time = 600000;
     fetchNotifications();
@@ -34,6 +54,8 @@ const useNotification = () => {
 
   return {
     notifications,
+    markupNotifications,
+    isRead,
   };
 };
 

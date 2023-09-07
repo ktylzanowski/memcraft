@@ -165,3 +165,11 @@ class NotificationView(viewsets.ModelViewSet):
         notifcations = Notification.objects.filter(user=user)
         serialized_notifcations = self.get_serializer(notifcations, many=True)
         return Response(serialized_notifcations.data, status=status.HTTP_200_OK)
+    
+    @action(detail=False, renderer_classes=[JSONRenderer])
+    def mark_all_as_read(self, request):
+        user = request.user
+        if not user:
+            return Response({"error": "Musisz być zalogowany!"},  status=status.HTTP_400_BAD_REQUEST)
+        Notification.objects.filter(user=user).update(is_read=True)
+        return Response({"message": "Wszystkie powiadomienia zostały oznaczone jako przeczytane."}, status=status.HTTP_200_OK)
