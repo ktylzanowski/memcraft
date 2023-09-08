@@ -3,6 +3,7 @@ import ChangePassword from "./ChangePassword";
 import AuthContext from "../../context/AuthContext";
 import classes from "./AccountHeader.module.css";
 import { useContext } from "react";
+import IconUI from "../../UI/IconUI";
 
 const AccountHeader = () => {
   const { user } = useContext(AuthContext);
@@ -12,8 +13,12 @@ const AccountHeader = () => {
     <>
       <div className={classes.iconContainer}>
         <div className={classes.infoUser}>
-          <a href="https://www.youtube.com/watch?v=B6ufVLfBKuU" target="_blank" rel="noreferrer">
-            <img src={imageUrl} alt="icon" />
+          <a
+            href="https://www.youtube.com/watch?v=B6ufVLfBKuU"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <IconUI src={imageUrl} />
           </a>
 
           <span className={classes.username}>{user.username}</span>

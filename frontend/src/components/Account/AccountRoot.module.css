@@ -1,5 +1,6 @@
 .account {
   display: flex;
+  padding: 5px;
 }
 .main {
   flex: 4;

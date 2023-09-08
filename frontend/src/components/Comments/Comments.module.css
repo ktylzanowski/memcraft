@@ -7,14 +7,6 @@
   border-radius: 8px;
 }
 
-.icon {
-  width: 25px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-left: 5px;
-}
-
-
 .comment {
   display: flex;
   justify-content: center;

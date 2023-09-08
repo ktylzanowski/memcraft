@@ -8,6 +8,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { LinkContainer } from "react-router-bootstrap";
+import IconUI from "../../UI/IconUI";
 
 const Header = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -61,7 +62,7 @@ const Header = () => {
             <LinkContainer to={user ? "/konto" : "/authentication"}>
               <Nav.Link>
                 <div className={classes.account}>
-                  <img src={imageUrl} alt="icon" className={classes.icon} />
+                  <IconUI src={imageUrl} />
                   {user ? <span>{user.username}</span> : <span>Logowanie</span>}
                 </div>
               </Nav.Link>

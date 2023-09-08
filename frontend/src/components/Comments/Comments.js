@@ -4,6 +4,7 @@ import useComments from "../../hooks/useComments";
 import CloseButton from "react-bootstrap/CloseButton";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
+import IconUI from "../../UI/IconUI";
 const Comments = (props) => {
   const {
     comments,
@@ -13,7 +14,7 @@ const Comments = (props) => {
     deleteComment,
     handleShowMore,
   } = useComments([], props);
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   return (
     <div className={classes.container}>
       <h3>Komentarze:</h3>
@@ -22,16 +23,14 @@ const Comments = (props) => {
         comments.map((comment) => (
           <div key={comment.id} className={classes.comment}>
             <div className={classes.user}>
-              <img
+              <IconUI
                 src={`http://127.0.0.1:8000/media/icons/${comment.author_icon}`}
-                className={classes.icon}
-                alt="Ikona"
               />
               {comment.author_username}
             </div>
             <div className={classes.text}>{comment.text}</div>
             {errors.error && <p>{errors.error}</p>}
-            
+
             {user && comment.author_username === user.username ? (
               <CloseButton
                 onClick={(e) => {

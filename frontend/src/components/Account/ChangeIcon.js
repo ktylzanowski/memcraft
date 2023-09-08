@@ -1,7 +1,7 @@
 import { useState } from "react";
-import classes from "./ChangeIcon.module.css";
 import Modal from "react-bootstrap/Modal";
 import Button2 from "../../UI/Button2";
+import IconUI from "../../UI/IconUI";
 
 function ChangeIcon() {
   const [show, setShow] = useState(false);
@@ -67,15 +67,15 @@ function ChangeIcon() {
       <Button2 onClick={handleShow}>Zmień ikonę</Button2>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title style={{ color: "black" }}>Kliknij na ikonę aby ją zmienić!</Modal.Title>
+          <Modal.Title style={{ color: "black" }}>
+            Kliknij na ikonę aby ją zmienić!
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {photos.map((photo) => (
-            <img
+            <IconUI
               key={photo.id}
               src={photo.url}
-              alt={`Zdjęcie ${photo.id}`}
-              className={classes.icon}
               onClick={() => handlePhotoClick(photo.name)}
             />
           ))}

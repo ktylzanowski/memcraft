@@ -3,6 +3,10 @@
   height: 25px;
   border-radius: 50%;
   object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
-  margin-left: 5px;
+}
+
+.icon:hover {
+  transform: scale(1.2);
 }
