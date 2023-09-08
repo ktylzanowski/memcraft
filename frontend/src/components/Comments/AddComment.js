@@ -8,6 +8,7 @@ const AddComment = (props) => {
     value: enteredComment,
     valueChangerHandler: commentChangedHandler,
     inputBlurHandler: commentBlurHandler,
+    reset,
   } = useInput(1);
 
   return (
@@ -27,10 +28,15 @@ const AddComment = (props) => {
           onBlur={commentBlurHandler}
           disabled={!token}
         />
-        {props.errors.text && <p className={classes.error}>{props.errors.text}</p>}
+        {props.errors.text && (
+          <p className={classes.error}>{props.errors.text}</p>
+        )}
         <button
           type="submit"
-          onClick={(event) => props.addNewComment(event, enteredComment)}
+          onClick={(event) => {
+            props.addNewComment(event, enteredComment);
+            reset();
+          }}
           className={classes.commentInput}
           disabled={!token}
         >
