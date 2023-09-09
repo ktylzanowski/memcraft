@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 const useComments = (initialData, props, isFetch = true) => {
   const [comments, setComments] = useState(initialData);
   const [message, setMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [totalComments, setTotalComments] = useState(0);
   const [commentPage, setCommentPage] = useState(1);
   const [nextPage, setNextPage] = useState(null);
@@ -41,6 +42,7 @@ const useComments = (initialData, props, isFetch = true) => {
           });
         }
         setNextPage(responseData.next);
+        setLoading(false);
       } else {
         setErrors({ "404error": "Nie można pobrać komentarzy. Przepraszamy!" });
       }
@@ -107,16 +109,16 @@ const useComments = (initialData, props, isFetch = true) => {
     );
     if (response.ok) {
       setMessage("Usunięto komentarz!");
-      setTotalComments(totalComments-1)
-      if(initialData.length ===0){
-        fetchData(commentPage)
+      setTotalComments(totalComments - 1);
+      if (initialData.length === 0) {
+        fetchData(commentPage);
       }
-      
+
       setComments((prevComments) =>
         prevComments.filter((comment) => comment.id !== commentId)
       );
     } else {
-      setErrors({"error": "Nie masz uprawnień do usunięcia tego komentarza."});
+      setErrors({ error: "Nie masz uprawnień do usunięcia tego komentarza." });
     }
   };
 
@@ -128,6 +130,7 @@ const useComments = (initialData, props, isFetch = true) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     setErrors(false);
     setCommentPage(1);
     setTotalComments(0);
@@ -142,6 +145,7 @@ const useComments = (initialData, props, isFetch = true) => {
     message,
     errors,
     totalComments,
+    loading,
     addNewComment,
     deleteComment,
     handleShowMore,

@@ -1,24 +1,32 @@
+import { useContext } from "react";
 import classes from "./Comments.module.css";
 import AddComment from "./AddComment";
 import useComments from "../../hooks/useComments";
 import CloseButton from "react-bootstrap/CloseButton";
-import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import IconUI from "../../UI/IconUI";
+import LoadingUI from "../../UI/LoadingUI";
+
 const Comments = (props) => {
   const {
     comments,
     errors,
     totalComments,
+    loading,
     addNewComment,
     deleteComment,
     handleShowMore,
   } = useComments([], props);
   const { user } = useContext(AuthContext);
+
   return (
     <div className={classes.container}>
       <h3>Komentarze:</h3>
-      {totalComments > 0 ? <p>Ilość komentarzy: {totalComments}</p> : null}
+      {loading ? (
+        <LoadingUI />
+      ) : (
+        totalComments > 0 && <p>Ilość komentarzy: {totalComments}</p>
+      )}
       {comments.length > 0 ? (
         comments.map((comment) => (
           <div key={comment.id} className={classes.comment}>
@@ -30,7 +38,6 @@ const Comments = (props) => {
             </div>
             <div className={classes.text}>{comment.text}</div>
             {errors.error && <p>{errors.error}</p>}
-
             {user && comment.author_username === user.username ? (
               <CloseButton
                 onClick={(e) => {
