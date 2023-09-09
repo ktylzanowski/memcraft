@@ -42,7 +42,7 @@ const useNotification = () => {
   };
 
   useEffect(() => {
-    const time = 600000;
+    const time = 100000;
     fetchNotifications();
     const interval = setInterval(() => {
       fetchNotifications();

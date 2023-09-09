@@ -71,6 +71,7 @@ class Notification(models.Model):
             notification_type='like',
         )
         notification.content = f"{total_likes} osób polubiło twój mem {meme.title}."
+        notification.is_read = False
         notification.save()
 
     @classmethod
@@ -82,6 +83,7 @@ class Notification(models.Model):
             notification_type='dislike',
         )
         notification.content = f"{total_dislikes} osób niepolubiło twój mem {meme.title}."
+        notification.is_read = False
         notification.save()
 
     @classmethod
@@ -93,6 +95,7 @@ class Notification(models.Model):
             notification_type='comment',
         )
         notification.content = f"{total_comments} osób skomentowało twój mem \"{meme.title}\"."
+        notification.is_read = False
         notification.save()
 
     def __str__(self):
