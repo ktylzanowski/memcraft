@@ -47,6 +47,61 @@ function ChangeIcon() {
       url: "http://127.0.0.1:8000/media/icons/cowface.png",
       name: "cowface.png",
     },
+    {
+      id: 8,
+      url: "http://127.0.0.1:8000/media/icons/witherface.png",
+      name: "witherface.png",
+    },
+    {
+      id: 9,
+      url: "http://127.0.0.1:8000/media/icons/villagerface.png",
+      name: "villagerface.png",
+    },
+    {
+      id: 10,
+      url: "http://127.0.0.1:8000/media/icons/chickenface.png",
+      name: "chickenface.png",
+    },
+    {
+      id: 11,
+      url: "http://127.0.0.1:8000/media/icons/skeletonface.png",
+      name: "skeletonface.png",
+    },
+    {
+      id: 12,
+      url: "http://127.0.0.1:8000/media/icons/witherskeletonface.png",
+      name: "witherskeletonface.png",
+    },
+    {
+      id: 13,
+      url: "http://127.0.0.1:8000/media/icons/blazeface.png",
+      name: "blazeface.png",
+    },
+    {
+      id: 14,
+      url: "http://127.0.0.1:8000/media/icons/ghastface.png",
+      name: "ghastface.png",
+    },
+    {
+      id: 15,
+      url: "http://127.0.0.1:8000/media/icons/zombiepigmanface.png",
+      name: "zombiepigmanface.png",
+    },
+    {
+      id: 16,
+      url: "http://127.0.0.1:8000/media/icons/wolfface.png",
+      name: "wolfface.png",
+    },
+    {
+      id: 17,
+      url: "http://127.0.0.1:8000/media/icons/slimeface.png",
+      name: "slimeface.png",
+    },
+    {
+      id: 18,
+      url: "http://127.0.0.1:8000/media/icons/mooshroomface.png",
+      name: "mooshroomface.png",
+    },
   ];
 
   const handlePhotoClick = async (photoName) => {
