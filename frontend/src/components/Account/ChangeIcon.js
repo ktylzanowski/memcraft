@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button2 from "../../UI/Button2";
 import IconUI from "../../UI/IconUI";
-
+import AuthContext from "../../context/AuthContext";
 function ChangeIcon() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [error, setError] = useState(false);
+
+  const { setIcon } = useContext(AuthContext);
 
   const photos = [
     {
@@ -56,10 +59,12 @@ function ChangeIcon() {
       },
       body: JSON.stringify({ icon: photoName }),
     });
+    const responseData = await response.json();
     if (response.ok) {
-      console.log("OK");
+      setIcon(responseData.data.icon);
+      handleClose();
     } else {
-      console.log("BAD");
+      setError("Coś poszło nie tak!");
     }
   };
   return (
@@ -68,7 +73,7 @@ function ChangeIcon() {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title style={{ color: "black" }}>
-            Kliknij na ikonę aby ją zmienić!
+            {error ? error : "Kliknij na ikonę aby ją zmienić!"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

@@ -17,7 +17,8 @@ export const AuthProvider = ({ children }) => {
       ? jwt_decode(localStorage.getItem("authTokens"))
       : null
   );
-  const [action, setAction] = useState(false)
+  const [icon, setIcon] = useState(user ? user.icon : null);
+  const [action, setAction] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -34,14 +35,16 @@ export const AuthProvider = ({ children }) => {
     });
     const data = await response.json();
     if (response.ok) {
+      const decode_data = jwt_decode(data.access);
       setAuthTokens(data);
-      setUser(jwt_decode(data.access));
+      setUser(decode_data);
+      setIcon(decode_data.icon);
       localStorage.setItem("authTokens", JSON.stringify(data));
       setError(false);
-      setMessage("Zalogowano")
-      setAction(true)
+      setMessage("Zalogowano");
+      setAction(true);
     } else {
-      setError({login: "Nieprawidłowe dane logowania. Spróbuj ponownie!"});
+      setError({ login: "Nieprawidłowe dane logowania. Spróbuj ponownie!" });
     }
   };
 
@@ -59,13 +62,13 @@ export const AuthProvider = ({ children }) => {
       }),
     });
 
-    const responseData = await response.json()
+    const responseData = await response.json();
 
     if (response.ok) {
-      setMessage("Zarejestrowano")
-      setAction(true)
+      setMessage("Zarejestrowano");
+      setAction(true);
     } else {
-      setError(responseData)
+      setError(responseData);
     }
   };
 
@@ -73,7 +76,7 @@ export const AuthProvider = ({ children }) => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
-    setMessage("Wylogowano")
+    setMessage("Wylogowano");
   };
 
   const updateToken = async () => {
@@ -108,8 +111,10 @@ export const AuthProvider = ({ children }) => {
   const contextData = {
     user,
     action,
-    setAction,
     error,
+    icon,
+    setAction,
+    setIcon,
     setError,
     loginUser,
     registerUser,

@@ -6,8 +6,8 @@ import { useContext } from "react";
 import IconUI from "../../UI/IconUI";
 
 const AccountHeader = () => {
-  const { user } = useContext(AuthContext);
-  const imageUrl = `http://127.0.0.1:8000/media/icons/${user.icon}`;
+  const { user, icon } = useContext(AuthContext);
+  const imageUrl = `http://127.0.0.1:8000/media/icons/${icon}`;
 
   return (
     <>
