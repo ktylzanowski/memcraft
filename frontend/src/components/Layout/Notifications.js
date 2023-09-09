@@ -22,7 +22,9 @@ const Notifications = () => {
     <>
       <img
         src={isRead ? notificationActive : notifcationDeactive}
-        className={classes.icon}
+        className={`${classes.icon} ${
+          isRead ? classes.activeIcon : classes.inactiveIcon
+        }`}
         style={{ marginRight: "15px" }}
         onClick={handleShow}
         alt="Powiadomienia"
@@ -34,10 +36,12 @@ const Notifications = () => {
         <Modal.Body>
           {notifications.length > 0 ? (
             notifications.map((notification) => (
-              <Link to={`/meme/${notification.meme}`} key={notification.id} onClick={handleClose}>
-                <p className={classes.text} >
-                  {notification.content}
-                </p>
+              <Link
+                to={`/meme/${notification.meme}`}
+                key={notification.id}
+                onClick={handleClose}
+              >
+                <p className={classes.text}>{notification.content}</p>
               </Link>
             ))
           ) : (

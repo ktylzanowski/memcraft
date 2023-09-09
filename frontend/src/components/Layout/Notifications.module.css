@@ -1,22 +1,38 @@
 .icon {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.icon:hover {
+  transform: scale(1.2);
+}
+
+.text {
+  color: black;
+  text-align: center;
+  transition: transform 0.3s;
+}
+.text:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.activeIcon {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-  
-  .icon:hover {
-    transform: scale(1.2);
+  50% {
+    transform: scale(1.1);
   }
-  
-  .text{
-    color: black;
-    text-align: center;
-    transition: transform 0.3s;
+  100% {
+    transform: scale(1);
   }
-  .text:hover{
-    transform: scale(1.2);
-    cursor: pointer;
-  }
+}
