@@ -2,7 +2,7 @@ import classes from "./LikeIcon.module.css";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
-const LikeIcon = (props) => {
+const LikeIcon = ({ src, alt, onClick }) => {
   const token = JSON.parse(localStorage.getItem("authTokens"));
 
   const renderTooltip = (props) => (
@@ -10,6 +10,7 @@ const LikeIcon = (props) => {
       Musisz być zalogowany!
     </Tooltip>
   );
+
   return (
     <>
       {!token ? (
@@ -18,20 +19,10 @@ const LikeIcon = (props) => {
           delay={{ show: 250, hide: 400 }}
           overlay={renderTooltip}
         >
-          <img
-            src={props.src}
-            alt={props.alt}
-            onClick={props.onClick}
-            className={classes.img}
-          />
+          <img src={src} alt={alt} onClick={onClick} className={classes.img} />
         </OverlayTrigger>
       ) : (
-        <img
-          src={props.src}
-          alt={props.alt}
-          onClick={props.onClick}
-          className={classes.img}
-        />
+        <img src={src} alt={alt} onClick={onClick} className={classes.img} />
       )}
     </>
   );
