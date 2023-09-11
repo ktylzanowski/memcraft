@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import classes from "./Comments.module.css";
 import AddComment from "./AddComment";
-import useComments from "../../hooks/useComments";
+import useComments from "../../../hooks/useComments";
 import CloseButton from "react-bootstrap/CloseButton";
-import AuthContext from "../../context/AuthContext";
-import IconUI from "../../UI/IconUI";
-import LoadingUI from "../../UI/LoadingUI";
+import AuthContext from "../../../context/AuthContext";
+import IconUI from "../../../UI/IconUI";
+import LoadingUI from "../../../UI/LoadingUI";
 
 const Comments = (props) => {
   const {

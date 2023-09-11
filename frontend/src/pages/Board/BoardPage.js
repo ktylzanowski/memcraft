@@ -1,8 +1,10 @@
 import { json } from "react-router-dom";
 import { useLoaderData } from "react-router";
-import Board from "../components/Memes/Board";
-import BoardPagination from "../components/Memes/BoardPagination";
 import { useState } from "react";
+
+import SingleMeme from "../../components/Memes/SingleMeme";
+import Comments from "../../components/Memes/Comments/Comments";
+import BoardPagination from "./BoardPagination";
 
 const BoardPage = () => {
   const [data, setData] = useState(useLoaderData());
@@ -37,7 +39,10 @@ const BoardPage = () => {
   return (
     <div>
       {data.results.map((meme) => (
-        <Board key={meme.id} meme={meme} />
+        <div key={meme.id}>
+          <SingleMeme meme={meme} />
+          <Comments id={meme.id} />
+        </div>
       ))}
       <BoardPagination
         count={data.count}

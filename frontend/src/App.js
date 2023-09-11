@@ -9,7 +9,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Authentication from "./pages/Authentication";
 import AddMemePage, { action as newMemeAction } from "./pages/AddMemePage";
 import AccountPage from "./pages/Account/AccountPage";
-import BoardPage, { loader as BoardLoader } from "./pages/BoardPage";
+import BoardPage, { loader as BoardLoader } from "./pages/Board/BoardPage";
 import DetailMemePage, { loader as DetailLoader } from "./pages/DetailMemePage";
 import UserInfoPage, {
   loader as UserInfoLoader,
