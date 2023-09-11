@@ -4,7 +4,7 @@ import { MessageProvider } from "./context/MessageContext";
 import PriveRoute from "./utils/PriveRoute";
 
 import RootLayout from "./pages/Root";
-import DrawMeme, { loader as MemeLoader } from "./pages/DrawMeme";
+import DrawMemePage, { loader as MemeLoader } from "./pages/DrawMemePage";
 import ErrorPage from "./pages/ErrorPage";
 import Authentication from "./pages/Authentication";
 import AddMemePage, { action as newMemeAction } from "./pages/AddMemePage";
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <DrawMeme />,
+        element: <DrawMemePage />,
         loader: MemeLoader,
         children: [
           {
