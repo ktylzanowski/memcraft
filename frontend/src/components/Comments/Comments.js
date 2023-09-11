@@ -16,7 +16,7 @@ const Comments = (props) => {
     addNewComment,
     deleteComment,
     handleShowMore,
-  } = useComments([], props);
+  } = useComments([], props.id);
   const { user } = useContext(AuthContext);
 
   return (
