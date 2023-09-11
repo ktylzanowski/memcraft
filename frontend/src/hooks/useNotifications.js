@@ -5,40 +5,45 @@ const useNotification = () => {
   const [notifications, setNotifications] = useState([]);
   const isRead = notifications.some((notification) => !notification.is_read);
 
+  const sendRequest = async (url, method = "GET") => {
+    try {
+      const response = await fetch(url, {
+        method,
+        headers: {
+          Authorization: `Bearer ` + String(token.access),
+        },
+      });
+
+      if (!response.ok) {
+        const responseData = await response.json();
+        console.error("Error:", response.status, responseData);
+        return null;
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error("Fetch error:", error);
+      return null;
+    }
+  };
+
   const fetchNotifications = async () => {
-    const response = await fetch("http://127.0.0.1:8000/notification/", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ` + String(token.access),
-      },
-    });
+    const url = "http://127.0.0.1:8000/notification/";
+    const responseData = await sendRequest(url);
 
-    const responseData = await response.json();
-
-    if (response.ok) {
+    if (responseData) {
       setNotifications(responseData);
-    } else {
-      console.log("BAD");
     }
   };
 
   const markupNotifications = async () => {
-    const response = await fetch("http://127.0.0.1:8000/notification/read/", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ` + String(token.access),
-      },
-    });
-
-    if (response.ok) {
-      const updatedNotifications = notifications.map(notification => ({
-        ...notification,
-        is_read: true,
-      }));
-      setNotifications(updatedNotifications);
-    } else {
-      console.log("BAD");
-    }
+    const url = "http://127.0.0.1:8000/notification/read/";
+    await sendRequest(url);
+    const updatedNotifications = notifications.map((notification) => ({
+      ...notification,
+      is_read: true,
+    }));
+    setNotifications(updatedNotifications);
   };
 
   useEffect(() => {
@@ -54,8 +59,8 @@ const useNotification = () => {
 
   return {
     notifications,
-    markupNotifications,
     isRead,
+    markupNotifications,
   };
 };
 

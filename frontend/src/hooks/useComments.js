@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useComments = (initialData, props, isFetch = true) => {
+const useComments = (initialData, meme_id, isFetch = true) => {
   const [comments, setComments] = useState(initialData);
   const [message, setMessage] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -11,10 +11,11 @@ const useComments = (initialData, props, isFetch = true) => {
   const token = JSON.parse(localStorage.getItem("authTokens"));
 
   const fetchData = async (page) => {
+    setLoading(true);
     const url = `http://127.0.0.1:8000/comment/?page=${page}`;
     const headers = {
       "Content-Type": "application/json",
-      "Meme-ID": props.id,
+      "Meme-ID": meme_id,
     };
 
     try {
@@ -42,12 +43,13 @@ const useComments = (initialData, props, isFetch = true) => {
           });
         }
         setNextPage(responseData.next);
-        setLoading(false);
       } else {
         setErrors({ "404error": "Nie można pobrać komentarzy. Przepraszamy!" });
       }
     } catch {
       setErrors({ "404error": "Nie można pobrać komentarzy. Przepraszamy!" });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,7 +74,7 @@ const useComments = (initialData, props, isFetch = true) => {
 
     const sendData = {
       text: enteredComment,
-      meme_id: props.id,
+      meme_id: meme_id,
     };
 
     try {
@@ -130,15 +132,14 @@ const useComments = (initialData, props, isFetch = true) => {
   };
 
   useEffect(() => {
-    setLoading(true);
     setErrors(false);
     setCommentPage(1);
     setTotalComments(0);
-    if (isFetch) {
+    if (isFetch && !loading) {
       fetchData(1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.id]);
+  }, [meme_id]);
 
   return {
     comments,

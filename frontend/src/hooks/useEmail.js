@@ -5,8 +5,8 @@ const useEmailInput = () => {
   const [isTouched, setIsTouched] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const isEmailValid = enteredEmail.includes("@"); 
-  
+  const isEmailValid = enteredEmail.includes("@");
+
   useEffect(() => {
     if (!isTouched) {
       setErrorMessage("");
