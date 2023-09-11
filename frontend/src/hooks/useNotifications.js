@@ -10,7 +10,7 @@ const useNotification = () => {
       const response = await fetch(url, {
         method,
         headers: {
-          Authorization: `Bearer ${token.access}`,
+          Authorization: `Bearer ` + String(token.access),
         },
       });
 
