@@ -132,7 +132,6 @@ const useComments = (initialData, meme_id, isFetch = true) => {
   };
 
   useEffect(() => {
-    setComments(initialData)
     setErrors(false);
     setCommentPage(1);
     setTotalComments(0);
