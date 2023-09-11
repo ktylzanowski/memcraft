@@ -11,6 +11,7 @@ const useComments = (initialData, props, isFetch = true) => {
   const token = JSON.parse(localStorage.getItem("authTokens"));
 
   const fetchData = async (page) => {
+    setLoading(true);
     const url = `http://127.0.0.1:8000/comment/?page=${page}`;
     const headers = {
       "Content-Type": "application/json",
@@ -42,12 +43,13 @@ const useComments = (initialData, props, isFetch = true) => {
           });
         }
         setNextPage(responseData.next);
-        setLoading(false);
       } else {
         setErrors({ "404error": "Nie można pobrać komentarzy. Przepraszamy!" });
       }
     } catch {
       setErrors({ "404error": "Nie można pobrać komentarzy. Przepraszamy!" });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -130,11 +132,10 @@ const useComments = (initialData, props, isFetch = true) => {
   };
 
   useEffect(() => {
-    setLoading(true);
     setErrors(false);
     setCommentPage(1);
     setTotalComments(0);
-    if (isFetch) {
+    if (isFetch && !loading) {
       fetchData(1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
