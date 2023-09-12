@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 import classes from "./UserMemes.module.css";
 import Likes from "../Memes/Likes";
 
@@ -14,8 +15,8 @@ const MemesUserLikes = ({ data }) => {
                 <div className={classes.memeInfo}>
                   <h2>{meme.title}</h2>
                   <Likes
-                    total_likes={meme.total_likes}
-                    total_dislikes={meme.total_dislikes}
+                    totalLikes={meme.total_likes}
+                    totalDislikes={meme.total_dislikes}
                     id={meme.id}
                     ifLike={meme.if_like}
                     ifDislike={meme.if_dislike}
