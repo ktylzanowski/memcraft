@@ -7,21 +7,32 @@ import likeUse from "../../images/likes/likeUse.png";
 import dislikeUse from "../../images/likes/dislikeUse.png";
 
 const Likes = (props) => {
-  const [totalLikes, setTotalLikes] = useState(props.totalLikes);
-  const [totalDislikes, setTotalDislikes] = useState(props.totalDislikes);
-  const [ifLike, setIfLike] = useState(props.ifLike);
-  const [ifDislike, setIfDislike] = useState(props.ifDislike);
-
   const token = JSON.parse(localStorage.getItem("authTokens"));
 
-  useEffect(() => {
-    setTotalLikes(props.totalLikes);
-    setTotalDislikes(props.totalDislikes);
-    setIfLike(props.ifLike);
-    setIfDislike(props.ifDislike);
+  const [likeInfo, setLikeInfo] = useState({
+    totalLikes: props.totalLikes,
+    totalDislikes: props.totalDislikes,
+    ifLike: props.ifLike,
+    ifDislike: props.ifDislike,
+  });
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.id, props.ifLike, props.ifDislike]);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    setError(false);
+    setLikeInfo({
+      totalLikes: props.totalLikes,
+      totalDislikes: props.totalDislikes,
+      ifLike: props.ifLike,
+      ifDislike: props.ifDislike,
+    });
+  }, [
+    props.id,
+    props.ifLike,
+    props.ifDislike,
+    props.totalLikes,
+    props.totalDislikes,
+  ]);
 
   const likeHandler = async (action) => {
     const data = {
@@ -29,29 +40,31 @@ const Likes = (props) => {
       action: action,
     };
 
-    const response = await fetch("http://127.0.0.1:8000/like/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ` + String(token.access),
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await fetch("http://127.0.0.1:8000/like/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ` + String(token.access),
+        },
+        body: JSON.stringify(data),
+      });
 
-    const resdata = await response.json();
+      const resdata = await response.json();
 
-    if (!response.ok) {
-      console.log("bad");
-    } else {
-      setTotalLikes(resdata.total_likes);
-      setTotalDislikes(resdata.total_dislikes);
-      if (action === "like") {
-        setIfLike(true);
-        setIfDislike(false);
+      if (response.ok) {
+        setLikeInfo({
+          totalLikes: resdata.total_likes,
+          totalDislikes: resdata.total_dislikes,
+          ifLike: action === "like",
+          ifDislike: action === "dislike",
+        });
       } else {
-        setIfLike(false);
-        setIfDislike(true);
+        setError("Error");
       }
+    } catch (error) {
+      console.error("Error:", error);
+      setError("Error");
     }
   };
 
@@ -59,20 +72,27 @@ const Likes = (props) => {
     <div className={classes.con}>
       <div className={classes.likes}>
         <LikeIcon
-          src={ifLike ? likeUse : like}
-          onClick={token && !ifLike ? () => likeHandler("like") : () => {}}
+          src={likeInfo.ifLike ? likeUse : like}
+          onClick={
+            token && !likeInfo.ifLike ? () => likeHandler("like") : () => {}
+          }
           alt="Like"
         />
-        <span style={{color: "green"}}>{totalLikes}</span>
+        <span style={{ color: "green" }}>{likeInfo.totalLikes}</span>
       </div>
       <div>
         <LikeIcon
-          src={ifDislike ? dislikeUse : dislike}
-          onClick={token && !ifDislike ? () => likeHandler("dislike") : () => {}}
+          src={likeInfo.ifDislike ? dislikeUse : dislike}
+          onClick={
+            token && !likeInfo.ifDislike
+              ? () => likeHandler("dislike")
+              : () => {}
+          }
           alt="Dislike"
         />
-        <span style={{color: "red"}}>{totalDislikes}</span>
+        <span style={{ color: "red" }}>{likeInfo.totalDislikes}</span>
       </div>
+      {error && <p>{error}</p>}
     </div>
   );
 };
