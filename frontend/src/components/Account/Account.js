@@ -1,6 +1,7 @@
+import { useActionData } from "react-router";
+
 import UserInfoForm from "./UserInfoForm";
 import AccountHeader from "./AccountHeader";
-import { useActionData } from "react-router";
 import ModalMessage from "../../UI/ModalMessage";
 
 const Account = () => {

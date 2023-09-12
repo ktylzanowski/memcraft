@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 import classes from "./UserMemes.module.css";
 import Likes from "../Memes/Likes";
 
-const MemesUserLikes = (props) => {
-  const data = props.data;
-
+const MemesUserLikes = ({ data }) => {
   return (
     <>
       <div className={classes.UserMemes}>

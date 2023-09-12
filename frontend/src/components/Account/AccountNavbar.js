@@ -1,12 +1,14 @@
-import classes from "./AccountNavbar.module.css";
 import { NavLink } from "react-router-dom";
+
+import classes from "./AccountNavbar.module.css";
+
 
 const AccountNavbar = () => {
   return (
     <>
       <div className={classes.nav}>
         <ul>
-          <NavLink to="/konto" replace={true} >
+          <NavLink to="/konto" replace={true}>
             <li>Główne dane</li>
           </NavLink>
           <NavLink to="/konto/mojememy" replace={true}>

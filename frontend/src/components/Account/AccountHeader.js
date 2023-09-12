@@ -1,8 +1,9 @@
+import { useContext } from "react";
+
 import ChangeIcon from "./ChangeIcon";
 import ChangePassword from "./ChangePassword";
 import AuthContext from "../../context/AuthContext";
 import classes from "./AccountHeader.module.css";
-import { useContext } from "react";
 import IconUI from "../../UI/IconUI";
 
 const AccountHeader = () => {
@@ -20,7 +21,6 @@ const AccountHeader = () => {
           >
             <IconUI src={imageUrl} />
           </a>
-
           <span className={classes.username}>{user.username}</span>
         </div>
         <ChangeIcon />

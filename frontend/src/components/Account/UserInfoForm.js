@@ -1,8 +1,8 @@
+import { Form, useLoaderData } from "react-router-dom";
+
 import classes from "./UserInfoForm.module.css";
 import Button from "../../UI/Button";
 import BackButton from "../../UI/BackButton";
-import { Form } from "react-router-dom";
-import { useLoaderData } from "react-router-dom";
 
 const UserInfoForm = () => {
   const data = useLoaderData();

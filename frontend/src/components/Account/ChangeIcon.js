@@ -1,14 +1,15 @@
 import { useContext, useState } from "react";
+
 import Modal from "react-bootstrap/Modal";
 import Button2 from "../../UI/Button2";
 import IconUI from "../../UI/IconUI";
 import AuthContext from "../../context/AuthContext";
+
 function ChangeIcon() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [error, setError] = useState(false);
-
   const { setIcon } = useContext(AuthContext);
 
   const photos = [

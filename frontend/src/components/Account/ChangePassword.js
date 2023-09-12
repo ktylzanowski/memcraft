@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { Form, useActionData } from "react-router-dom";
+
 import LongButton from "../../UI/LongButton";
 import Button2 from "../../UI/Button2";
 import Modal from "react-bootstrap/Modal";
 import classes from "./ChangePassword.module.css";
-import { Form, useActionData } from "react-router-dom";
+
 
 function ChangePassword() {
   const [show, setShow] = useState(false);

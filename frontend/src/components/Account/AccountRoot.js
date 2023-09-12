@@ -1,5 +1,6 @@
-import AccountNavbar from "./AccountNavbar";
 import { Outlet } from "react-router-dom";
+
+import AccountNavbar from "./AccountNavbar";
 import Modal from "../../UI/Modal";
 import classes from "./AccountRoot.module.css";
 

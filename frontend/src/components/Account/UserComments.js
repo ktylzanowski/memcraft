@@ -1,4 +1,5 @@
 import { useLoaderData } from "react-router-dom";
+
 import classes from "./UserMemes.module.css";
 import DeleteButton from "../../UI/DeleteButton";
 import useComments from "../../hooks/useComments";
@@ -6,7 +7,11 @@ import useComments from "../../hooks/useComments";
 const UserComments = (props) => {
   const data = useLoaderData();
 
-  const { comments, message, errors, deleteComment } = useComments(data, props, false);
+  const { comments, message, errors, deleteComment } = useComments(
+    data,
+    props,
+    false
+  );
 
   return (
     <>

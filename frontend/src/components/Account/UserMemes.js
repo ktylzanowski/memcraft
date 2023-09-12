@@ -1,6 +1,8 @@
 import { Link, useLoaderData } from "react-router-dom";
-import classes from "./UserMemes.module.css";
 import { useState } from "react";
+
+import classes from "./UserMemes.module.css";
+
 
 const UserMemes = () => {
   const data = useLoaderData();
