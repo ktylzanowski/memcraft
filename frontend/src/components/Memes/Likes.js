@@ -7,16 +7,16 @@ import likeUse from "../../images/likes/likeUse.png";
 import dislikeUse from "../../images/likes/dislikeUse.png";
 
 const Likes = (props) => {
-  const [totalLikes, setTotalLikes] = useState(props.total_likes);
-  const [totalDislikes, setTotalDislikes] = useState(props.total_dislikes);
+  const [totalLikes, setTotalLikes] = useState(props.totalLikes);
+  const [totalDislikes, setTotalDislikes] = useState(props.totalDislikes);
   const [ifLike, setIfLike] = useState(props.ifLike);
   const [ifDislike, setIfDislike] = useState(props.ifDislike);
 
   const token = JSON.parse(localStorage.getItem("authTokens"));
 
   useEffect(() => {
-    setTotalLikes(props.total_likes);
-    setTotalDislikes(props.total_dislikes);
+    setTotalLikes(props.totalLikes);
+    setTotalDislikes(props.totalDislikes);
     setIfLike(props.ifLike);
     setIfDislike(props.ifDislike);
 
