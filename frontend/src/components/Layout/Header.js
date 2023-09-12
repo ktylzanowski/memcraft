@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import AuthContext from "../../context/AuthContext";
+import { LinkContainer } from "react-router-bootstrap";
 
+import AuthContext from "../../context/AuthContext";
 import steveface from "../../images/steveface.png";
 import Notifications from "./Notifications";
 import classes from "./Header.module.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { LinkContainer } from "react-router-bootstrap";
 import IconUI from "../../UI/IconUI";
 
 const Header = () => {
