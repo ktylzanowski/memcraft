@@ -4,5 +4,4 @@ const AccountPage = () => {
   return <AccountRoot />;
 };
 
-
 export default AccountPage;

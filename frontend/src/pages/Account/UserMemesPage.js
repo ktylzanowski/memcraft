@@ -14,15 +14,15 @@ export async function loader() {
       Authorization: `Bearer ` + String(token.access),
     },
   });
-  if (!response.ok) {
+  if (response.ok) {
+    return response;
+  } else {
     throw json(
       { message: "Coś poszło nie tak! Przepraszamy!." },
       {
         status: 500,
       }
     );
-  } else {
-    return response;
   }
 }
 
