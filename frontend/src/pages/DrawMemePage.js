@@ -2,61 +2,51 @@ import SingleMeme from "../components/Memes/SingleMeme";
 import Comments from "../components/Memes/Comments/Comments";
 import Button from "../UI/Button";
 
-import { json } from "react-router-dom";
-import { Outlet } from "react-router-dom";
 import { useState } from "react";
+import { json, Outlet } from "react-router-dom";
 import { useLoaderData } from "react-router";
-
-
+import ScrollToTop from "../utils/ScrollToTop";
 
 const DrawMeme = () => {
+  const token = JSON.parse(localStorage.getItem("authTokens"));
   const memeFromLoader = useLoaderData();
   const last_meme = localStorage.getItem("last_meme");
-
   const [meme, setMeme] = useState(
-    last_meme ? JSON.parse(last_meme).meme : memeFromLoader.meme
+    last_meme ? JSON.parse(last_meme) : memeFromLoader
   );
+  const [error, setError] = useState(false);
 
   const fetchMeme = async () => {
-    const last_meme_id = localStorage.getItem("last_meme_id");
-    const send_meme_id = last_meme_id ? last_meme_id : meme.id;
-    const token = JSON.parse(localStorage.getItem("authTokens"));
+    const send_meme_id = last_meme.id ? last_meme.id : meme.id;
 
-    const headers = {
-      "Content-Type": "application/json",
-      "Meme-ID": send_meme_id,
-    };
-
-    if (token) {
-      headers["Authorization"] = `Bearer ${token.access}`;
-    }
     try {
       const response = await fetch("http://127.0.0.1:8000/", {
         method: "GET",
-        headers: headers,
+        headers: {
+          "Content-Type": "application/json",
+          "Meme-ID": send_meme_id,
+          Authorization: token ? `Bearer ${token.access}` : null,
+        },
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
-      } else {
+      if (response.ok) {
         localStorage.setItem("last_meme", JSON.stringify(data));
-        localStorage.setItem("last_meme_id", data.meme.id);
-        setMeme(data.meme);
+        setMeme(data);
+      } else {
+        setError(data.message);
       }
     } catch (error) {
-      console.log("Bad");
+      setError("Nie udało się złapać mema, przepraszamy!");
     }
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    ScrollToTop();
   };
 
   return (
     <>
       <Outlet />
-      <SingleMeme meme={meme} />
+      <SingleMeme meme={meme} error={error} />
       <Button onClick={fetchMeme}>Losuj Mema</Button>
       <Comments id={meme.id} />
     </>
@@ -64,30 +54,22 @@ const DrawMeme = () => {
 };
 
 export async function loader() {
-  const meme_id = localStorage.getItem("last_meme_id");
-  const last_meme_id = meme_id !== null ? meme_id : 0;
   const token = JSON.parse(localStorage.getItem("authTokens"));
-
-  const headers = {
-    "Content-Type": "application/json",
-    "Meme-ID": last_meme_id,
-  };
-
-  if (token) {
-    headers["Authorization"] = `Bearer ${token.access}`;
-  }
+  const meme_id = localStorage.getItem("last_meme".id);
+  const last_meme_id = meme_id !== null ? meme_id : 0;
 
   try {
     const response = await fetch("http://127.0.0.1:8000/", {
       method: "GET",
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Meme-ID": last_meme_id,
+        Authorization: token ? `Bearer ${token.access}` : null,
+      },
     });
 
-    if (response.ok) {
+    if (response) {
       return response;
-    } else {
-      const error = await response.json();
-      return error;
     }
   } catch {
     throw json(

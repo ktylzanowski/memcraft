@@ -70,9 +70,7 @@ class MemeView(viewsets.ModelViewSet):
         if memes.exists():
             meme = choice(memes)
             serializer = self.get_serializer(meme)
-            return Response({
-            'meme': serializer.data,
-            })
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(
                 {"message": "Nie udało się złapać mema."},
