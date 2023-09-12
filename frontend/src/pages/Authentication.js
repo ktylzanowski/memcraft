@@ -1,10 +1,6 @@
 import AuthComponent from "../components/Authentication/AuthComponent";
 const Authentication = () => {
-  return (
-    <>
-      <AuthComponent />
-    </>
-  );
+  return <AuthComponent />;
 };
 
 export default Authentication;
