@@ -1,6 +1,5 @@
 import AddMeme from "../components/Memes/AddMeme";
-import { redirect } from "react-router-dom";
-import { json } from "react-router-dom";
+import { redirect, json } from "react-router-dom";
 
 const AddMemePage = () => {
   return <AddMeme />;
