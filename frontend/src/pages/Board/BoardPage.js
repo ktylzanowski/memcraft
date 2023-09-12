@@ -2,6 +2,7 @@ import { json } from "react-router-dom";
 import { useLoaderData } from "react-router";
 import { useState } from "react";
 
+import ScrollToTop from "../../utils/ScrollToTop";
 import SingleMeme from "../../components/Memes/SingleMeme";
 import Comments from "../../components/Memes/Comments/Comments";
 import BoardPagination from "./BoardPagination";
@@ -9,6 +10,7 @@ import BoardPagination from "./BoardPagination";
 const BoardPage = () => {
   const [data, setData] = useState(useLoaderData());
   const [currentPage, setCurrentPage] = useState(1);
+  const [error, setError] = useState(false);
   const onPageChange = async (newPage) => {
     try {
       const response = await fetch(
@@ -25,19 +27,18 @@ const BoardPage = () => {
         setCurrentPage(newPage);
         setData(responseData);
       } else {
-        console.log("Bad");
+        setError("Coś poszło nie tak z ładowaniem komentarzy.");
       }
     } catch {
-      console.log("BAD");
+      setError("Coś poszło nie tak z ładowaniem komentarzy.");
+    } finally {
+      ScrollToTop();
     }
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   };
 
   return (
     <div>
+      {error && <p>{error}</p>}
       {data.results.map((meme) => (
         <div key={meme.id}>
           <SingleMeme meme={meme} />
@@ -57,23 +58,17 @@ export default BoardPage;
 
 export async function loader() {
   const token = JSON.parse(localStorage.getItem("authTokens"));
-  const headers = {
-    "Content-Type": "application/json",
-  };
-  if (token) {
-    headers["Authorization"] = `Bearer ${token.access}`;
-  }
   try {
     const response = await fetch("http://127.0.0.1:8000/memes/", {
       method: "GET",
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token.access}` : null,
+      },
     });
 
     if (response.ok) {
       return response;
-    } else {
-      const error = await response.json();
-      return error;
     }
   } catch {
     throw json(
