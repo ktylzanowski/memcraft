@@ -6,7 +6,7 @@ import classes from "./UserMemes.module.css";
 
 const UserMemes = () => {
   const data = useLoaderData();
-  const [memes, setMemes] = useState(data);
+  const [memes, setMemes] = useState(data.results);
   const [message, setMessage] = useState(false);
   const deleteFetch = async (props) => {
     const token = JSON.parse(localStorage.getItem("authTokens"));

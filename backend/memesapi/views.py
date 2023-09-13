@@ -46,8 +46,10 @@ class MemeView(viewsets.ModelViewSet):
     def user_memes(self, request):
         user = request.user
         user_memes = self.queryset.filter(author=user)
-        serializer = self.get_serializer(user_memes, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        paginator = BoradPagination()
+        paginated_memes = paginator.paginate_queryset(user_memes, request)
+        serialized_memes = self.get_serializer(paginated_memes, many=True)
+        return paginator.get_paginated_response(serialized_memes.data)
     
     @action(detail=False, renderer_classes=[JSONRenderer])
     def user_likes_memes(self, request):
