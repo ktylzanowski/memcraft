@@ -9,15 +9,13 @@ import ScrollToTop from "../utils/ScrollToTop";
 
 const DrawMeme = () => {
   const token = JSON.parse(localStorage.getItem("authTokens"));
+  const last_meme = JSON.parse(localStorage.getItem("last_meme"));
   const memeFromLoader = useLoaderData();
-  const last_meme = localStorage.getItem("last_meme");
-  const [meme, setMeme] = useState(
-    last_meme ? JSON.parse(last_meme) : memeFromLoader
-  );
+  const [meme, setMeme] = useState(last_meme ? last_meme : memeFromLoader);
   const [error, setError] = useState(false);
 
   const fetchMeme = async () => {
-    const send_meme_id = last_meme.id ? last_meme.id : meme.id;
+    const send_meme_id = last_meme ? last_meme.id : meme.id;
 
     try {
       const response = await fetch("http://127.0.0.1:8000/", {
@@ -55,8 +53,8 @@ const DrawMeme = () => {
 
 export async function loader() {
   const token = JSON.parse(localStorage.getItem("authTokens"));
-  const meme_id = localStorage.getItem("last_meme".id);
-  const last_meme_id = meme_id !== null ? meme_id : 0;
+  const meme_id = JSON.parse(localStorage.getItem("last_meme"));
+  const last_meme_id = meme_id ? meme_id.id : 0;
 
   try {
     const response = await fetch("http://127.0.0.1:8000/", {
