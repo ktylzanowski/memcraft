@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 
 import classes from "./UserMemes.module.css";
 import DeleteButton from "../../UI/DeleteButton";
@@ -12,7 +12,6 @@ const UserComments = (props) => {
     props,
     false
   );
-
   return (
     <>
       {message && <p className={classes.message}>{message}</p>}
@@ -20,10 +19,12 @@ const UserComments = (props) => {
       {comments.length > 0 ? (
         comments.map((comment) => (
           <div className={classes.memeContainer} key={comment.id}>
-            <img
-              src={`http://127.0.0.1:8000${comment.meme_data.meme_image}`}
-              alt={comment.meme_data.title}
-            />
+            <Link to={`/meme/${comment.meme_data.id}`}>
+              <img
+                src={`http://127.0.0.1:8000${comment.meme_data.meme_image}`}
+                alt={comment.meme_data.title}
+              />
+            </Link>
             <div className={classes.memeInfo}>
               <h2>Tytuł: {comment.meme_data.title}</h2>
               <h2>{comment.text}</h2>
