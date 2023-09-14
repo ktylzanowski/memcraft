@@ -1,14 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 import classes from "./UserMemes.module.css";
 import Likes from "../Memes/Likes";
+import usePagination from "../../hooks/usePagination";
+import StandartPagination from "../../pagination/StandartPagination";
 
-const MemesUserLikes = ({ data }) => {
+const MemesUserLikes = (url) => {
+  const { data, currentPage, onPageChange } = usePagination(
+    useLoaderData(),
+    url,
+  );
   return (
     <>
       <div className={classes.UserMemes}>
-        {data.length > 0 ? (
-          data.map((meme) => (
+        {data.results.length > 0 ? (
+          data.results.map((meme) => (
             <Link to={`/meme/${meme.id}`} key={meme.id}>
               <div className={classes.memeContainer} key={meme.id}>
                 <img src={meme.meme_image} alt={meme.title} />
@@ -28,6 +34,11 @@ const MemesUserLikes = ({ data }) => {
         ) : (
           <p className={classes.NoMemes}>Brak polajowanych memów!</p>
         )}
+        <StandartPagination
+          count={data.count}
+          currentPage={currentPage}
+          onPageChange={onPageChange}
+        />
       </div>
     </>
   );

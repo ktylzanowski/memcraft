@@ -55,15 +55,19 @@ class MemeView(viewsets.ModelViewSet):
     def user_likes_memes(self, request):
         user = request.user
         liked_memes = user.meme_likes.all()
-        serializer = self.get_serializer(liked_memes, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        paginator = BoradPagination()
+        paginated_memes = paginator.paginate_queryset(liked_memes, request)
+        serialized_memes = self.get_serializer(paginated_memes, many=True)
+        return paginator.get_paginated_response(serialized_memes.data)
     
     @action(detail=False, renderer_classes=[JSONRenderer])
     def user_dislikes_memes(self, request):
         user = request.user
         disliked_memes = user.meme_dislikes.all()
-        serializer = self.get_serializer(disliked_memes, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        paginator = BoradPagination()
+        paginated_memes = paginator.paginate_queryset(disliked_memes, request)
+        serialized_memes = self.get_serializer(paginated_memes, many=True)
+        return paginator.get_paginated_response(serialized_memes.data)
 
     @action(detail=True, renderer_classes=[JSONRenderer])
     def draw(self, request):

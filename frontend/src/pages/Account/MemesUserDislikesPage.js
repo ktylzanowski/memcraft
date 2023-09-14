@@ -1,9 +1,8 @@
-import { json, useLoaderData } from "react-router-dom";
+import { json } from "react-router-dom";
 import MemesUserlikes from "../../components/Account/MemesUserLikes";
 
 const MemesUserDislikesPage = () => {
-  const data = useLoaderData();
-  return <MemesUserlikes data={data} />;
+  return <MemesUserlikes url={"http://127.0.0.1:8000/memes/user/dislikes/"} />;
 };
 
 export async function loader() {

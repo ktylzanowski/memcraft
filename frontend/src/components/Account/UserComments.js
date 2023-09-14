@@ -21,7 +21,7 @@ const UserComments = (props) => {
         comments.map((comment) => (
           <div className={classes.memeContainer} key={comment.id}>
             <img
-              src={`http://127.0.0.1:8000/${comment.meme_data.meme_image}`}
+              src={`http://127.0.0.1:8000${comment.meme_data.meme_image}`}
               alt={comment.meme_data.title}
             />
             <div className={classes.memeInfo}>
