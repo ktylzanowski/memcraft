@@ -2,15 +2,18 @@ import { Link, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 
 import classes from "./UserMemes.module.css";
-
+import usePagination from "../../hooks/usePagination";
+import StandartPagination from "../../pagination/StandartPagination";
 
 const UserMemes = () => {
-  const data = useLoaderData();
-  const [memes, setMemes] = useState(data.results);
+  const { data, setData, currentPage, error, onPageChange } = usePagination(
+    useLoaderData(),
+    "http://127.0.0.1:8000/memes/usermemes/"
+  );
   const [message, setMessage] = useState(false);
-  const deleteFetch = async (props) => {
+  const deleteFetch = async (id) => {
     const token = JSON.parse(localStorage.getItem("authTokens"));
-    const response = await fetch(`http://127.0.0.1:8000/meme/${props}/`, {
+    const response = await fetch(`http://127.0.0.1:8000/meme/${id}/`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -18,19 +21,20 @@ const UserMemes = () => {
       },
     });
     if (response.ok) {
-      setMemes((prevMemes) => prevMemes.filter((meme) => meme.id !== props));
+      setData((prevMemes) => prevMemes.filter((meme) => meme.id !== id));
       setMessage("Usunięto mema!");
     } else {
-      setMessage("Coś poszło nie tak!")
+      setMessage("Coś poszło nie tak!");
     }
   };
 
   return (
     <>
+      {error && <p className={classes.message}>{error}</p>}
       {message && <p className={classes.message}>{message}</p>}
-      {memes.length > 0 ? (
+      {data.results.length > 0 ? (
         <div className={classes.UserMemes}>
-          {memes.map((meme) => (
+          {data.results.map((meme) => (
             <Link to={`/meme/${meme.id}`} key={meme.id}>
               <div className={classes.memeContainer}>
                 <img src={meme.meme_image} alt={meme.title} />
@@ -62,6 +66,11 @@ const UserMemes = () => {
               </div>
             </Link>
           ))}
+          <StandartPagination
+            count={data.count - 1}
+            currentPage={currentPage}
+            onPageChange={onPageChange}
+          />
         </div>
       ) : (
         <p className={classes.NoMemes}>Brak memów</p>
