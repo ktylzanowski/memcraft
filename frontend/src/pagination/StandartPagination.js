@@ -1,6 +1,6 @@
-import classes from './BoardPagination.module.css';
+import classes from './StandartPagination.module.css';
 
-const BoardPagination = (props) => {
+const StandartPagination = (props) => {
     const { count, currentPage, onPageChange } = props;
     const totalPages = Math.ceil(count / 5);
 
@@ -19,4 +19,4 @@ const BoardPagination = (props) => {
     );
 };
 
-export default BoardPagination;
+export default StandartPagination;

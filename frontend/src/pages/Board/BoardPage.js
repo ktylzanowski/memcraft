@@ -1,41 +1,16 @@
 import { json } from "react-router-dom";
 import { useLoaderData } from "react-router";
-import { useState } from "react";
 
-import ScrollToTop from "../../utils/ScrollToTop";
 import SingleMeme from "../../components/Memes/SingleMeme";
 import Comments from "../../components/Memes/Comments/Comments";
-import BoardPagination from "./BoardPagination";
+import StandartPagination from "../../pagination/StandartPagination";
+import usePagination from "../../hooks/usePagination";
 
 const BoardPage = () => {
-  const [data, setData] = useState(useLoaderData());
-  const [currentPage, setCurrentPage] = useState(1);
-  const [error, setError] = useState(false);
-  const onPageChange = async (newPage) => {
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/memes/?page=${newPage}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const responseData = await response.json();
-      if (response.ok) {
-        setCurrentPage(newPage);
-        setData(responseData);
-      } else {
-        setError("Coś poszło nie tak z ładowaniem komentarzy.");
-      }
-    } catch {
-      setError("Coś poszło nie tak z ładowaniem komentarzy.");
-    } finally {
-      ScrollToTop();
-    }
-  };
-
+  const { data, currentPage, error, onPageChange } = usePagination(
+    useLoaderData(),
+    "http://127.0.0.1:8000/memes/"
+  );
   return (
     <div>
       {error && <p>{error}</p>}
@@ -45,7 +20,7 @@ const BoardPage = () => {
           <Comments id={meme.id} />
         </div>
       ))}
-      <BoardPagination
+      <StandartPagination
         count={data.count}
         currentPage={currentPage}
         onPageChange={onPageChange}
