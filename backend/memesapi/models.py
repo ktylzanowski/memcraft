@@ -70,7 +70,12 @@ class Notification(models.Model):
             user=meme.author,
             notification_type='like',
         )
-        notification.content = f"{total_likes} osób polubiło twój mem {meme.title}."
+        if total_likes == 1:
+            notification.content = f"Jedna osoba polubiła twój mem {meme.title}."
+        elif total_likes == 2 or total_likes == 3 or total_likes == 4:
+            notification.content = f"{total_likes} osoby polubiły twój mem \"{meme.title}\"."
+        else:
+            notification.content = f"{total_likes} osób niepolubiło twój mem \"{meme.title}\"."
         notification.is_read = False
         notification.save()
 
@@ -82,7 +87,13 @@ class Notification(models.Model):
             user=meme.author,
             notification_type='dislike',
         )
-        notification.content = f"{total_dislikes} osób niepolubiło twój mem {meme.title}."
+        if total_dislikes == 1:
+            notification.content = f"Jedna osoba niepolubiła twój mem {meme.title}."
+        elif total_dislikes == 2 or total_dislikes == 3 or total_dislikes == 4:
+            notification.content = f"{total_dislikes} osoby niepolubiły twój mem \"{meme.title}\"."
+        else:
+            notification.content = f"{total_dislikes} osób niepolubiło twój mem \"{meme.title}\"."
+        
         notification.is_read = False
         notification.save()
 
@@ -94,7 +105,12 @@ class Notification(models.Model):
             user=meme.author,
             notification_type='comment',
         )
-        notification.content = f"{total_comments} osób skomentowało twój mem \"{meme.title}\"."
+        if total_comments == 1:
+            notification.content = f"Jedna osoba skomentowała twój mem {meme.title}."
+        elif total_comments == 2 or total_comments == 3 or total_comments == 4:
+            notification.content = f"{total_comments} osoby skomentowały twój mem \"{meme.title}\"."
+        else:
+            notification.content = f"{total_comments} osób skomentowało twój mem \"{meme.title}\"."
         notification.is_read = False
         notification.save()
 
