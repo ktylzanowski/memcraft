@@ -1,6 +1,9 @@
 .nav {
   flex: 1;
   margin-right: 10px;
+  max-height: 100vh;
+  overflow-y: auto;
+  transition: max-height 0.3s ease;
 }
 
 .nav ul {
@@ -24,8 +27,14 @@
 .nav ul a li {
   color: #333;
 }
-.nav ul a{
-  display: block; 
+.nav ul a {
+  display: block;
+}
+@media (min-width: 601px) {
+  .nav ul a li {
+    padding-top: 55px;
+    padding-bottom: 55px;
+  }
 }
 @media (max-width: 600px) {
   .nav {
