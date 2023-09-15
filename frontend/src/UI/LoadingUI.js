@@ -7,7 +7,7 @@ const LoadingUI = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSpinner(true);
-    }, 500);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, []);

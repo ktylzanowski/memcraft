@@ -1,25 +1,32 @@
 import { json } from "react-router-dom";
 import { useLoaderData } from "react-router";
 
-import SingleMeme from "../../components/Memes/SingleMeme";
-import Comments from "../../components/Memes/Comments/Comments";
-import StandartPagination from "../../pagination/StandartPagination";
-import usePagination from "../../hooks/usePagination";
+import SingleMeme from "../components/Memes/SingleMeme";
+import Comments from "../components/Memes/Comments/Comments";
+import StandartPagination from "../pagination/StandartPagination";
+import usePagination from "../hooks/usePagination";
+import LoadingUI from "../UI/LoadingUI";
 
 const BoardPage = () => {
-  const { data, currentPage, error, onPageChange } = usePagination(
+  const { data, currentPage, error, loading, onPageChange } = usePagination(
     useLoaderData(),
     "http://127.0.0.1:8000/memes/"
   );
   return (
     <div>
       {error && <p>{error}</p>}
-      {data.results.map((meme) => (
-        <div key={meme.id}>
-          <SingleMeme meme={meme} />
-          <Comments id={meme.id} />
+      {!loading ? (
+        <div>
+          {data.results.map((meme) => (
+            <div key={meme.id}>
+              <SingleMeme meme={meme} />
+              <Comments id={meme.id} />
+            </div>
+          ))}
         </div>
-      ))}
+      ) : (
+        <div style={{minHeight: 600}}> <LoadingUI /></div>
+      )}
       <StandartPagination
         count={data.count}
         currentPage={currentPage}

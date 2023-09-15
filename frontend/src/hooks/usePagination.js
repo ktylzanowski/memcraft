@@ -4,11 +4,13 @@ import ScrollToTop from "../utils/ScrollToTop";
 
 const usePagination = (initData, url) => {
   const token = JSON.parse(localStorage.getItem("authTokens"));
+  const [loading, setLoading] = useState(false)
   const [data, setData] = useState(initData);
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState(false);
 
   const onPageChange = async (newPage) => {
+    setLoading(true)
     try {
       const response = await fetch(`${url}?page=${newPage}`, {
         method: "GET",
@@ -27,6 +29,7 @@ const usePagination = (initData, url) => {
     } catch {
       setError("Coś poszło nie tak z ładowaniem.");
     } finally {
+      setLoading(false)
       ScrollToTop();
     }
   };
@@ -35,6 +38,7 @@ const usePagination = (initData, url) => {
     data,
     currentPage,
     error,
+    loading,
     setData,
     onPageChange,
   };
