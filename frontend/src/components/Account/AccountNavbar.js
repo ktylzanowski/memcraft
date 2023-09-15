@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 
 import classes from "./AccountNavbar.module.css";
 
-
 const AccountNavbar = () => {
   return (
     <>
