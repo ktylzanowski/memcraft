@@ -18,7 +18,10 @@ const Header = () => {
 
   return (
     <>
-      <Navbar expand="lg" className="navbar-dark custom-navbar sticky-top">
+      <Navbar
+        expand="lg"
+        className={`navbar-dark ${window.innerWidth > 900 ? 'sticky-top' : ""}`}
+      >
         <Container fluid>
           <Navbar.Brand
             className={classes.title}
