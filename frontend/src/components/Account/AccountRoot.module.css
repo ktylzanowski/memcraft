@@ -1,15 +1,18 @@
 .account {
   display: flex;
+  flex-direction: column;
   padding: 5px;
 }
+
 .main {
-  flex: 4;
+  flex: 1;
 }
 
 @media (max-width: 600px) {
   .account {
     flex-direction: column;
   }
+
   .main {
     flex: auto;
   }
