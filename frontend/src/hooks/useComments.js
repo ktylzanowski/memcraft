@@ -12,7 +12,7 @@ const useComments = (initialData, meme_id, isFetch = true) => {
 
   const fetchData = async (page) => {
     setLoading(true);
-    const url = `http://127.0.0.1:8000/comment/?page=${page}`;
+    const url = process.env.REACT_APP_API_URL + `comment/?page=${page}`;
     const headers = {
       "Content-Type": "application/json",
       "Meme-ID": meme_id,
@@ -65,7 +65,7 @@ const useComments = (initialData, meme_id, isFetch = true) => {
       return;
     }
 
-    const url = "http://127.0.0.1:8000/comment/";
+    const url = process.env.REACT_APP_API_URL + "comment/";
 
     const headers = {
       "Content-Type": "application/json",
@@ -100,7 +100,7 @@ const useComments = (initialData, meme_id, isFetch = true) => {
 
   const deleteComment = async (commentId) => {
     const response = await fetch(
-      `http://127.0.0.1:8000/comment/${commentId}/`,
+      process.env.REACT_APP_API_URL + `comment/${commentId}/`,
       {
         method: "DELETE",
         headers: {

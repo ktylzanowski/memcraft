@@ -2,12 +2,12 @@ import { json } from "react-router-dom";
 import MemesUserLikes from "../../components/Account/MemesUserLikes";
 
 const MemeUserLikesPage = () => {
-  return <MemesUserLikes url={"http://127.0.0.1:8000/memes/user/likes/"} />;
+  return <MemesUserLikes url={process.env.REACT_APP_API_URL + "memes/user/likes/"} />;
 };
 
 export async function loader() {
   const token = JSON.parse(localStorage.getItem("authTokens"));
-  const response = await fetch("http://127.0.0.1:8000/memes/user/likes/", {
+  const response = await fetch(process.env.REACT_APP_API_URL + "memes/user/likes/", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

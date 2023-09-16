@@ -8,18 +8,21 @@ import StandartPagination from "../../pagination/StandartPagination";
 const UserMemes = () => {
   const { data, setData, currentPage, error, onPageChange } = usePagination(
     useLoaderData(),
-    "http://127.0.0.1:8000/memes/usermemes/"
+    process.env.REACT_APP_API_URL + "memes/usermemes/"
   );
   const [message, setMessage] = useState(false);
   const deleteFetch = async (id) => {
     const token = JSON.parse(localStorage.getItem("authTokens"));
-    const response = await fetch(`http://127.0.0.1:8000/meme/${id}/`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ` + String(token.access),
-      },
-    });
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + `meme/${id}/`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ` + String(token.access),
+        },
+      }
+    );
     if (response.ok) {
       setData((prevMemes) => prevMemes.filter((meme) => meme.id !== id));
       setMessage("Usunięto mema!");

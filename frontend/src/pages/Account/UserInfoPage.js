@@ -33,7 +33,7 @@ export async function action({ request }) {
 
   if (intent === "userInfo") {
     try {
-      const response = await fetch("http://127.0.0.1:8000/accounts/userinfo/", {
+      const response = await fetch(process.env.REACT_APP_API_URL + "accounts/userinfo/", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export async function action({ request }) {
   if (intent === "changePassword") {
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/accounts/changepassword/",
+        process.env.REACT_APP_API_URL + "accounts/changepassword/",
         {
           method: "PUT",
           headers: {

@@ -8,7 +8,7 @@ const SingleMeme = (props) => {
     return <p>{error}</p>;
   }
 
-  const imageUrl = new URL(meme.meme_image, "http://127.0.0.1:8000").href;
+  const imageUrl = new URL(meme.meme_image, process.env.REACT_APP_API_URL).href;
 
   return (
     <>

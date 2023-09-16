@@ -20,7 +20,7 @@ const DrawMeme = () => {
     setLoading(true);
     const send_meme_id = last_meme ? last_meme.id : meme.id;
     try {
-      const response = await fetch("http://127.0.0.1:8000/", {
+      const response = await fetch(process.env.REACT_APP_API_URL, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const DrawMeme = () => {
       setLoading(false);
     }
   };
-
+  
   return (
     <>
       <Outlet />
@@ -68,7 +68,7 @@ export async function loader() {
   const last_meme_id = meme_id ? meme_id.id : 0;
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/", {
+    const response = await fetch(process.env.REACT_APP_API_URL, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

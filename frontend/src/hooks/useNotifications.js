@@ -28,7 +28,7 @@ const useNotification = () => {
   };
 
   const fetchNotifications = async () => {
-    const url = "http://127.0.0.1:8000/notification/";
+    const url = process.env.REACT_APP_API_URL + "notification/";
     const responseData = await sendRequest(url);
 
     if (responseData) {
@@ -37,7 +37,7 @@ const useNotification = () => {
   };
 
   const markupNotifications = async () => {
-    const url = "http://127.0.0.1:8000/notification/read/";
+    const url = process.env.REACT_APP_API_URL + "notification/read/";
     await sendRequest(url);
     const updatedNotifications = notifications.map((notification) => ({
       ...notification,

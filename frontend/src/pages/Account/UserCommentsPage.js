@@ -6,13 +6,16 @@ const UserCommentsPage = () => {
 
 export async function loader() {
   const token = JSON.parse(localStorage.getItem("authTokens"));
-  const response = await fetch("http://127.0.0.1:8000/comment/user/", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ` + String(token.access),
-    },
-  });
+  const response = await fetch(
+    process.env.REACT_APP_API_URL + "comment/user/",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + String(token.access),
+      },
+    }
+  );
   if (response.ok) {
     return response;
   } else {

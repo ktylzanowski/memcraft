@@ -15,99 +15,99 @@ function ChangeIcon() {
   const photos = [
     {
       id: 1,
-      url: "http://127.0.0.1:8000/media/icons/steveface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/steveface.png",
       name: "steveface.png",
     },
     {
       id: 2,
-      url: "http://127.0.0.1:8000/media/icons/zombieface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/zombieface.png",
       name: "zombieface.png",
     },
     {
       id: 3,
-      url: "http://127.0.0.1:8000/media/icons/sheepface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/sheepface.png",
       name: "sheepface.png",
     },
     {
       id: 4,
-      url: "http://127.0.0.1:8000/media/icons/pigface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/pigface.png",
       name: "pigface.png",
     },
     {
       id: 5,
-      url: "http://127.0.0.1:8000/media/icons/endermanface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/endermanface.png",
       name: "endermanface.png",
     },
     {
       id: 6,
-      url: "http://127.0.0.1:8000/media/icons/creeperface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/creeperface.png",
       name: "creeperface.png",
     },
     {
       id: 7,
-      url: "http://127.0.0.1:8000/media/icons/cowface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/cowface.png",
       name: "cowface.png",
     },
     {
       id: 8,
-      url: "http://127.0.0.1:8000/media/icons/witherface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/witherface.png",
       name: "witherface.png",
     },
     {
       id: 9,
-      url: "http://127.0.0.1:8000/media/icons/villagerface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/villagerface.png",
       name: "villagerface.png",
     },
     {
       id: 10,
-      url: "http://127.0.0.1:8000/media/icons/chickenface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/chickenface.png",
       name: "chickenface.png",
     },
     {
       id: 11,
-      url: "http://127.0.0.1:8000/media/icons/skeletonface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/skeletonface.png",
       name: "skeletonface.png",
     },
     {
       id: 12,
-      url: "http://127.0.0.1:8000/media/icons/witherskeletonface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/witherskeletonface.png",
       name: "witherskeletonface.png",
     },
     {
       id: 13,
-      url: "http://127.0.0.1:8000/media/icons/blazeface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/blazeface.png",
       name: "blazeface.png",
     },
     {
       id: 14,
-      url: "http://127.0.0.1:8000/media/icons/ghastface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/ghastface.png",
       name: "ghastface.png",
     },
     {
       id: 15,
-      url: "http://127.0.0.1:8000/media/icons/zombiepigmanface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/zombiepigmanface.png",
       name: "zombiepigmanface.png",
     },
     {
       id: 16,
-      url: "http://127.0.0.1:8000/media/icons/wolfface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/wolfface.png",
       name: "wolfface.png",
     },
     {
       id: 17,
-      url: "http://127.0.0.1:8000/media/icons/slimeface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/slimeface.png",
       name: "slimeface.png",
     },
     {
       id: 18,
-      url: "http://127.0.0.1:8000/media/icons/mooshroomface.png",
+      url: process.env.REACT_APP_API_URL + "media/icons/mooshroomface.png",
       name: "mooshroomface.png",
     },
   ];
 
   const handlePhotoClick = async (photoName) => {
     const token = JSON.parse(localStorage.getItem("authTokens"));
-    const response = await fetch("http://127.0.0.1:8000/accounts/userinfo/", {
+    const response = await fetch(process.env.REACT_APP_API_URL + "accounts/userinfo/", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

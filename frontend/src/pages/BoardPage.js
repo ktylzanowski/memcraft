@@ -10,7 +10,7 @@ import LoadingUI from "../UI/LoadingUI";
 const BoardPage = () => {
   const { data, currentPage, error, loading, onPageChange } = usePagination(
     useLoaderData(),
-    "http://127.0.0.1:8000/memes/"
+    process.env.REACT_APP_API_URL + "memes/"
   );
   return (
     <div>
@@ -41,7 +41,7 @@ export default BoardPage;
 export async function loader() {
   const token = JSON.parse(localStorage.getItem("authTokens"));
   try {
-    const response = await fetch("http://127.0.0.1:8000/memes/", {
+    const response = await fetch(process.env.REACT_APP_API_URL + "memes/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

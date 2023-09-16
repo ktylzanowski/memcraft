@@ -33,7 +33,10 @@ const Comments = (props) => {
           <div key={comment.id} className={classes.comment}>
             <div className={classes.user}>
               <IconUI
-                src={`http://127.0.0.1:8000/media/icons/${comment.author_icon}`}
+                src={
+                  process.env.REACT_APP_API_URL +
+                  `media/icons/${comment.author_icon}`
+                }
               />
               {comment.author_username}
             </div>

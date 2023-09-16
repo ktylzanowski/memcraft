@@ -41,7 +41,7 @@ const Likes = (props) => {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/like/", {
+      const response = await fetch(process.env.REACT_APP_API_URL + "like/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
