@@ -15,11 +15,18 @@ import UserInfoPage, {
   loader as UserInfoLoader,
   action as UserInfoAction,
 } from "./pages/Account/UserInfoPage";
-import UserMemesPage, {loader as UserMemesLoader} from "./pages/Account/UserMemesPage";
-import MemeUserLikesPage, {loader as MemesUserLikesLoader} from "./pages/Account/MemesUserLikesPage";
-import MemesUserDislikesPage, {loader as MemesUserDislikesLoader} from "./pages/Account/MemesUserDislikesPage";
-import UserCommentsPage, {loader as UserCommentsLoader} from "./pages/Account/UserCommentsPage";
-
+import UserMemesPage, {
+  loader as UserMemesLoader,
+} from "./pages/Account/UserMemesPage";
+import MemeUserLikesPage, {
+  loader as MemesUserLikesLoader,
+} from "./pages/Account/MemesUserLikesPage";
+import MemesUserDislikesPage, {
+  loader as MemesUserDislikesLoader,
+} from "./pages/Account/MemesUserDislikesPage";
+import UserCommentsPage, {
+  loader as UserCommentsLoader,
+} from "./pages/Account/UserCommentsPage";
 
 const router = createBrowserRouter([
   {
@@ -31,12 +38,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <DrawMemePage />,
         loader: MemeLoader,
-        children: [
-          {
-            path: "authentication",
-            element: <Authentication />,
-          },
-        ],
+      },
+      {
+        path: "/authentication",
+        element: <Authentication />,
       },
       {
         path: "tablica",
@@ -85,7 +90,7 @@ const router = createBrowserRouter([
                 path: "komentarze",
                 element: <UserCommentsPage />,
                 loader: UserCommentsLoader,
-              }
+              },
             ],
           },
         ],
