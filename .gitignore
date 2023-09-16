@@ -163,3 +163,4 @@ backend/memcraftvenv
 backend/media/images
 backend/memesapi/migrations
 backend/accounts/migrations
+backend/staticfiles/
