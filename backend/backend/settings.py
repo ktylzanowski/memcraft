@@ -1,17 +1,14 @@
 from pathlib import Path
 import os
 from datetime import timedelta
-
+from decouple import config, Csv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+PRODUCTION = True
+SECRET_KEY = config('SECRET_KEY')
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-tyh%ia46gbwv5+1#^nkedd=2)!lhk-g8wqa#+*q78=%nf)5hjl'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*', cast=Csv())
 
 
 INSTALLED_APPS = [
