@@ -8,7 +8,7 @@ import IconUI from "../../UI/IconUI";
 
 const AccountHeader = () => {
   const { user, icon } = useContext(AuthContext);
-  const imageUrl = process.env.REACT_APP_API_URL + `media/icons/${icon}`;
+  const imageUrl = process.env.REACT_APP_API_URL + `static/icons/${icon}`;
 
   return (
     <>
