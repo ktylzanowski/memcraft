@@ -13,7 +13,7 @@ import IconUI from "../../UI/IconUI";
 const Header = () => {
   const { user, logoutUser, icon } = useContext(AuthContext);
   const imageUrl = user
-    ? process.env.REACT_APP_API_URL + `media/icons/${icon}`
+    ? process.env.REACT_APP_API_URL + `static/icons/${icon}`
     : steveface;
 
   return (
