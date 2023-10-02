@@ -7,7 +7,7 @@ const UserInfoPage = () => {
 
 export async function loader() {
   const token = JSON.parse(localStorage.getItem("authTokens"));
-  const response = await fetch("http://127.0.0.1:8000/accounts/user/", {
+  const response = await fetch(process.env.REACT_APP_API_URL+"accounts/user/", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

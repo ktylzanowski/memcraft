@@ -35,7 +35,7 @@ const Comments = (props) => {
               <IconUI
                 src={
                   process.env.REACT_APP_API_URL +
-                  `media/icons/${comment.author_icon}`
+                  `static/icons/${comment.author_icon}`
                 }
               />
               {comment.author_username}
