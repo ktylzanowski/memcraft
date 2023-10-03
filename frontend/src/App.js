@@ -4,7 +4,7 @@ import { MessageProvider } from "./context/MessageContext";
 import PriveRoute from "./utils/PriveRoute";
 
 import RootLayout from "./pages/Root";
-import DrawMemePage, { loader as MemeLoader } from "./pages/DrawMemePage";
+import DrawMemePage from "./pages/DrawMemePage";
 import ErrorPage from "./pages/ErrorPage";
 import Authentication from "./pages/Authentication";
 import AddMemePage, { action as newMemeAction } from "./pages/AddMemePage";
@@ -37,7 +37,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <DrawMemePage />,
-        loader: MemeLoader,
       },
       {
         path: "/authentication",

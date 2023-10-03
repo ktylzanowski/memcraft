@@ -14,6 +14,7 @@ const Comments = (props) => {
     errors,
     totalComments,
     loading,
+    loadingAdd,
     addNewComment,
     deleteComment,
     handleShowMore,
@@ -57,14 +58,14 @@ const Comments = (props) => {
           </div>
         ))
       ) : (
-        <p>{errors ? errors["404error"] : "Brak komentarzy."}</p>
+        !loading && <p>{errors ? errors["404error"] : "Brak komentarzy."}</p>
       )}
       {totalComments > comments.length && (
         <button onClick={handleShowMore} className={classes.showMoreButton}>
           Pokaż więcej
         </button>
       )}
-      <AddComment addNewComment={addNewComment} errors={errors} />
+      <AddComment addNewComment={addNewComment} loading={loadingAdd} errors={errors} />
     </div>
   );
 };

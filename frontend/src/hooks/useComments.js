@@ -4,6 +4,7 @@ const useComments = (initialData, meme_id, isFetch = true) => {
   const [comments, setComments] = useState(initialData);
   const [message, setMessage] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingAdd, setLoadingAdd] = useState(false)
   const [totalComments, setTotalComments] = useState(0);
   const [commentPage, setCommentPage] = useState(1);
   const [nextPage, setNextPage] = useState(null);
@@ -64,6 +65,7 @@ const useComments = (initialData, meme_id, isFetch = true) => {
       setErrors({ text: "Komentarz nie może być pusty" });
       return;
     }
+    setLoadingAdd(true)
 
     const url = process.env.REACT_APP_API_URL + "comment/";
 
@@ -95,6 +97,8 @@ const useComments = (initialData, meme_id, isFetch = true) => {
       }
     } catch {
       setErrors("Coś poszło nie tak. Przepraszamy!");
+    }finally{
+      setLoadingAdd(false)
     }
   };
 
@@ -147,6 +151,7 @@ const useComments = (initialData, meme_id, isFetch = true) => {
     errors,
     totalComments,
     loading,
+    loadingAdd,
     addNewComment,
     deleteComment,
     handleShowMore,

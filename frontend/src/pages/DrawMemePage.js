@@ -2,8 +2,8 @@ import SingleMeme from "../components/Memes/SingleMeme";
 import Comments from "../components/Memes/Comments/Comments";
 import Button from "../UI/Button";
 
-import { useState } from "react";
-import { json, Outlet } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Outlet } from "react-router-dom";
 import { useLoaderData } from "react-router";
 import ScrollToTop from "../utils/ScrollToTop";
 import LoadingUI from "../UI/LoadingUI";
@@ -18,7 +18,7 @@ const DrawMeme = () => {
 
   const fetchMeme = async () => {
     setLoading(true);
-    const send_meme_id = last_meme ? last_meme.id : meme.id;
+    const send_meme_id = last_meme ? last_meme.id : (meme ? meme.id : 0);
     try {
       const response = await fetch(process.env.REACT_APP_API_URL, {
         method: "GET",
@@ -44,6 +44,11 @@ const DrawMeme = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() =>{
+    fetchMeme()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   
   return (
     <>
@@ -52,41 +57,13 @@ const DrawMeme = () => {
         <div>
           <SingleMeme meme={meme} error={error} />
           <Button onClick={fetchMeme}>Losuj Mema</Button>
+          <Comments id={meme.id} />
         </div>
       ) : (
-       <div style={{minHeight: 600}}> <LoadingUI /></div>
+       <div style={{marginTop: "10%"}}> <LoadingUI /></div>
       )}
-      
-      <Comments id={meme.id} />
     </>
   );
 };
 
-export async function loader() {
-  const token = JSON.parse(localStorage.getItem("authTokens"));
-  const meme_id = JSON.parse(localStorage.getItem("last_meme"));
-  const last_meme_id = meme_id ? meme_id.id : 0;
-
-  try {
-    const response = await fetch(process.env.REACT_APP_API_URL, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Meme-ID": last_meme_id,
-        Authorization: token ? `Bearer ${token.access}` : null,
-      },
-    });
-
-    if (response) {
-      return response;
-    }
-  } catch {
-    throw json(
-      { message: "Coś poszło nie tak! Przepraszamy!." },
-      {
-        status: 500,
-      }
-    );
-  }
-}
 export default DrawMeme;

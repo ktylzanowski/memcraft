@@ -1,5 +1,6 @@
 import classes from "./Comments.module.css";
 import useInput from "../../../hooks/useInput";
+import LoadingUI from "../../../UI/LoadingUI";
 
 const AddComment = (props) => {
   const token = JSON.parse(localStorage.getItem("authTokens"));
@@ -40,7 +41,7 @@ const AddComment = (props) => {
           className={classes.commentInput}
           disabled={!token}
         >
-          Dodaj komentarz
+          {! props.loading ? "Dodaj komentarz" : <LoadingUI />}
         </button>
       </form>
     </>
