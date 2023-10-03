@@ -32,7 +32,7 @@ const MemesUserLikes = (url) => {
             </div>
           ))
         ) : (
-          <p className={classes.NoMemes}>Brak polajowanych memów!</p>
+          <p className={classes.NoMemes}>Brak memów!</p>
         )}
         <StandartPagination
           count={data.count}
