@@ -44,7 +44,7 @@ const DrawMeme = () => {
   };
 
   useEffect(() => {
-    fetchMeme();
+    if (!last_meme) fetchMeme();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -59,7 +59,6 @@ const DrawMeme = () => {
         </div>
       ) : (
         <div style={{ marginTop: "10%" }}>
-          {" "}
           <LoadingUI />
         </div>
       )}

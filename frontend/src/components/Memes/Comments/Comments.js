@@ -8,7 +8,7 @@ import AuthContext from "../../../context/AuthContext";
 import IconUI from "../../../UI/IconUI";
 import LoadingUI from "../../../UI/LoadingUI";
 
-const Comments = (props) => {
+const Comments = ({ id }) => {
   const {
     comments,
     errors,
@@ -18,7 +18,7 @@ const Comments = (props) => {
     addNewComment,
     deleteComment,
     handleShowMore,
-  } = useComments([], props.id);
+  } = useComments([], id);
   const { user } = useContext(AuthContext);
 
   return (
@@ -29,43 +29,51 @@ const Comments = (props) => {
       ) : (
         totalComments > 0 && <p>Ilość komentarzy: {totalComments}</p>
       )}
-      {comments.length > 0 ? (
-        comments.map((comment) => (
-          <div key={comment.id} className={classes.comment}>
-            <div className={classes.user}>
-              <IconUI
-                src={
-                  process.env.REACT_APP_API_URL +
-                  `static/icons/${comment.author_icon}`
-                }
-              />
-              {comment.author_username}
+      {comments.length > 0
+        ? comments.map((comment) => (
+            <div key={comment.id} className={classes.comment}>
+              <div className={classes.userData}>
+                <div className={classes.icon}>
+                  <IconUI
+                    src={
+                      process.env.REACT_APP_API_URL +
+                      `static/icons/${comment.author_icon}`
+                    }
+                  />
+                </div>
+                <div className={classes.info}>
+                  <div className={classes.nickname}>
+                    @{comment.author_username}
+                  </div>
+                  <div className={classes.text}>{comment.text}</div>
+                </div>
+                {user && comment.author_username === user.username && (
+                  <div className={classes.delete}>
+                    <CloseButton
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (window.confirm("Czy na pewno chcesz usunąć?")) {
+                          deleteComment(comment.id);
+                        }
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-            <div className={classes.text}>{comment.text}</div>
-            {errors.error && <p>{errors.error}</p>}
-            {user && comment.author_username === user.username ? (
-              <CloseButton
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (window.confirm("Czy na pewno chcesz usunąć?")) {
-                    deleteComment(comment.id);
-                  }
-                }}
-              />
-            ) : (
-              ""
-            )}
-          </div>
-        ))
-      ) : (
-        !loading && <p>{errors ? errors["404error"] : "Brak komentarzy."}</p>
-      )}
+          ))
+        : !loading && <p>{errors?.["404error"] || "Brak komentarzy."}</p>}
+
       {totalComments > comments.length && (
         <button onClick={handleShowMore} className={classes.showMoreButton}>
           Pokaż więcej
         </button>
       )}
-      <AddComment addNewComment={addNewComment} loading={loadingAdd} errors={errors} />
+      <AddComment
+        addNewComment={addNewComment}
+        loading={loadingAdd}
+        errors={errors}
+      />
     </div>
   );
 };
