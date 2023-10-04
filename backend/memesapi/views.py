@@ -99,7 +99,6 @@ class MemeView(viewsets.ModelViewSet):
         elif action == "dislike":
             meme.dislikes.add(request.user)
             meme.likes.remove(request.user)
-            Notification.create_dislike_notification(meme)
 
         total_likes = meme.total_likes()
         total_dislikes = meme.total_dislikes()

@@ -79,23 +79,6 @@ class Notification(models.Model):
         notification.is_read = False
         notification.save()
 
-    @classmethod
-    def create_dislike_notification(cls, meme):
-        total_dislikes = meme.total_dislikes()
-        notification, created = cls.objects.get_or_create(
-            meme=meme,
-            user=meme.author,
-            notification_type='dislike',
-        )
-        if total_dislikes == 1:
-            notification.content = f"Jedna osoba niepolubiła twój mem {meme.title}."
-        elif total_dislikes == 2 or total_dislikes == 3 or total_dislikes == 4:
-            notification.content = f"{total_dislikes} osoby niepolubiły twój mem \"{meme.title}\"."
-        else:
-            notification.content = f"{total_dislikes} osób niepolubiło twój mem \"{meme.title}\"."
-        
-        notification.is_read = False
-        notification.save()
 
     @classmethod
     def create_comment_notification(cls, meme):

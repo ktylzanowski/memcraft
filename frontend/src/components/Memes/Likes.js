@@ -6,14 +6,14 @@ import classes from "./Likes.module.css";
 import likeUse from "../../images/likes/likeUse.png";
 import dislikeUse from "../../images/likes/dislikeUse.png";
 
-const Likes = (props) => {
+const Likes = ({ id, totalLikes, totalDislikes, ifLike, ifDislike }) => {
   const token = JSON.parse(localStorage.getItem("authTokens"));
 
   const [likeInfo, setLikeInfo] = useState({
-    totalLikes: props.totalLikes,
-    totalDislikes: props.totalDislikes,
-    ifLike: props.ifLike,
-    ifDislike: props.ifDislike,
+    totalLikes,
+    totalDislikes,
+    ifLike,
+    ifDislike,
   });
 
   const [error, setError] = useState(false);
@@ -21,22 +21,16 @@ const Likes = (props) => {
   useEffect(() => {
     setError(false);
     setLikeInfo({
-      totalLikes: props.totalLikes,
-      totalDislikes: props.totalDislikes,
-      ifLike: props.ifLike,
-      ifDislike: props.ifDislike,
+      totalLikes,
+      totalDislikes,
+      ifLike,
+      ifDislike,
     });
-  }, [
-    props.id,
-    props.ifLike,
-    props.ifDislike,
-    props.totalLikes,
-    props.totalDislikes,
-  ]);
+  }, [id, ifLike, ifDislike, totalLikes, totalDislikes]);
 
   const likeHandler = async (action) => {
     const data = {
-      id: props.id,
+      id: id,
       action: action,
     };
 
@@ -60,11 +54,10 @@ const Likes = (props) => {
           ifDislike: action === "dislike",
         });
       } else {
-        setError("Error");
+        throw new Error("Coś poszło nie tak!");
       }
     } catch (error) {
-      console.error("Error:", error);
-      setError("Error");
+      setError(error ? error : "Błąd serwera. Przepraszamy!");
     }
   };
 
