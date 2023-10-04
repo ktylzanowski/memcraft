@@ -4,7 +4,6 @@ import Button from "../UI/Button";
 
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { useLoaderData } from "react-router";
 import ScrollToTop from "../utils/ScrollToTop";
 import LoadingUI from "../UI/LoadingUI";
 
@@ -12,13 +11,12 @@ const DrawMeme = () => {
   const token = JSON.parse(localStorage.getItem("authTokens"));
   const last_meme = JSON.parse(localStorage.getItem("last_meme"));
   const [loading, setLoading] = useState(false);
-  const memeFromLoader = useLoaderData();
-  const [meme, setMeme] = useState(last_meme ? last_meme : memeFromLoader);
+  const [meme, setMeme] = useState(last_meme ? last_meme : false);
   const [error, setError] = useState(false);
 
   const fetchMeme = async () => {
     setLoading(true);
-    const send_meme_id = last_meme ? last_meme.id : (meme ? meme.id : 0);
+    const send_meme_id = meme ? meme.id : 0;
     try {
       const response = await fetch(process.env.REACT_APP_API_URL, {
         method: "GET",
@@ -45,11 +43,11 @@ const DrawMeme = () => {
     }
   };
 
-  useEffect(() =>{
-    fetchMeme()
+  useEffect(() => {
+    fetchMeme();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-  
+  }, []);
+
   return (
     <>
       <Outlet />
@@ -60,7 +58,10 @@ const DrawMeme = () => {
           <Comments id={meme.id} />
         </div>
       ) : (
-       <div style={{marginTop: "10%"}}> <LoadingUI /></div>
+        <div style={{ marginTop: "10%" }}>
+          {" "}
+          <LoadingUI />
+        </div>
       )}
     </>
   );
