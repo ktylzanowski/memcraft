@@ -87,26 +87,27 @@ class MemeView(viewsets.ModelViewSet):
     def like(self, request):
         meme_id = request.data.get('id')
         meme = get_object_or_404(Meme, pk=meme_id)
+        user = request.user
         
         action = request.data.get('action')
         if action not in ['like', 'dislike']:
             return Response({'error': 'Nieprawidłowa akcja.'}, status=status.HTTP_400_BAD_REQUEST)
 
         if action == "like":
-            meme.likes.add(request.user) 
-            meme.dislikes.remove(request.user)
-            Notification.create_like_notification(meme)
+            if user not in meme.likes.all():
+                meme.likes.add(user) 
+                meme.dislikes.remove(user)
+                Notification.create_like_notification(meme)
+            else:
+                meme.likes.remove(user)
         elif action == "dislike":
-            meme.dislikes.add(request.user)
-            meme.likes.remove(request.user)
+            if user not in meme.dislikes.all():  
+                meme.dislikes.add(user)
+                meme.likes.remove(user)
+            else:
+                meme.dislikes.remove(user)
 
-        total_likes = meme.total_likes()
-        total_dislikes = meme.total_dislikes()
-        response_data = {
-            'total_likes': total_likes,
-            'total_dislikes': total_dislikes
-        }
-        return Response(response_data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK)
         
 class CommentView(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
