@@ -91,7 +91,7 @@ const Likes = ({ id, totalLikes, totalDislikes, ifLike, ifDislike }) => {
             onClick={token ? () => likeHandler("like") : () => {}}
             alt="Like"
           />
-          <span style={classes.likes}>{likeInfo.totalLikes}</span>
+          <span className={classes.likes}>{likeInfo.totalLikes}</span>
         </div>
         <div className={classes.interactionContainer}>
           <LikeIcon
@@ -99,10 +99,10 @@ const Likes = ({ id, totalLikes, totalDislikes, ifLike, ifDislike }) => {
             onClick={token ? () => likeHandler("dislike") : () => {}}
             alt="Dislike"
           />
-          <span style={classes.dislikes}>{likeInfo.totalDislikes}</span>
+          <span className={classes.dislikes}>{likeInfo.totalDislikes}</span>
         </div>
       </div>
-      {error && <div style={classes.error}>{error}</div>}
+      {error && <div className={classes.error}>{error}</div>}
     </>
   );
 };
