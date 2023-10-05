@@ -84,25 +84,25 @@ const Likes = ({ id, totalLikes, totalDislikes, ifLike, ifDislike }) => {
 
   return (
     <>
-      <div className={classes.con}>
-        <div className={classes.likes}>
+      <div className={classes.container}>
+        <div className={classes.interactionContainer}>
           <LikeIcon
             src={likeInfo.ifLike ? likeUse : like}
             onClick={token ? () => likeHandler("like") : () => {}}
             alt="Like"
           />
-          <span style={{ color: "green" }}>{likeInfo.totalLikes}</span>
+          <span style={classes.likes}>{likeInfo.totalLikes}</span>
         </div>
-        <div>
+        <div className={classes.interactionContainer}>
           <LikeIcon
             src={likeInfo.ifDislike ? dislikeUse : dislike}
             onClick={token ? () => likeHandler("dislike") : () => {}}
             alt="Dislike"
           />
-          <span style={{ color: "red" }}>{likeInfo.totalDislikes}</span>
+          <span style={classes.dislikes}>{likeInfo.totalDislikes}</span>
         </div>
       </div>
-      {error && <div style={{ textAlign: "center" }}>{error}</div>}
+      {error && <div style={classes.error}>{error}</div>}
     </>
   );
 };

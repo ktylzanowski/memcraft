@@ -1,9 +1,23 @@
-.con{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.interactionContainer {
+    flex: 1;
 }
 
 .likes{
-    margin-right: 50px;
+    color: green;
+}
+
+.dislikes{
+    color: red;
+}
+
+.error{
+    text-align: center;
 }
