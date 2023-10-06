@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 
+import classes from "./ChangeIcon.module.css";
 import Modal from "react-bootstrap/Modal";
 import Button2 from "../../UI/Button2";
 import IconUI from "../../UI/IconUI";
@@ -9,6 +10,7 @@ function ChangeIcon() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [selectedIcon, setSelectedIcon] = useState(null);
   const [error, setError] = useState(false);
   const { setIcon } = useContext(AuthContext);
 
@@ -70,7 +72,8 @@ function ChangeIcon() {
     },
     {
       id: 12,
-      url: process.env.REACT_APP_API_URL + "static/icons/witherskeletonface.png",
+      url:
+        process.env.REACT_APP_API_URL + "static/icons/witherskeletonface.png",
       name: "witherskeletonface.png",
     },
     {
@@ -105,20 +108,24 @@ function ChangeIcon() {
     },
   ];
 
-
   const handlePhotoClick = async (photoName) => {
     const token = JSON.parse(localStorage.getItem("authTokens"));
-    const response = await fetch(process.env.REACT_APP_API_URL + "accounts/userinfo/", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ` + String(token.access),
-      },
-      body: JSON.stringify({ icon: photoName }),
-    });
+    setSelectedIcon(photoName);
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "accounts/userinfo/",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ` + String(token.access),
+        },
+        body: JSON.stringify({ icon: photoName }),
+      }
+    );
     const responseData = await response.json();
     if (response.ok) {
       setIcon(responseData.data.icon);
+      setSelectedIcon(false)
       handleClose();
     } else {
       setError("Coś poszło nie tak!");
@@ -138,6 +145,7 @@ function ChangeIcon() {
             <IconUI
               key={photo.id}
               src={photo.url}
+              className={selectedIcon === photo.name ? classes.selectedIcon : null}
               onClick={() => handlePhotoClick(photo.name)}
             />
           ))}
