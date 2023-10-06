@@ -23,16 +23,19 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(false);
 
   const loginUser = async (login, password) => {
-    const response = await fetch(process.env.REACT_APP_API_URL + "accounts/token/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: login,
-        password: password,
-      }),
-    });
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "accounts/token/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: login,
+          password: password,
+        }),
+      }
+    );
     const data = await response.json();
     if (response.ok) {
       const decode_data = jwt_decode(data.access);
@@ -49,18 +52,21 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerUser = async (login, email, password, password2) => {
-    const response = await fetch(process.env.REACT_APP_API_URL + "accounts/user/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: login,
-        email: email,
-        password: password,
-        password2: password2,
-      }),
-    });
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "accounts/user/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: login,
+          email: email,
+          password: password,
+          password2: password2,
+        }),
+      }
+    );
 
     const responseData = await response.json();
 
@@ -77,32 +83,36 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("authTokens");
     setMessage("Wylogowano");
+    window.location.reload(true);
   };
 
   const updateToken = async () => {
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "accounts/token/refresh/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          refresh: authTokens?.refresh,
-        }),
-      }
-    );
-    const data = await response.json();
+    if (authTokens) {
+      const response = await fetch(
+        process.env.REACT_APP_API_URL + "accounts/token/refresh/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            refresh: authTokens?.refresh,
+          }),
+        }
+      );
+      const data = await response.json();
 
-    if (response.status === 200) {
-      setAuthTokens(data);
-      setUser(jwt_decode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-    } else {
-      if (authTokens) {
-        logoutUser();
+      if (response.status === 200) {
+        setAuthTokens(data);
+        setUser(jwt_decode(data.access));
+        localStorage.setItem("authTokens", JSON.stringify(data));
+      } else {
+        if (authTokens) {
+          logoutUser();
+        }
       }
     }
+
     if (loading) {
       setLoading(false);
     }
