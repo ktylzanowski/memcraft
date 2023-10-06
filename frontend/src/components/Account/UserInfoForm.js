@@ -1,12 +1,20 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, useActionData, useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import classes from "./UserInfoForm.module.css";
 import Button from "../../UI/Button";
 import BackButton from "../../UI/BackButton";
+import LoadingUI from "../../UI/LoadingUI";
 
 const UserInfoForm = () => {
   const data = useLoaderData();
+  const actionData = useActionData();
+  const [loading, setLoading] = useState(false);
 
+  useEffect(() =>{
+    setLoading(false)
+  }, [actionData])
+  
   return (
     <>
       <div className={classes.data}>
@@ -54,7 +62,14 @@ const UserInfoForm = () => {
             defaultValue={data.street}
             autoComplete="street-address"
           />
-          <Button value="userInfo">Zatwierdź</Button>
+          <Button
+            value="userInfo"
+            onClick={() => {
+              setLoading(true);
+            }}
+          >
+            {!loading ? "Zatwierdź" : <LoadingUI />}
+          </Button>
           <BackButton>Wróć</BackButton>
         </Form>
       </div>
