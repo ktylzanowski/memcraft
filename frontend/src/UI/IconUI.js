@@ -1,12 +1,12 @@
 import classes from "./IconUI.module.css";
 
-const IconUI = (props) => {
+const IconUI = ({src, className, onClick}) => {
   return (
     <img
-      src={props.src}
+      src={src}
       alt="icon"
-      className={classes.icon}
-      onClick={props.onClick}
+      className={`${classes.icon} ${className}`}
+      onClick={onClick}
     />
   );
 };

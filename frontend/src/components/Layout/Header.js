@@ -1,5 +1,6 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { LinkContainer } from "react-router-bootstrap";
+import { useLocation } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
 import steveface from "../../images/steveface.png";
@@ -15,12 +16,27 @@ const Header = () => {
   const imageUrl = user
     ? process.env.REACT_APP_API_URL + `static/icons/${icon}`
     : steveface;
+  const [loading, setLoading] = useState(false);
+
+  const handleLoading = () => {
+    setLoading(true);
+  };
+
+  const location = useLocation();
+  const isAccountPage = location.pathname.startsWith("/konto");
+
+  useEffect(() => {
+    if (isAccountPage) {
+      setLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
 
   return (
     <>
       <Navbar
         expand="lg"
-        className={`navbar-dark ${window.innerWidth > 900 ? 'sticky-top' : ""}`}
+        className={`navbar-dark ${window.innerWidth > 900 ? "sticky-top" : ""}`}
       >
         <Container fluid>
           <Navbar.Brand
@@ -63,8 +79,12 @@ const Header = () => {
 
             <LinkContainer to={user ? "/konto" : "/authentication"}>
               <Nav.Link>
-                <div className={classes.account}>
-                  <IconUI src={imageUrl} />
+                <div className={classes.account} onClick={handleLoading}>
+                  {loading && !isAccountPage ? (
+                    <IconUI src={imageUrl} className={classes.rotateIcon} />
+                  ) : (
+                    <IconUI src={imageUrl} />
+                  )}
                   {user ? <span>{user.username}</span> : <span>Logowanie</span>}
                 </div>
               </Nav.Link>

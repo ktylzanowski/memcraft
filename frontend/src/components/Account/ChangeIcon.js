@@ -105,7 +105,6 @@ function ChangeIcon() {
     },
   ];
 
-  console.log(process.env.REACT_APP_API_URL + "static/icons/cowface.png",)
 
   const handlePhotoClick = async (photoName) => {
     const token = JSON.parse(localStorage.getItem("authTokens"));
