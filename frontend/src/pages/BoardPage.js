@@ -16,16 +16,18 @@ const BoardPage = () => {
     <div>
       {error && <p>{error}</p>}
       {!loading ? (
-        <div>
+        <>
           {data.results.map((meme) => (
-            <div key={meme.id}>
+            <div key={meme.id} style={{ marginBottom: "40px" }}>
               <SingleMeme meme={meme} />
               <Comments id={meme.id} />
             </div>
           ))}
-        </div>
+        </>
       ) : (
-        <div style={{minHeight: 600}}> <LoadingUI /></div>
+        <div style={{ minHeight: 600 }}>
+          <LoadingUI />
+        </div>
       )}
       <StandartPagination
         count={data.count}
