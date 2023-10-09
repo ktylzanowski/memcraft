@@ -24,7 +24,7 @@ const UserMemes = () => {
       }
     );
     if (response.ok) {
-      setData((prevMemes) => prevMemes.filter((meme) => meme.id !== id));
+      setData({ ...data, results: data.results.filter((meme) => meme.id !== id) });
       setMessage("Usunięto mema!");
     } else {
       setMessage("Coś poszło nie tak!");
@@ -35,7 +35,7 @@ const UserMemes = () => {
     <>
       {error && <p className={classes.message}>{error}</p>}
       {message && <p className={classes.message}>{message}</p>}
-      {data.results.length > 0 ? (
+      {data.count > 0 ? (
         <div className={classes.UserMemes}>
           {data.results.map((meme) => (
             <div className={classes.memeContainer} key={meme.id}>

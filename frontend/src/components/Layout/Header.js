@@ -23,7 +23,9 @@ const Header = () => {
   };
 
   const location = useLocation();
-  const isAccountPage = location.pathname.startsWith("/konto");
+  const isAccountPage =
+    location.pathname.startsWith("/konto") ||
+    location.pathname.startsWith("/authentication");
 
   useEffect(() => {
     if (isAccountPage) {

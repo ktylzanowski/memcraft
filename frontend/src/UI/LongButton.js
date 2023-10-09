@@ -1,9 +1,9 @@
 import classes from "./LongButton.module.css";
 
-const LongButton = (props) =>{
+const LongButton = ({value, children, onClick}) =>{
     return (
-    <button type="submit" className={classes.button} name="intent" value={props.value}>
-    {props.children}
+    <button type="submit" className={classes.button} name="intent" value={value} onClick={onClick}>
+    {children}
     </button>
   )
 }

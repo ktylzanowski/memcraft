@@ -1,14 +1,17 @@
 import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
+
 import BackButton from "../../UI/BackButton";
 import classes from "./AuthComponent.module.css";
-import AuthContext from "../../context/AuthContext";
 import usePasswordInput from "../../hooks/usePasswordInput";
 import useInput from "../../hooks/useInput";
 import useEmailInput from "../../hooks/useEmail";
 import LongButton from "../../UI/LongButton";
+import LoadingUI from "../../UI/LoadingUI";
 
 const Register = () => {
-  const { registerUser, error, setError } = useContext(AuthContext);
+  const { registerUser, error, setError, loadingButton } =
+    useContext(AuthContext);
 
   const {
     value: enteredLogin,
@@ -60,7 +63,7 @@ const Register = () => {
       resetEmailInput();
       resetPasswordInput();
     } else {
-      setError({error: "Nieprawidłowe dane rejestracji. Spróbuj ponownie!"});
+      setError({ error: "Nieprawidłowe dane rejestracji. Spróbuj ponownie!" });
     }
   };
 
@@ -130,7 +133,9 @@ const Register = () => {
           <p className={classes.errorMessage}>{error.password2}</p>
         )}
         {error?.error && <p className={classes.errorMessage}>{error.error}</p>}
-        <LongButton>Zarejestruj</LongButton>
+        <LongButton>
+          {!loadingButton ? "Zarejestruj" : <LoadingUI />}
+        </LongButton>
         <BackButton />
       </form>
     </>

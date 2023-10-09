@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
+
 import BackButton from "../../UI/BackButton";
 import classes from "./AuthComponent.module.css";
 import useInput from "../../hooks/useInput";
 import LongButton from "../../UI/LongButton";
+import LoadingUI from "../../UI/LoadingUI"; 
 
 const Login = () => {
   const {
@@ -24,7 +26,7 @@ const Login = () => {
 
   const isValid = loginIsValid && passwordIsValid;
 
-  const { loginUser, error, setError } = useContext(AuthContext);
+  const { loginUser, error, setError, loadingButton } = useContext(AuthContext);
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -65,7 +67,7 @@ const Login = () => {
         {passwordHasError && (
           <p className={classes.errorMessage}>Hasło nie może być puste</p>
         )}
-        <LongButton>Zaloguj</LongButton>
+        <LongButton>{!loadingButton ? "Zaloguj" : <LoadingUI />}</LongButton>
         <BackButton onClick={setError} />
         {error?.login && <p className={classes.errorMessage}>{error.login}</p>}
       </form>

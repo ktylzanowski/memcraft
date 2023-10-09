@@ -20,9 +20,11 @@ export const AuthProvider = ({ children }) => {
   const [icon, setIcon] = useState(user ? user.icon : null);
   const [action, setAction] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadingButton, setLoadingButton] = useState(false)
   const [error, setError] = useState(false);
 
   const loginUser = async (login, password) => {
+    setLoadingButton(true)
     const response = await fetch(
       process.env.REACT_APP_API_URL + "accounts/token/",
       {
@@ -49,9 +51,11 @@ export const AuthProvider = ({ children }) => {
     } else {
       setError({ login: "Nieprawidłowe dane logowania. Spróbuj ponownie!" });
     }
+    setLoadingButton(false)
   };
 
   const registerUser = async (login, email, password, password2) => {
+    setLoadingButton(true)
     const response = await fetch(
       process.env.REACT_APP_API_URL + "accounts/user/",
       {
@@ -76,6 +80,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       setError(responseData);
     }
+    setLoadingButton(false)
   };
 
   const logoutUser = () => {
@@ -123,6 +128,7 @@ export const AuthProvider = ({ children }) => {
     action,
     error,
     icon,
+    loadingButton,
     setAction,
     setIcon,
     setError,

@@ -7,13 +7,16 @@ const UserInfoPage = () => {
 
 export async function loader() {
   const token = JSON.parse(localStorage.getItem("authTokens"));
-  const response = await fetch(process.env.REACT_APP_API_URL+"accounts/user/", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ` + String(token.access),
-    },
-  });
+  const response = await fetch(
+    process.env.REACT_APP_API_URL + "accounts/user/",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + String(token.access),
+      },
+    }
+  );
   if (response.ok) {
     return response;
   } else {
@@ -33,14 +36,17 @@ export async function action({ request }) {
 
   if (intent === "userInfo") {
     try {
-      const response = await fetch(process.env.REACT_APP_API_URL + "accounts/userinfo/", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ` + String(token.access),
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        process.env.REACT_APP_API_URL + "accounts/userinfo/",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ` + String(token.access),
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         const responseData = await response.json();
@@ -71,27 +77,11 @@ export async function action({ request }) {
           body: JSON.stringify(data),
         }
       );
-      if (response.ok) {
-        const responseData = await response.json();
-        return responseData;
-      } else {
-        throw json(
-          { message: "Coś poszło nie tak! Przepraszamy!." },
-          {
-            status: 500,
-          }
-        );
-      }
+
+      const responseData = await response.json();
+      return responseData;
     } catch {
-      throw json(
-        {
-          message:
-            "Coś poszło nie tak! Przepraszamy! Twoje hasło nie zostało zmienione.",
-        },
-        {
-          status: 500,
-        }
-      );
+      return { error: "Błąd połączenia z serwerem!" };
     }
   }
 }
