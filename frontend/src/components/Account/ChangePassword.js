@@ -11,7 +11,10 @@ import LoadingUI from "../../UI/LoadingUI";
 function ChangePassword() {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
-  const handleClose = () => {};
+  const handleClose = () => {
+    setLoading(false)
+    setShow(false)
+  };
   const handleShow = () => setShow(true);
   const navigate = useNavigate();
   const { setMessage } = useContext(MessageContext);
