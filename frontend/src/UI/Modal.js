@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import classes from "./Modal.module.css";
 
 const Backdrop = () => {
-  const [page, setPage] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const [page] = useState(searchParams.size ?searchParams.get("back") : "/");
+
   const closeModalHandler = () => {
     navigate(page);
   };
-
-  useEffect(() => {
-    setPage(page - 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [window.history.length]);
 
   return <div className={classes.backdrop} onClick={closeModalHandler} />;
 };

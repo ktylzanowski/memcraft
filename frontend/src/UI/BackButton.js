@@ -1,19 +1,18 @@
 import classes from "./BackButton.module.css";
 import { useNavigate } from "react-router-dom";
 
-const BackButton = (props) => {
-
+const BackButton = ({ onClick, children }) => {
   const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
-    if (props.onClick) {
-      props.onClick();
+    if (onClick) {
+      onClick();
     }
   };
-  
+
   return (
     <button type="button" className={classes.button} onClick={handleGoBack}>
-      Wróć
+      {children ? children : "Wróć"}
     </button>
   );
 };

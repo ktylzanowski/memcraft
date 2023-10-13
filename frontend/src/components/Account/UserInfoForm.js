@@ -70,7 +70,7 @@ const UserInfoForm = () => {
           >
             {!loading ? "Zatwierdź" : <LoadingUI />}
           </Button>
-          <BackButton>Wróć</BackButton>
+          <BackButton>Cofnij</BackButton>
         </Form>
       </div>
     </>
