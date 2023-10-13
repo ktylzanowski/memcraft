@@ -21,7 +21,7 @@ const UserComments = (props) => {
           <div className={classes.memeContainer} key={comment.id}>
             <Link to={`/meme/${comment.meme_data.id}`}>
               <img
-                src={process.env.REACT_APP_API_URL+ `${comment.meme_data.meme_image}`}
+                src={comment.meme_data.meme_image}
                 alt={comment.meme_data.title}
               />
             </Link>

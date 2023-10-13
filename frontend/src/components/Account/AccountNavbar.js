@@ -7,7 +7,7 @@ const AccountNavbar = () => {
     <>
       <div className={classes.nav}>
         <ul>
-          <NavLink to="/konto">
+          <NavLink to="/konto" end>
             <li>Główne dane</li>
           </NavLink>
           <NavLink to="/konto/mojememy">

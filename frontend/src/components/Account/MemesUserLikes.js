@@ -34,11 +34,15 @@ const MemesUserLikes = (url) => {
         ) : (
           <p className={classes.NoMemes}>Brak memów!</p>
         )}
-        <StandartPagination
-          count={data.count}
-          currentPage={currentPage}
-          onPageChange={onPageChange}
-        />
+        {data.count > 5 ? (
+          <StandartPagination
+            count={data.count}
+            currentPage={currentPage}
+            onPageChange={onPageChange}
+          />
+        ) : (
+          ""
+        )}
       </div>
     </>
   );
