@@ -11,6 +11,14 @@ const MemesUserDislikesPage = () => {
 
 export async function loader() {
   const token = JSON.parse(localStorage.getItem("authTokens"));
+  if (!token) {
+    throw json(
+      { message: "Musisz być zalogowany!" },
+      {
+        status: 500,
+      }
+    );
+  }
   const response = await fetch(
     process.env.REACT_APP_API_URL + "memes/user/dislikes/",
     {

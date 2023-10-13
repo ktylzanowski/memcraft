@@ -53,44 +53,43 @@ const router = createBrowserRouter([
         loader: DetailLoader,
       },
       {
-        element: <PriveRoute />,
+        path: "dodajmema",
+        element: (
+          <PriveRoute>
+            <AddMemePage />
+          </PriveRoute>
+        ),
+        action: newMemeAction,
+      },
+      {
+        element: <PriveRoute><AccountPage /></PriveRoute>,
+        path: "konto",
         children: [
           {
-            path: "dodajmema",
-            element: <AddMemePage />,
-            action: newMemeAction,
+            index: true,
+            element: <UserInfoPage />,
+            loader: UserInfoLoader,
+            action: UserInfoAction,
           },
           {
-            element: <AccountPage />,
-            path: "konto",
-            children: [
-              {
-                index: true,
-                element: <UserInfoPage />,
-                loader: UserInfoLoader,
-                action: UserInfoAction,
-              },
-              {
-                path: "mojememy",
-                element: <UserMemesPage />,
-                loader: UserMemesLoader,
-              },
-              {
-                path: "polajkowane",
-                element: <MemeUserLikesPage />,
-                loader: MemesUserLikesLoader,
-              },
-              {
-                path: "zdislikowane",
-                element: <MemesUserDislikesPage />,
-                loader: MemesUserDislikesLoader,
-              },
-              {
-                path: "komentarze",
-                element: <UserCommentsPage />,
-                loader: UserCommentsLoader,
-              },
-            ],
+            path: "mojememy",
+            element: <UserMemesPage />,
+            loader: UserMemesLoader,
+          },
+          {
+            path: "polajkowane",
+            element: <MemeUserLikesPage />,
+            loader: MemesUserLikesLoader,
+          },
+          {
+            path: "zdislikowane",
+            element: <MemesUserDislikesPage />,
+            loader: MemesUserDislikesLoader,
+          },
+          {
+            path: "komentarze",
+            element: <UserCommentsPage />,
+            loader: UserCommentsLoader,
           },
         ],
       },
