@@ -4,6 +4,7 @@ const useComments = (initialData, meme_id, isFetch = true) => {
   const [comments, setComments] = useState(initialData);
   const [message, setMessage] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [deleteingCommentId, setDeletingCommentId] = useState(false)
   const [loadingAdd, setLoadingAdd] = useState(false)
   const [totalComments, setTotalComments] = useState(0);
   const [commentPage, setCommentPage] = useState(1);
@@ -103,6 +104,7 @@ const useComments = (initialData, meme_id, isFetch = true) => {
   };
 
   const deleteComment = async (commentId) => {
+    setDeletingCommentId(commentId)
     const response = await fetch(
       process.env.REACT_APP_API_URL + `comment/${commentId}/`,
       {
@@ -116,16 +118,13 @@ const useComments = (initialData, meme_id, isFetch = true) => {
     if (response.ok) {
       setMessage("Usunięto komentarz!");
       setTotalComments(totalComments - 1);
-      if (initialData.length === 0) {
-        fetchData(commentPage);
-      }
-
       setComments((prevComments) =>
         prevComments.filter((comment) => comment.id !== commentId)
       );
     } else {
       setErrors({ error: "Nie masz uprawnień do usunięcia tego komentarza." });
     }
+    setDeletingCommentId(false)
   };
 
   const handleShowMore = () => {
@@ -151,6 +150,7 @@ const useComments = (initialData, meme_id, isFetch = true) => {
     errors,
     totalComments,
     loading,
+    deleteingCommentId,
     loadingAdd,
     addNewComment,
     deleteComment,

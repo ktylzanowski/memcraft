@@ -5,10 +5,9 @@ import classes from "./Modal.module.css";
 
 const Backdrop = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const [page] = useState(searchParams.size ?searchParams.get("back") : "/");
-
+  const {state} = useLocation();
+  const [page] = useState(state ? state.pathname : "/");
+  
   const closeModalHandler = () => {
     navigate(page);
   };

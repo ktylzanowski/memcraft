@@ -14,6 +14,7 @@ const Comments = ({ id }) => {
     errors,
     totalComments,
     loading,
+    deleteingCommentId,
     loadingAdd,
     addNewComment,
     deleteComment,
@@ -49,14 +50,18 @@ const Comments = ({ id }) => {
                 </div>
                 {user && comment.author_username === user.username && (
                   <div className={classes.delete}>
-                    <CloseButton
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (window.confirm("Czy na pewno chcesz usunąć?")) {
-                          deleteComment(comment.id);
-                        }
-                      }}
-                    />
+                    {deleteingCommentId!==comment.id ? (
+                      <CloseButton
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (window.confirm("Czy na pewno chcesz usunąć?")) {
+                            deleteComment(comment.id);
+                          }
+                        }}
+                      />
+                    ) : (
+                      <CloseButton className={classes.rotateIcon} />
+                    )}
                   </div>
                 )}
               </div>

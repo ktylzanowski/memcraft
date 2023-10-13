@@ -79,7 +79,10 @@ const Header = () => {
               </>
             )}
 
-            <LinkContainer to={user ? { pathname: "/konto", search: `?back=${location.pathname}` } : "/authentication"}>
+            <LinkContainer
+              to={user ? "/konto" : "/authentication"}
+              state={{ pathname: location.pathname }}
+            >
               <Nav.Link>
                 <div className={classes.account} onClick={handleLoading}>
                   {loading && !isAccountPage ? (
