@@ -4,6 +4,7 @@ import { useState } from "react";
 import classes from "./UserMemes.module.css";
 import usePagination from "../../hooks/usePagination";
 import StandartPagination from "../../pagination/StandartPagination";
+import LoadingUI from "../../UI/LoadingUI";
 
 const UserMemes = () => {
   const { data, setData, currentPage, error, onPageChange } = usePagination(
@@ -11,7 +12,9 @@ const UserMemes = () => {
     process.env.REACT_APP_API_URL + "memes/usermemes/"
   );
   const [message, setMessage] = useState(false);
+  const [deletingMemeId, setDeletingMemeId] = useState(false);
   const deleteFetch = async (id) => {
+    setDeletingMemeId(id);
     const token = JSON.parse(localStorage.getItem("authTokens"));
     const response = await fetch(
       process.env.REACT_APP_API_URL + `meme/${id}/`,
@@ -24,11 +27,15 @@ const UserMemes = () => {
       }
     );
     if (response.ok) {
-      setData({ ...data, results: data.results.filter((meme) => meme.id !== id) });
+      setData({
+        ...data,
+        results: data.results.filter((meme) => meme.id !== id),
+      });
       setMessage("Usunięto mema!");
     } else {
       setMessage("Coś poszło nie tak!");
     }
+    setDeletingMemeId(false);
   };
 
   return (
@@ -64,7 +71,7 @@ const UserMemes = () => {
                     }
                   }}
                 >
-                  Usuń mema
+                  {deletingMemeId !== meme.id ? "Usuń" : <LoadingUI />}
                 </button>
               </div>
             </div>

@@ -3,15 +3,13 @@ import { useLoaderData, Link } from "react-router-dom";
 import classes from "./UserMemes.module.css";
 import DeleteButton from "../../UI/DeleteButton";
 import useComments from "../../hooks/useComments";
+import LoadingUI from "../../UI/LoadingUI";
 
 const UserComments = (props) => {
   const data = useLoaderData();
 
-  const { comments, message, errors, deleteComment } = useComments(
-    data,
-    props,
-    false
-  );
+  const { comments, message, errors, deleteingCommentId, deleteComment } =
+    useComments(data, props, false);
   return (
     <>
       {message && <p className={classes.message}>{message}</p>}
@@ -28,7 +26,10 @@ const UserComments = (props) => {
             <div className={classes.memeInfo}>
               <h2>Tytuł: {comment.meme_data.title}</h2>
               <h2>{comment.text}</h2>
-              <DeleteButton onClick={() => deleteComment(comment.id)} />
+
+              <DeleteButton onClick={() => deleteComment(comment.id)}>
+                {deleteingCommentId !== comment.id ? "Usuń" : <LoadingUI />}
+              </DeleteButton>
             </div>
           </div>
         ))

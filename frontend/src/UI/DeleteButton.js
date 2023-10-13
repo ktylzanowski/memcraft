@@ -1,18 +1,18 @@
 import classes from "./DeleteButton.module.css";
 
-const DeleteButton = (props) => {
+const DeleteButton = ({ className, onClick, children }) => {
   return (
     <>
       <button
-        className={classes.deleteButton}
+        className={`${classes.deleteButton} ${className}`}
         onClick={(e) => {
           e.preventDefault();
           if (window.confirm("Czy na pewno chcesz usunąć?")) {
-            props.onClick();
+            onClick();
           }
         }}
       >
-        Usuń!
+        {children ? children : "Usuń"}
       </button>
       ;
     </>
