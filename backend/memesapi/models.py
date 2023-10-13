@@ -26,6 +26,12 @@ class Meme(models.Model):
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='meme_likes', blank=True)
     dislikes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='meme_dislikes', blank=True)
 
+    def delete(self, *args, **kwargs):
+        Notification.objects.filter(meme=self).delete()
+        Comment.objects.filter(meme=self).delete()
+        self.meme_image.delete()
+        super(Meme, self).delete(*args, **kwargs)
+
     def total_likes(self):
         return self.likes.count()
 

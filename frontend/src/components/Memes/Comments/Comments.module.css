@@ -12,7 +12,9 @@
   background-color: #444;
   padding: 10px;
 }
-
+.error{
+  color: black;
+}
 .userData {
   display: flex;
   align-items: center;

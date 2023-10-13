@@ -9,7 +9,8 @@ class MemeSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'likes': {'write_only': True},
             'dislikes': {'write_only': True},
-            "title": {"error_messages": {'null': "Tytuł nie może być pusty", 'blank': "Tytuł nie może być pusty"}},
+            "title": {"error_messages": {'null': "Tytuł nie może być pusty", 'blank': "Tytuł nie może być pusty",  
+                                         'max_length': "Tytuł jest zbyt długi. Maksymalna długość to 100 znaków."}},
             "meme_image": {"error_messages": {'invalid_image': "Wysłany plik nie jest prawidłowym obrazem. Proszę przesłać poprawny obraz.", 
                                               'null': "Musisz przesłać jakieś zdjęcie",
                                               'blank': "Musisz przesłać jakieś zdjęcie",}},
@@ -53,7 +54,8 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ['id', 'text', 'author_icon', 'author_username', 'meme_id', 'meme_data']
         write_only = ['author', 'meme']
         extra_kwargs ={
-            "text": {"error_messages": {'null': "Komentarz nie może być pusty", 'blank': "Komentarz nie może być pusty"}},
+            "text": {"error_messages": {'null': "Komentarz nie może być pusty", 'blank': "Komentarz nie może być pusty", 
+                                        'max_length': "Komentarz jest zbyt długi. Maksymalna długość to 100 znaków."}},
         }
 
     def get_meme_id(self, obj):

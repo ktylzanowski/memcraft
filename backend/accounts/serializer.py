@@ -24,8 +24,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = MyUser
         fields = ["email", "username", "password", "password2"]
         extra_kwargs = {
-            "email": {"error_messages": {'blank': "Email nie może być pusty", 'required': "To pole jest wymagane"}},
-            "username": {"error_messages": {'blank': "Nazwa użytkownika nie może być pusta", 'required': "To pole jest wymagane"}},
+            "email": {"error_messages": {'blank': "Email nie może być pusty", 'required': "To pole jest wymagane",  
+                                         'max_length': "Tytuł jest zbyt długi. Maksymalna długość to 255 znaków."}},
+            "username": {"error_messages": {'blank': "Nazwa użytkownika nie może być pusta", 'required': "To pole jest wymagane",
+                                             'max_length': "Tytuł jest zbyt długi. Maksymalna długość to 20 znaków."}},
             "password": {"write_only": True, "error_messages": {'required': "To pole jest wymagane"}}
         }
 
