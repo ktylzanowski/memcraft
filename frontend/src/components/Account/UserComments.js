@@ -25,7 +25,7 @@ const UserComments = (props) => {
             </Link>
             <div className={classes.memeInfo}>
               <h2>Tytuł: {comment.meme_data.title}</h2>
-              <h2>{comment.text}</h2>
+              <h2>Treść: {comment.text}</h2>
 
               <DeleteButton onClick={() => deleteComment(comment.id)}>
                 {deleteingCommentId !== comment.id ? "Usuń" : <LoadingUI />}

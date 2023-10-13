@@ -19,8 +19,8 @@ const MemesUserLikes = (url) => {
               <Link to={`/meme/${meme.id}`}>
                 <img src={meme.meme_image} alt={meme.title} />
               </Link>
-              <div className={classes.memeInfo}>
-                <h2>{meme.title}</h2>
+              <div className={classes.memeInfo} style={{marginLeft: "10%"}}>
+                <h2 style={{marginRight: "12%"}}>{meme.title}</h2>
                 <Likes
                   totalLikes={meme.total_likes}
                   totalDislikes={meme.total_dislikes}
