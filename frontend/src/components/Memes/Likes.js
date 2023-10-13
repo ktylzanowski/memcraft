@@ -73,8 +73,9 @@ const Likes = ({ id, totalLikes, totalDislikes, ifLike, ifDislike }) => {
         },
         body: JSON.stringify(data),
       });
+      const responseJson = await response.json();
       if (!response.ok) {
-        setError("Błąd z zostawieniem reakcji!");
+        setError(responseJson.error);
         return;
       }
     } catch (error) {

@@ -92,6 +92,8 @@ class MemeView(viewsets.ModelViewSet):
         action = request.data.get('action')
         if action not in ['like', 'dislike']:
             return Response({'error': 'Nieprawidłowa akcja.'}, status=status.HTTP_400_BAD_REQUEST)
+        if user == meme.author:
+            return Response({'error': 'Nie możesz likować własnych memów.'}, status=status.HTTP_400_BAD_REQUEST)
 
         if action == "like":
             if user not in meme.likes.all():
