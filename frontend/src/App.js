@@ -53,16 +53,17 @@ const router = createBrowserRouter([
         loader: DetailLoader,
       },
       {
-        path: "dodajmema",
-        element: (
-          <PriveRoute>
-            <AddMemePage />
-          </PriveRoute>
-        ),
-        action: newMemeAction,
+        element: <PriveRoute />,
+        children: [
+          {
+            path: "dodajmema",
+            element: <AddMemePage />,
+            action: newMemeAction,
+          },
+        ],
       },
       {
-        element: <PriveRoute><AccountPage /></PriveRoute>,
+        element: <AccountPage />,
         path: "konto",
         children: [
           {
