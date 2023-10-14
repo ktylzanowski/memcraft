@@ -6,7 +6,6 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const { setMessage } = useContext(MessageContext);
-
   const [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem("authTokens")
       ? JSON.parse(localStorage.getItem("authTokens"))
@@ -88,7 +87,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("authTokens");
     setMessage("Wylogowano");
-    window.location.reload(true);
+    window.location.href = "/";
   };
 
   const updateToken = async () => {
