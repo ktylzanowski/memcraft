@@ -73,8 +73,8 @@ const Likes = ({ id, totalLikes, totalDislikes, ifLike, ifDislike }) => {
         },
         body: JSON.stringify(data),
       });
-      const responseJson = await response.json();
       if (!response.ok) {
+        const responseJson = await response.json();
         setError(responseJson.error);
         return;
       }
