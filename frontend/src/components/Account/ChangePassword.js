@@ -24,6 +24,8 @@ function ChangePassword() {
       setLoading(false)
       setMessage("Zmieniono hasło!");
       navigate("/");
+    }else{
+      setLoading(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
