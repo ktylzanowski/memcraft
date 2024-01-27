@@ -1,8 +1,3 @@
-# Memcraft
-Welcome to Memcraft Portal, a fun platform where you can create, comment on, and like memes. In Memcraft Portal, you can also explore memes randomly or browse them on a board. This project combines the power of React, Django REST framework, PostgreSQL, and AWS S3 to deliver a seamless and entertaining experience.
-
-Site available at. https://memcraftsite.onrender.com/.
-
 # Features
 
 1. User Accounts: User registration and authentication are implemented using JSON Web Tokens (JWT).
